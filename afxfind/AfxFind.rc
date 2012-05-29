@@ -1,0 +1,62 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+//#include "resfmt.h"
+#define SS_SUNKEN            0x00001000
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_AFXFIND_DIALOG DIALOGEX 0, 0, 500, 175
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "AfxFind"
+FONT 9, "‚l‚r ‚oƒSƒVƒbƒN", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "’†’f",IDCANCEL,450,163,50,12
+    EDITTEXT        IDC_EDIT_LOG,0,0,499,162,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+    LTEXT           "",IDC_STATUS_BAR,1,163,448,11,SS_SUNKEN
+END
+
+/////////////////////////////////////////////////////////////////////////////
+
+#include "version.h"
+#include "winuser.h"
+
+//IDR_ICON ICON  "icon.ico"
+
+1 VERSIONINFO 
+FILEVERSION    VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+PRODUCTVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+FILEFLAGSMASK 0x3FL
+FILEFLAGS     0x0L
+FILEOS        0x4L
+FILETYPE      0x1L
+FILESUBTYPE   0x0L
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "04090000"
+  BEGIN
+   VALUE "FileDescription",  "afxfind"
+   VALUE "FileVersion",      VERSION_STRING
+   VALUE "InternalName",     "afxfind"
+   VALUE "LegalCopyright",   COPYRIGHT_STRING
+   VALUE "OriginalFilename", "afxfind.exe"
+   VALUE "ProductName",      "afxtools"
+   VALUE "ProductVersion",   VERSION_STRING
+  END
+ END
+END
