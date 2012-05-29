@@ -8,7 +8,7 @@ Description
 Detail
 ------
 
-### 1. afxflist ###
+### 1. afxfind ###
 あふwで検索を行うためのツール。
 
 ### 2. afxflist ###
