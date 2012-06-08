@@ -7,8 +7,6 @@ EXPORTS
 	ApiFindNext
 	ApiCopyTo
 	ApiDelete
-
-// ˆÈ‰º–¢‘Î‰ž
 	ApiCopyFrom
 	ApiExecute
 	ApiMove

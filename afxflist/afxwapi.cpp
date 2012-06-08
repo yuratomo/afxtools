@@ -274,6 +274,49 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
 }
 
 /**
+ * あふwが内部的に利用するコピー処理。
+ * 主にプラグイン内のファイルを開く場合に、AFXWTMP以下にコピーするために使われる。
+ * ただし、実際にコピーするかどうかはプラグイン次第で、あふwはszOutputPathで指定されたファイルを開く。
+ *
+ * @param[in]  handle        ApiOpenで開いたハンドル。
+ * @param[in]  szFromItem    プラグイン内のアイテム名
+ * @param[in]  szToPath      コピー先のフォルダ(c:\Program Files\AFXWTMP.0\hoge.txt等が指定される)
+ * @param[out] szOutputPath  プラグインが実際にコピーしたファイルパス
+ *                           szToPathにコピーする場合はszToPathをszOutputPathにコピーしてあふwに返す。
+ *                           szToPathにコピーしない場合、あふwに開いてほしいファイルのパスを指定する。
+ * @param[in]  dwOutPathSize szOutputPathのバッファサイズ
+ * @param[in]  lpPrgRoutine  コールバック関数(CopyFileExと同様)
+ * @retval     1             成功
+ * @retval     0             エラー
+ */
+int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine)
+{
+	lpPluginData pdata = (lpPluginData)handle;
+	if (pdata == NULL) {
+		return 0;
+	}
+
+	wchar_t pathTo[API_MAX_PATH_LENGTH];
+	const wchar_t* pFromName = wcsrchr(szFromItem, L'\\');
+	if (pFromName == NULL) {
+		pFromName = szFromItem;
+	} else {
+		pFromName++;
+	}
+	wsprintf(pathTo,   L"%s/%s", szToPath, pFromName);
+
+	// バッファサイズチェック
+	size_t len = wcslen(pathTo);
+	if (len > dwOutPathSize) {
+		return 0;
+	}
+
+	// afxflistはファイルコピーしないで、ローカルパスを返す。
+	wcscpy(szOutputPath, pathTo);
+	return 1;
+}
+
+/**
  * アイテムを削除する。
  * あふwで削除をするときに呼び出される。
  * @param[in]  handle        ApiOpenで開いたハンドル。
@@ -301,6 +344,21 @@ int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath)
 }
 
 //------------------------------ 以下ポストローンチ --------------------------------
+
+/**
+ * あふw側からプラグインにアイテムをコピーする。
+ * あふwでコピー処理をするときに呼び出される。
+ * @param[in]  handle        ApiOpenで開いたハンドル。
+ * @param[in]  szFromItem    コピー元のアイテム名。
+ * @param[in]  szToPath      コピー先のフォルダ。
+ * @param[in]  lpPrgRoutine  コールバック関数(CopyFileExと同様)
+ * @retval     1             成功
+ * @retval     0             エラー
+ */
+int  WINAPI ApiCopyFrom(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine)
+{
+	return 0;
+}
 
 /**
  * アイテムを移動する。

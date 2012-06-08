@@ -8,6 +8,7 @@
  * #004 szWildName削除 (あふw側でやってもらう)
  * #005 初期相対ディレクトリとタイトル指定を追加
  * #006 初版のため省略
+ * #007 ApiInternalCopy()を追加
  */
 
 #include "windows.h"
@@ -147,6 +148,24 @@ int  WINAPI ApiFindNext(HAFX handle, lpApiItemInfo lpItemInfo);
 int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine);
 
 /**
+ * あふwが内部的に利用するコピー処理。
+ * 主にプラグイン内のファイルを開く場合に、AFXWTMP以下にコピーするために使われる。
+ * ただし、実際にコピーするかどうかはプラグイン次第で、あふwはszOutputPathで指定されたファイルを開く。
+ *
+ * @param[in]  handle        ApiOpenで開いたハンドル。
+ * @param[in]  szFromItem    プラグイン内のアイテム名
+ * @param[in]  szToPath      コピー先のフォルダ(c:\Program Files\AFXWTMP.0\hoge.txt等が指定される)
+ * @param[out] szOutputPath  プラグインが実際にコピーしたファイルパス
+ *                           szToPathにコピーする場合はszToPathをszOutputPathにコピーしてあふwに返す。
+ *                           szToPathにコピーしない場合、あふwに開いてほしいファイルのパスを指定する。
+ * @param[in]  dwOutPathSize  szOutputPathのバッファサイズ
+ * @param[in]  lpPrgRoutine  コールバック関数(CopyFileExと同様)
+ * @retval     1             成功
+ * @retval     0             エラー
+ */
+int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine);
+
+/**
  * アイテムを削除する。
  * あふwで削除をするときに呼び出される。
  * @param[in]  handle        ApiOpenで開いたハンドル。
@@ -155,6 +174,11 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
  * @retval     0             エラー
  */
 int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath);
+
+
+
+
+
 
 //------------------------------ 以下ポストローンチ --------------------------------
 
