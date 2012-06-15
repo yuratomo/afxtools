@@ -55,7 +55,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// ini file path
 	GetModuleFileName(hInstance, _exe_path, sizeof(_exe_path));
 	wcscpy(_ini_path, _exe_path);
-	int len = wcslen(_ini_path);
+	size_t len = wcslen(_ini_path);
 	_ini_path[len-1] = L'i';
 	_ini_path[len-2] = L'n';
 	_ini_path[len-3] = L'i';
@@ -109,7 +109,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	HANDLE hThreadFind = (HANDLE)CreateThread(NULL, 0, FindThread, NULL, 0, NULL);
 
 	// スレッドから通知される状態を表示するプログレス画面
-	int ret = DialogBox(hInstance, (LPCWSTR)IDD_AFXFIND_DIALOG, NULL, (DLGPROC)ProcFindDialog);
+	INT_PTR ret = DialogBox(hInstance, (LPCWSTR)IDD_AFXFIND_DIALOG, NULL, (DLGPROC)ProcFindDialog);
 	if (ret == -1) {
 		wchar_t msg[256];
 		swprintf(msg, L"Create dialog error.(error code=%d)", GetLastError());
