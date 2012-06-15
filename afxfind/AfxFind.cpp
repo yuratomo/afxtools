@@ -20,7 +20,7 @@
 AfxFind*    AfxFind::m_instance = NULL;
 wchar_t*    pFindString = NULL;
 wchar_t*    pFindPath = NULL;
-int         nFindPathLen = 0;
+size_t      nFindPathLen = 0;
 wchar_t*    pFile = NULL;
 int         pKeyCode = 70;
 int         pModifier = 0x00;
@@ -67,7 +67,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	wchar_t curdir[MAX_PATH];
 	::GetCurrentDirectory(sizeof(curdir), curdir);
 	pFindPath = curdir;
-	nFindPathLen = (int)wcslen(pFindPath);
+	nFindPathLen = wcslen(pFindPath);
 
 	// result file
 	wchar_t result[MAX_PATH];
