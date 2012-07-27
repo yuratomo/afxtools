@@ -245,6 +245,10 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
  * @retval     1             ê¨å˜
  * @retval     0             ÉGÉâÅ[
  */
+int  WINAPI ApiCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine)
+{
+	return ApiCopyTo(handle, szFromItem, szToPath, lpPrgRoutine);
+}
 int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine)
 {
 	lpPluginData pdata = (lpPluginData)handle;

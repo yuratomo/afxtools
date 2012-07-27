@@ -5,6 +5,7 @@ EXPORTS
 	ApiClose
 	ApiFindFirst
 	ApiFindNext
+	ApiCopy
 	ApiCopyTo
 	ApiDelete
 	ApiCopyFrom
