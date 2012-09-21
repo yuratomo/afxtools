@@ -9,6 +9,7 @@
  * #005 初期相対ディレクトリとタイトル指定を追加
  * #006 初版のため省略
  * #007 ApiInternalCopy()を追加
+ * #008 ApiInternalCopy -> ApiIntCopyTo
  */
 
 #include "windows.h"
@@ -163,7 +164,7 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
  * @retval     1             成功
  * @retval     0             エラー
  */
-int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine);
+int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine);
 
 /**
  * アイテムを削除する。

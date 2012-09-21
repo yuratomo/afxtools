@@ -293,7 +293,7 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
  * @retval     1             成功
  * @retval     0             エラー
  */
-int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine)
+int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWSTR szOutputPath, DWORD dwOutPathSize, LPPROGRESS_ROUTINE lpPrgRoutine)
 {
 	lpPluginData pdata = (lpPluginData)handle;
 	if (pdata == NULL) {
@@ -301,13 +301,7 @@ int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, L
 	}
 
 	wchar_t pathTo[API_MAX_PATH_LENGTH];
-	const wchar_t* pFromName = wcsrchr(szFromItem, L'\\');
-	if (pFromName == NULL) {
-		pFromName = szFromItem;
-	} else {
-		pFromName++;
-	}
-	wsprintf(pathTo,   L"%s/%s", szToPath, pFromName);
+	wsprintf(pathTo,   L"%s\\%s", pdata->wszBaseDir, szFromItem);
 
 	// バッファサイズチェック
 	size_t len = wcslen(pathTo);
@@ -316,7 +310,7 @@ int  WINAPI ApiInternalCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, L
 	}
 
 	// afxflistはファイルコピーしないで、ローカルパスを返す。
-	wcscpy(szOutputPath, pathTo);
+	wcsncpy(szOutputPath, pathTo, dwOutPathSize - 1);
 	return 1;
 }
 
@@ -336,7 +330,7 @@ int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath)
 	}
 
 	wchar_t path[API_MAX_PATH_LENGTH];
-	wsprintf(path, L"%s/%s", pdata->wszBaseDir, szItemPath);
+	wsprintf(path, L"%s\\%s", pdata->wszBaseDir, szItemPath);
 
 	int ret = 0;
 	BOOL bRet = ::DeleteFile(path);

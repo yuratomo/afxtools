@@ -108,7 +108,7 @@ void AfxCleanup(IDispatch* &pAfxApp)
 
 void AfxTrace(IDispatch *pDisp, const char* line)
 {
-	int len = strlen(line)+1;
+	size_t len = strlen(line)+1;
 	wchar_t* wbuf = new wchar_t[len];
 	memset(wbuf, 0, 2*len);
 	mbstowcs(wbuf, line, 2*len);

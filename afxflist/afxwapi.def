@@ -7,6 +7,7 @@ EXPORTS
 	ApiFindNext
 	ApiCopy
 	ApiCopyTo
+	ApiIntCopyTo
 	ApiDelete
 	ApiCopyFrom
 	ApiExecute

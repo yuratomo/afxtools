@@ -1,0 +1,101 @@
+!_TAG_FILE_ENCODING	cp932	//
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_JP_AUTHOR	HIGASHI Hirohito	/Twitter: @h_east/
+!_TAG_PROGRAM_JP_URL	http://hp.vector.co.jp/authors/VA025040/	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8J2	//
+AFX_AFXFIND_H_INCLUDED_v	.\AfxFind.h	5;"	d
+AFX_ERR_FIND	.\AfxFind.h	/^	AFX_ERR_FIND,$/;"	e	enum:__anon1
+AFX_ERR_NO	.\AfxFind.h	/^	AFX_ERR_NO = -1,$/;"	e	enum:__anon1
+AFX_ERR_NO_PARAM	.\AfxFind.h	/^	AFX_ERR_NO_PARAM,$/;"	e	enum:__anon1
+AFX_ERR_OPEN_FILE	.\AfxFind.h	/^	AFX_ERR_OPEN_FILE,$/;"	e	enum:__anon1
+AFX_ERR_T	.\AfxFind.h	/^} AFX_ERR_T;$/;"	t	typeref:enum:__anon1
+AfxFind	.\AfxFind.cpp	/^AfxFind::AfxFind()$/;"	f	class:AfxFind	signature:()
+AfxFind	.\AfxFind.h	/^	AfxFind();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind	.\AfxFind.h	/^class AfxFind$/;"	c
+AfxFind::AfxFind	.\AfxFind.cpp	/^AfxFind::AfxFind()$/;"	f	class:AfxFind	signature:()
+AfxFind::AfxFind	.\AfxFind.h	/^	AfxFind();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind::DeleteInstance	.\AfxFind.cpp	/^void AfxFind::DeleteInstance()$/;"	f	class:AfxFind	signature:()
+AfxFind::DeleteInstance	.\AfxFind.h	/^	static void DeleteInstance();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind::FindFile	.\AfxFind.cpp	/^bool AfxFind::FindFile(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)$/;"	f	class:AfxFind	signature:(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)
+AfxFind::FindFile	.\AfxFind.h	/^	bool FindFile(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd);$/;"	p	class:AfxFind	access:protected	signature:(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)
+AfxFind::FindThreadCallBack	.\AfxFind.cpp	/^int AfxFind::FindThreadCallBack()$/;"	f	class:AfxFind	signature:()
+AfxFind::FindThreadCallBack	.\AfxFind.h	/^	int FindThreadCallBack();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind::GetInstance	.\AfxFind.cpp	/^AfxFind* AfxFind::GetInstance()$/;"	f	class:AfxFind	signature:()
+AfxFind::GetInstance	.\AfxFind.h	/^	static AfxFind* GetInstance();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind::GetProgressWindowsHandle	.\AfxFind.cpp	/^HWND AfxFind::GetProgressWindowsHandle()$/;"	f	class:AfxFind	signature:()
+AfxFind::GetProgressWindowsHandle	.\AfxFind.h	/^	HWND GetProgressWindowsHandle();$/;"	p	class:AfxFind	access:public	signature:()
+AfxFind::OutputMenu	.\AfxFind.cpp	/^void AfxFind::OutputMenu(wchar_t* lpszPath)$/;"	f	class:AfxFind	signature:(wchar_t* lpszPath)
+AfxFind::OutputMenu	.\AfxFind.h	/^	void OutputMenu(wchar_t* lpszPath);$/;"	p	class:AfxFind	access:protected	signature:(wchar_t* lpszPath)
+AfxFind::SetProgressWindowsHandle	.\AfxFind.cpp	/^void AfxFind::SetProgressWindowsHandle(HWND hWnd)$/;"	f	class:AfxFind	signature:(HWND hWnd)
+AfxFind::SetProgressWindowsHandle	.\AfxFind.h	/^	void SetProgressWindowsHandle(HWND hWnd);$/;"	p	class:AfxFind	access:public	signature:(HWND hWnd)
+AfxFind::m_hWndProgress	.\AfxFind.h	/^	HWND m_hWndProgress;$/;"	m	class:AfxFind	access:protected
+AfxFind::m_instance	.\AfxFind.cpp	/^AfxFind*    AfxFind::m_instance = NULL;$/;"	m	class:AfxFind	file:
+AfxFind::m_instance	.\AfxFind.h	/^	static AfxFind* m_instance;$/;"	m	class:AfxFind	access:protected
+AfxFind::m_ofp	.\AfxFind.h	/^	FILE* m_ofp;$/;"	m	class:AfxFind	access:protected
+AfxFind_WindowMessages	.\AfxFind.h	/^enum AfxFind_WindowMessages {$/;"	g
+BUILDDATE_STRING	.\version.h	6;"	d
+COPYRIGHT_STRING	.\version.h	7;"	d
+DeleteInstance	.\AfxFind.cpp	/^void AfxFind::DeleteInstance()$/;"	f	class:AfxFind	signature:()
+DeleteInstance	.\AfxFind.h	/^	static void DeleteInstance();$/;"	p	class:AfxFind	access:public	signature:()
+EVENT_FIND_THREAD	.\AfxFind.cpp	13;"	d	file:
+FindFile	.\AfxFind.cpp	/^bool AfxFind::FindFile(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)$/;"	f	class:AfxFind	signature:(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)
+FindFile	.\AfxFind.h	/^	bool FindFile(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd);$/;"	p	class:AfxFind	access:protected	signature:(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)
+FindThread	.\AfxFind.cpp	/^DWORD	WINAPI 		FindThread(LPVOID p);$/;"	p	file:	signature:(LPVOID p)
+FindThread	.\AfxFind.cpp	/^DWORD WINAPI FindThread(LPVOID p)$/;"	f	signature:(LPVOID p)
+FindThreadCallBack	.\AfxFind.cpp	/^int AfxFind::FindThreadCallBack()$/;"	f	class:AfxFind	signature:()
+FindThreadCallBack	.\AfxFind.h	/^	int FindThreadCallBack();$/;"	p	class:AfxFind	access:public	signature:()
+GetInstance	.\AfxFind.cpp	/^AfxFind* AfxFind::GetInstance()$/;"	f	class:AfxFind	signature:()
+GetInstance	.\AfxFind.h	/^	static AfxFind* GetInstance();$/;"	p	class:AfxFind	access:public	signature:()
+GetProgressWindowsHandle	.\AfxFind.cpp	/^HWND AfxFind::GetProgressWindowsHandle()$/;"	f	class:AfxFind	signature:()
+GetProgressWindowsHandle	.\AfxFind.h	/^	HWND GetProgressWindowsHandle();$/;"	p	class:AfxFind	access:public	signature:()
+IDC_EDIT_LOG	.\resource.h	7;"	d
+IDC_STATUS_BAR	.\resource.h	8;"	d
+IDD_AFXFIND_DIALOG	.\resource.h	5;"	d
+IDR_MAINFRAME	.\resource.h	6;"	d
+Jump	.\AfxFind.cpp	/^BOOL				Jump(int adjust);$/;"	p	file:	signature:(int adjust)
+MAX_BUF_SIZE	.\AfxFind.cpp	17;"	d	file:
+MODIFIER_ALT	.\AfxFind.cpp	14;"	d	file:
+MODIFIER_CONTROL	.\AfxFind.cpp	15;"	d	file:
+MODIFIER_SHIFT	.\AfxFind.cpp	16;"	d	file:
+OutputMenu	.\AfxFind.cpp	/^void AfxFind::OutputMenu(wchar_t* lpszPath)$/;"	f	class:AfxFind	signature:(wchar_t* lpszPath)
+OutputMenu	.\AfxFind.h	/^	void OutputMenu(wchar_t* lpszPath);$/;"	p	class:AfxFind	access:protected	signature:(wchar_t* lpszPath)
+ProcFindDialog	.\AfxFind.cpp	/^LRESULT CALLBACK	ProcFindDialog(HWND, UINT, WPARAM, LPARAM);$/;"	p	file:	signature:(HWND, UINT, WPARAM, LPARAM)
+ProcFindDialog	.\AfxFind.cpp	/^LRESULT CALLBACK ProcFindDialog(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)$/;"	f	signature:(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+SendKey	.\AfxFind.cpp	/^void				SendKey();$/;"	p	file:	signature:()
+SendKey	.\AfxFind.cpp	/^void SendKey()$/;"	f	signature:()
+SetProgressWindowsHandle	.\AfxFind.cpp	/^void AfxFind::SetProgressWindowsHandle(HWND hWnd)$/;"	f	class:AfxFind	signature:(HWND hWnd)
+SetProgressWindowsHandle	.\AfxFind.h	/^	void SetProgressWindowsHandle(HWND hWnd);$/;"	p	class:AfxFind	access:public	signature:(HWND hWnd)
+VERSION_BUGFIX	.\version.h	3;"	d
+VERSION_MAJOR	.\version.h	1;"	d
+VERSION_MINOR	.\version.h	2;"	d
+VERSION_NUMSTRING	.\version.h	5;"	d
+VERSION_STRING	.\version.h	4;"	d
+WIN32_LEAN_AND_MEAN	.\StdAfx.h	9;"	d
+WM_CURRENT_FINDDIR	.\AfxFind.h	/^	WM_CURRENT_FINDDIR	= WM_USER+1,$/;"	e	enum:AfxFind_WindowMessages
+WM_FINDDIR	.\AfxFind.h	/^	WM_FINDDIR,$/;"	e	enum:AfxFind_WindowMessages
+_APS_NEXT_COMMAND_VALUE	.\resource.h	15;"	d
+_APS_NEXT_CONTROL_VALUE	.\resource.h	16;"	d
+_APS_NEXT_RESOURCE_VALUE	.\resource.h	14;"	d
+_APS_NEXT_SYMED_VALUE	.\resource.h	17;"	d
+_bAbort	.\AfxFind.cpp	/^bool        _bAbort = false;$/;"	v
+_brush	.\AfxFind.cpp	/^HBRUSH      _brush = NULL;$/;"	v
+_contents	.\AfxFind.cpp	/^wchar_t     _contents[256];$/;"	v
+_exe_path	.\AfxFind.cpp	/^wchar_t     _exe_path[MAX_PATH];$/;"	v
+_hAfxWnd	.\AfxFind.cpp	/^HWND        _hAfxWnd = NULL;$/;"	v
+_ini_path	.\AfxFind.cpp	/^wchar_t     _ini_path[MAX_PATH];$/;"	v
+_tWinMain	.\AfxFind.cpp	/^int APIENTRY _tWinMain(HINSTANCE hInstance,$/;"	f	signature:(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
+g_szErrorTable	.\AfxFind.cpp	/^const wchar_t *g_szErrorTable[] = {$/;"	v
+m_hWndProgress	.\AfxFind.h	/^	HWND m_hWndProgress;$/;"	m	class:AfxFind	access:protected
+m_instance	.\AfxFind.cpp	/^AfxFind*    AfxFind::m_instance = NULL;$/;"	m	class:AfxFind	file:
+m_instance	.\AfxFind.h	/^	static AfxFind* m_instance;$/;"	m	class:AfxFind	access:protected
+m_ofp	.\AfxFind.h	/^	FILE* m_ofp;$/;"	m	class:AfxFind	access:protected
+nFindPathLen	.\AfxFind.cpp	/^size_t      nFindPathLen = 0;$/;"	v
+pFile	.\AfxFind.cpp	/^wchar_t*    pFile = NULL;$/;"	v
+pFindPath	.\AfxFind.cpp	/^wchar_t*    pFindPath = NULL;$/;"	v
+pFindString	.\AfxFind.cpp	/^wchar_t*    pFindString = NULL;$/;"	v
+pKeyCode	.\AfxFind.cpp	/^int         pKeyCode = 70;$/;"	v
+pModifier	.\AfxFind.cpp	/^int         pModifier = 0x00;$/;"	v
