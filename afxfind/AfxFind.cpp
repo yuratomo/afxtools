@@ -1,5 +1,16 @@
 // AfxFind.cpp : アプリケーション用クラスの定義を行います。
 //
+
+/**
+ * [コマンドライン仕様]
+ * AfxFind.exe [-s size|-S SIZE|-d date|-D DATE] file_pattern
+ *
+ *  -s size  ...  size以上
+ *  -S size  ...  SIZE以下
+ *  -d date  ...  date以降
+ *  -D DATE  ...  DATE以前
+ *
+ */
 	
 #include "stdafx.h"
 #include "AfxFind.h"
@@ -17,20 +28,34 @@
 #define MAX_BUF_SIZE			MAX_PATH * 2
 
 // グローバル変数
-AfxFind*    AfxFind::m_instance = NULL;
-wchar_t*    pFindString = NULL;
-wchar_t*    pFindPath = NULL;
-size_t      nFindPathLen = 0;
-wchar_t*    pFile = NULL;
-int         pKeyCode = 70;
-int         pModifier = 0x00;
-//int       pVariable = 9;
-HBRUSH      _brush = NULL;
-wchar_t     _contents[256];
-HWND        _hAfxWnd = NULL;
-bool        _bAbort = false;
-wchar_t     _ini_path[MAX_PATH];
-wchar_t     _exe_path[MAX_PATH];
+AfxFind*     AfxFind::m_instance = NULL;
+wchar_t*     pFindString = NULL;
+wchar_t*     pFindPath = NULL;
+size_t       nFindPathLen = 0;
+wchar_t*     pFile = NULL;
+int          pKeyCode = 70;
+int          pModifier = 0x00;
+//int        pVariable = 9;
+HBRUSH       _brush = NULL;
+wchar_t      _contents[256];
+HWND         _hAfxWnd = NULL;
+bool         _bAbort = false;
+wchar_t      _ini_path[MAX_PATH];
+wchar_t      _exe_path[MAX_PATH];
+unsigned int _min_size = 0;
+unsigned int _max_size = UINT_MAX;
+FILETIME     _min_time = {0};
+bool         _min_time_use = false;
+FILETIME     _max_time = {0};
+bool         _max_time_use = false;
+
+typedef enum _OPTION
+{
+	OPTION_d,
+	OPTION_D,
+	OPTION_s,
+	OPTION_S
+};
 
 // エラーテーブル
 const wchar_t *g_szErrorTable[] = {
@@ -50,6 +75,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	wchar_t value[128];
+	int option = -1;
+
 	setlocale( LC_ALL, "Japanese" );
 
 	// ini file path
@@ -60,8 +88,99 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	_ini_path[len-2] = L'n';
 	_ini_path[len-3] = L'i';
 
-	// find string
-	pFindString = lpCmdLine;
+	// analize parameter
+	LPTSTR p = lpCmdLine;
+	LPTSTR e = NULL;
+	pFindString = NULL;
+	bool end = false;
+	while (*p != L'\0' && end == false) {
+		if (*p == L'-') {
+			p++;
+			// option
+			if (*p == L'd') {
+				option = OPTION_d;
+				p += 2;
+			}
+			else if (*p == L'D') {
+				option = OPTION_D;
+				p += 2;
+			}
+			else if (*p == L's') {
+				option = OPTION_s;
+				p += 2;
+			}
+			else if (*p == L'S') {
+				option = OPTION_S;
+				p += 2;
+			}
+			else {
+				continue;
+			}
+
+			// value start
+			while (*p == L' ') {
+				p++;
+			}
+
+			// value end
+			e = wcschr(p, L' ');
+			if (e == NULL) {
+				e = p;
+				while (*e != L'\0') e++;
+				end = true;
+			}
+			memset(value, 0, sizeof(value));
+			if (sizeof(value) < e-p-1) {
+				return -2;
+			}
+			wcsncpy(value, p, e-p);
+
+			// apply
+			if (option == OPTION_d)
+			{
+				SYSTEMTIME local_time;
+				memset(&local_time, 0, sizeof(local_time));
+				swscanf(value, L"%04d%02d%02d", &local_time.wYear, &local_time.wMonth , &local_time.wDay);
+				FILETIME local_file_time;
+				SystemTimeToFileTime(&local_time, &local_file_time);
+				LocalFileTimeToFileTime(&local_file_time, &_min_time);
+				_min_time_use = true;
+			}
+			else if (option == OPTION_D)
+			{
+				SYSTEMTIME local_time;
+				memset(&local_time, 0, sizeof(local_time));
+				swscanf(value, L"%04d%02d%02d", &local_time.wYear, &local_time.wMonth , &local_time.wDay);
+				FILETIME local_file_time;
+				SystemTimeToFileTime(&local_time, &local_file_time);
+				LocalFileTimeToFileTime(&local_file_time, &_max_time);
+				_max_time_use = true;
+			}
+			else if (option == OPTION_s)
+			{
+				_min_size = _wtoi(value);
+			}
+			else if (option == OPTION_S)
+			{
+				_max_size = _wtoi(value);
+			}
+			p = e;
+			
+		} else {
+			if (*p != L' ') {
+				pFindString = p;
+				break;
+			}
+		}
+		p++;
+	}
+
+	if (pFindString == NULL) {
+		pFindString = L"*";
+	} else
+	if (wcslen(pFindString) == 0) {
+		pFindString = L"*";
+	}
 
 	// find base directory
 	wchar_t curdir[MAX_PATH];
@@ -113,7 +232,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	if (ret == -1) {
 		wchar_t msg[256];
 		swprintf(msg, L"Create dialog error.(error code=%d)", GetLastError());
-		MessageBox(NULL, msg, L"afxfind", MB_OK);
+		MessageBox(_hAfxWnd, msg, L"afxfind", MB_OK);
 		return -1;
 	}
 
@@ -252,10 +371,32 @@ bool AfxFind::FindFile(LPCTSTR lpszPath, LPCTSTR lpszFile, HWND hWnd)
 	}
 
 	// ファイル検索
-	swprintf( szFind, L"%s\\%s", lpszPath, lpszFile);
+	_swprintf( szFind, L"%s\\%s", lpszPath, lpszFile);
 	hFile = FindFirstFile(szFind, &data);
 	if (hFile != INVALID_HANDLE_VALUE) {
 		do {
+			if( wcscmp(data.cFileName, L".") == 0
+					|| wcscmp(data.cFileName, L"..") == 0 ) continue;
+			if (data.nFileSizeLow < _min_size) {
+				continue;
+			}
+
+			if (data.nFileSizeLow > _max_size) {
+				continue;
+			}
+			if (_min_time_use == true && 
+					(data.ftLastWriteTime.dwHighDateTime < _min_time.dwHighDateTime ||
+						(data.ftLastWriteTime.dwHighDateTime ==_min_time.dwHighDateTime &&
+							 data.ftLastWriteTime.dwLowDateTime < _min_time.dwLowDateTime))) {
+				continue;
+			}
+			if (_max_time_use == true && 
+					(data.ftLastWriteTime.dwHighDateTime > _max_time.dwHighDateTime ||
+						(data.ftLastWriteTime.dwHighDateTime ==_max_time.dwHighDateTime &&
+							 data.ftLastWriteTime.dwLowDateTime > _max_time.dwLowDateTime))) {
+				continue;
+			}
+
 			if (wcslen(lpszPath) > nFindPathLen) {
 				swprintf( szFind, L"%s\\%s", &lpszPath[nFindPathLen+1], data.cFileName);
 				OutputMenu(szFind);
@@ -311,7 +452,7 @@ int AfxFind::FindThreadCallBack()
 	_bAbort = false;
 
 	try {
-		if ((m_ofp = _wfopen(pFile, L"w, ccs=utf-8")) == NULL) {
+			if ((m_ofp = _wfopen(pFile, L"w, ccs=utf-8")) == NULL) {
 			throw AFX_ERR_OPEN_FILE;
 		}
 		//fwprintf(m_ofp, L"#%hs\n", pFindPath);
@@ -333,9 +474,9 @@ int AfxFind::FindThreadCallBack()
 		} else {
 			nErrorNum = sizeof(g_szErrorTable)-1;
 		}
-		::MessageBox(NULL, g_szErrorTable[nError], L"エラー", MB_OK);
+		::MessageBox(m_hWndProgress, g_szErrorTable[nError], L"エラー", MB_OK);
 	} catch (...) {
-		::MessageBox(NULL, g_szErrorTable[sizeof(g_szErrorTable)-1], L"エラー", MB_OK);
+		::MessageBox(m_hWndProgress, g_szErrorTable[sizeof(g_szErrorTable)-1], L"エラー", MB_OK);
 	}
 
 	::SendMessage(GetProgressWindowsHandle(), WM_COMMAND, IDOK, NULL);

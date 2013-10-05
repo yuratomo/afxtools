@@ -278,7 +278,7 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
 }
 
 /**
- * あふwが内部的に利用するコピー処理。
+ * @brief あふwが内部的に利用するコピー処理。
  * 主にプラグイン内のファイルを開く場合に、AFXWTMP以下にコピーするために使われる。
  * ただし、実際にコピーするかどうかはプラグイン次第で、あふwはszOutputPathで指定されたファイルを開く。
  *
