@@ -1,0 +1,61 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winuser.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_AFXFAZZY_DIALOG DIALOGEX 0, 0, 400,200 
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+//EXSTYLE WS_EX_APPWINDOW
+CAPTION "afxfazzy"
+FONT 9, "ÇlÇr ÉSÉVÉbÉN", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_INPUT,0,190,400,200,SS_SUNKEN
+//    EDITTEXT        IDC_EDIT_LIST,0,0,400,190,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+    CONTROL         "", IDC_EDIT_LIST, "RICHEDIT",ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL ,0,0,400,190
+END
+
+/////////////////////////////////////////////////////////////////////////////
+
+#include "version.h"
+#include "winuser.h"
+
+//IDR_ICON ICON  "icon.ico"
+
+1 VERSIONINFO 
+FILEVERSION    VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+PRODUCTVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+FILEFLAGSMASK 0x3FL
+FILEFLAGS     0x0L
+FILEOS        0x4L
+FILETYPE      0x1L
+FILESUBTYPE   0x0L
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "04090000"
+  BEGIN
+   VALUE "FileDescription",  "afxfazzy"
+   VALUE "FileVersion",      VERSION_STRING
+   VALUE "InternalName",     "afxfazzy"
+   VALUE "LegalCopyright",   COPYRIGHT_STRING
+   VALUE "OriginalFilename", "afxfazzy.exe"
+   VALUE "ProductName",      "afxtools"
+   VALUE "ProductVersion",   VERSION_STRING
+  END
+ END
+END

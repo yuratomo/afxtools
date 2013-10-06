@@ -1,0 +1,15 @@
+AFXBROWSER
+"Open at browser [curfile][ie]   (カーソル下のファイルをブラウザで開く)" "$~\afxtools\bin\afxbrws.exe" $P\$F
+"Open URL at browser [input][ie] (URLを入力してブラウザを開く)" "$~\afxtools\bin\afxbrws.exe" $IT"http://www."$I4"あふぶらうざー"
+"Open gmail! [ie]                (ブラウザでgmailを開く)" "$~\afxtools\bin\afxbrws.exe" http://www.gmail.com/
+"Open yahoo! [ie]                (ブラウザでyahooを開く)" "$~\afxtools\bin\afxbrws.exe" http://www.yahoo.co.jp/
+"Open google [ie]                (ブラウザでgoogleを開く)" "$~\afxtools\bin\afxbrws.exe" http://www.google.co.jp/
+"Open wikipedia [input][ie]      (ウィキペディアを調べる)" "$~\afxtools\bin\afxbrws.exe" http://ja.wikipedia.org/wiki/$I4"あふぶらうざー(wikipediaで調べたい文字を入れる)"
+"Open evernote [ie]              (EVERNOTEを開く)" "$~\afxtools\bin\afxbrws.exe" http://www.evernote.com/
+"Open twitter [input][ie]        (ツイッターを開く) " "$~\afxtools\bin\afxbrws.exe" http://twitter.com/#!/$I4"あふぶらうざー(ツイッターのユーザー名を入れる)"
+"Open yuratomo homepage [ie]     (お気に入りのツールを気ままに拡張するブログを開く)" "$~\afxtools\bin\afxbrws.exe" http://yuratomo.seesaa.net/
+"Search google input word[ie]    (ブラウザでgoogleを開く[guguru])" "$~\afxtools\bin\afxbrws.exe" http://www.google.co.jp/search?gcx=c&sourceid=chrome&ie=SJIS&q=$I"あふぶらうざー(ググル文字を入れる)"
+"Search image [input][ie]        (googleイメージ検索)" "$~\afxtools\bin\afxbrws.exe" http://www.google.co.jp/search?gcx=c&q=$I8"あふぶらうざー(イメージ検索したい文字列を入れる)"&um=1&ie=UTF-8&tbm=isch&source=og&sa=N&hl=ja&tab=wi&biw=1003&bih=433
+"Search youtube [input][ie]      (youtube動画検索)" "$~\afxtools\bin\afxbrws.exe" http://www.youtube.com/results?search_query=$I8"あふぶらうざー(youtube動画したい文字列を入れる)"&aq=f
+"Search MSDN [input[ie]          (MSDNライブラリで調べる)" "$~\afxtools\bin\afxbrws.exe" http://social.msdn.microsoft.com/Search/ja-jp?query=$I8"あふぶらうざー(MSDNで調べたい文字列を入れる)"&x=0&y=0
+"!google - " "$~\afxtools\bin\afxbrws.exe" http://www.google.co.jp/search?gcx=c&sourceid=chrome&ie=SJIS&q=

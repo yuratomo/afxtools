@@ -1,0 +1,27 @@
+AFXCMD
+"arp -a ...             (ARPエントリ表示)" $~\afxtools\bin\afxexec.exe cmd /c $IT"arp -a $k"$I4"ARP"
+"chkdsk ...             (ディスクチェック)(check disk)" $~\afxtools\bin\afxexec.exe cmd /c chkdsk $IT"$kC:$K"$I4"CHKDSK (input drive letter)"
+"copy [curfile] to other(他方のフォルダにコピー)" &EACH -O $~\afxtools\bin\afxexec.exe cmd /c copy "$P\$F" "$O"
+"copy [curfile] same dir(同一フォルダにコピー。_をお尻につける)" &EACH -P $~\afxtools\bin\afxexec.exe cmd /c copy "$P\$F" "$P\$F_"
+"defrag ...             (デフラグ)" $~\afxtools\bin\afxexec.exe cmd /c defrag -v $IT"$kC:$K"$I4"DEFRAG (input drive letter)"
+"date & time            (現在時刻を表示)" $~\afxtools\bin\afxexec.exe cmd /c cls & echo %date% %time%
+"echo %errorlevel% ...  (エラー番号表示)" $~\afxtools\bin\afxexec.exe cmd /c echo %errorlevel%
+"findstr ...            (入力文字列で文字列検索)(grep)" $~\afxtools\bin\afxexec.exe cmd /c findstr /i /n $IT"$khogehoge *.txt$K"$I4"FINDSTR (input find_string and file_pattern)"
+"hostname               (ホスト名表示)" $~\afxtools\bin\afxexec.exe cmd /c hostname
+"ipconfig >>            (IP表示)" $~\afxtools\bin\afxexec.exe cmd /c ipconfig /all
+"lpr ... [curfile]      (LPR送信)" &EACH $~\afxtools\bin\afxexec.exe cmd /c $IT"lpr -S $kserver$K -P printer $"$P\$F$""$I4"LPR"
+"mem                    (メモリ情報表示)" $~\afxtools\bin\afxexec.exe cmd /c mem
+"netstat ... >>         (ネットワーク接続表示)" $~\afxtools\bin\afxexec.exe cmd /c $IT"netstat -a -n | findstr $k*$K"$I4"netstat"
+"net share              (共有フォルダ表示)" $~\afxtools\bin\afxexec.exe cmd /c net share
+"net file               (共有ファイル表示)" $~\afxtools\bin\afxexec.exe cmd /c net file
+"nslookup ...           (アドレス解決)" $~\afxtools\bin\afxexec.exe cmd /c $IT"nslookup "$I4"NSLOOKUP"
+"ping ...               (PING実行)" $~\afxtools\bin\afxexec.exe cmd /c ping $I4"ping (intput ipaddress)"
+"tasklist ...           (タスク一覧)" $~\afxtools\bin\afxexec.exe cmd /c $IT"tasklist | findstr $k.$K"$I4"tasklist (intput option)"
+"systeminfo >           (システム情報)" $~\afxtools\bin\afxexec.exe cmd /c systeminfo
+"shutdown now           (即時シャットダウン)" $~\afxtools\bin\afxexec.exe cmd /c shutdown -t 0 -s
+"type >> [curfile]      (ファイル出力)(cat)" $~\afxtools\bin\afxexec.exe cmd /c type "$P\$F"
+"reboot now             (即時再起動)" $~\afxtools\bin\afxexec.exe cmd /c shutdown -t 0 -r
+"xcopy [selfile]        (選択ファイルを他窓にコピー(非同期))" &EACH $~\afxtools\bin\afxexec.exe cmd /c echo F | xcopy /Y /E /I "$P\$F" "$O\$F"
+"7z (一括) [selfile]    (7zで一括圧縮)" $~\afxtools\bin\afxexec.exe cmd /c "c:\Program Files\7-zip\7z.exe" a "$O\$W.7z" $MF
+"7z (個別) [selfile]    (7zで個別圧縮)" &EACH -O $~\afxtools\bin\afxexdc.exe cmd /c "c:\Program Files\7-zip\7z.exe" a "$O\$W.7z" "$P\$F" 
+"#edit afxcmd7.mnu      (しすてむメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd7.mnu"

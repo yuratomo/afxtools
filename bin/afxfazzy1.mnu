@@ -1,0 +1,91 @@
+AFXINTERNAL
+"Reload LR                  (左右ファイル窓更新)(update)" &RELOAD LR
+"Reload L                   (左ファイル窓更新)(update)" &RELOAD L
+"Reload R                   (右ファイル窓更新)(update)" &RELOAD R
+"Execute [curfile]          (実行)" &EXEC "$P\$F"
+"Open [curfie]              (シェルの関連付けに従う)" &OPEN "$P\$F"
+"Show context menu [curfile](カーソルファイルのコンテキストメニュー)" &CONTEXT
+"Show context menu [thisdir](このディレクトリのコンテキストメニュー)" &CONTEXT ..
+"Mark input files           (入力マスク)" &MARK $IT"$k*.$E$K"$I4"ふぁいるまーく"
+"Mark all                   (すべて選択)" &MARK *
+"Mark all only directories  (ディレクトリすべて選択)" &MARK -D *
+"Mark all only files        (ファイルすべて選択)" &MARK -F *
+"Mark clear                 (マーククリア)" &MARK -U *
+"Sort by the file name      (ファイル名でソート)" &SORT +F
+"Sort by the file size      (ファイルサイズでソート)" &SORT +S
+"Sort by the file extension (拡張子でソート)" &SORT +E
+"Sort by the file timestamp (タイムスタンプでソート)" &SORT +T
+"Copy to samedir [curfile]  (同一フォルダにコピー)" &COPYTO "$P"
+"Copy to upperdir [curfile] (上の階層にコピー)" &COPYTO "$P\.."
+"Copy to selected history   (複写先をヒストリーから選ぶ" &COPYHIS
+"Clip full path [curfile]   (フルパスをクリップボードに)" &CLIP "$P\$F"
+"Clip path [thisdir]        (ディレクトリパスをクリップボードに)" &CLIP $P\
+"Clip file name [curfile]   (ファイル名をクリップボードに)" &CLIP $F
+"Clip message window        (メッセージ窓をクリップボードに)" &MESCLIP
+"Melt to samedir [thisdir]  (同一フォルダに展開)" &MELTTO $P
+"Toggle window size         (ウィンドウの最大・通常サイズトグル)" &MAX
+"Minimize window            (ウィンドウの最小化)" &MIN
+"Push directory             (&PUSHD)" &PUSHD
+"Pop directory              (&POPD)" &POPD
+"Divide file                (ファイル分割)" &DIVIDE $I4"ふぁいる分割(分割バイト数を入力)"
+"Connect selected files     (ファイル結合)" &CONNECT $I4"ふぁいる結合(結合ファイル名入力)"
+"View [curfile]             (ファイル表示)" &VIEW "$P\$F"
+"Edit [curfile]             (ファイル編集)" &EDIT "$P\$F"
+"Show property [curfile]    (プロパティ表示)" &PRPTY "$P\$F"
+"Eject drive                (イジェクト)" &EJECT $I4"いじぇくと(ドライブ名を入力 - 例. E:)"
+"Vertical splitter (max)    (現在窓を最大化)" &VSPMV P
+"Vertical splitter (center) (ファイル窓を均等分割)" &VSPMV C
+"cd %afx%                   (あふのディレクトリに移動" &CD $~\
+"cd %windir%                (windowsディレクトリ)" &CD $V"windir"\
+"cd %USERPROFILE%           (ユーザープロファイルディレクトリ)" &CD $V"UserProfile"\
+"cd %APPDATA%               (アプリケーションデータディレクトリ)" &CD $V"APPDATA"\
+"cd Cドライブ               (cdrive)" &CD c:\
+"cd Dドライブ               (ddrive)" &CD d:\
+"cd Eドライブ               (edrive)" &CD e:\
+"cd Fドライブ               (fdrive)" &CD f:\
+"cd Gドライブ               (gdrive)" &CD g:\
+"cd Hドライブ               (hdrive)" &CD h:\
+"edit AFXW.ini              (AFXW.iniを編集)" &EDIT "$~\AFXW.ini"
+"edit AFXW.def              (AFXW.defを編集)" &EDIT "$~\AFXW.def"
+"edit AFXW.key              (AFXW.keyを編集)" &EDIT "$~\AFXW.key"
+"view AFXW.txt              (AFXW.txtをビュワーで表示)" &VIEW "$~\AFXW.txt"
+"view AFXWCFG.txt           (AFXWCFG.txtをビュワーで表示)" &VIEW "$~\AFXWCFG.txt"
+"view AFXWKEY.txt           (AFXWKEY.txtをビュワーで表示)" &VIEW "$~\AFXWKEY.txt"
+"Mask *.* (clear)" &MASK *.*
+"Mask *.exe" &MASK *.exe
+"Mask *.dll" &MASK *.dll
+"Mask *.txt" &MASK *.txt
+"Mask *.ini" &MASK *.ini
+"Mask *.c* *.h" &MASK *.c* *.h
+"Mask *.cs" &MASK *.cs
+"Mask *.java" &MASK *.java
+"Mask *.jsp" &MASK *.jsp
+"Mask *.php" &MASK *.php
+"Mask *.pl" &MASK *.pl
+"Mask *.xml" &MASK *.xml
+"Mask *.html" &MASK *.html
+"Mask *.xaml" &MASK *.xaml
+"Mask *.vim" &MASK *.vim
+"Mask *.mp3" &MASK *.mp3
+"Mask *.mp4" &MASK *.mp4
+"Mask *.wmv" &MASK *.wmv
+"Mask *.wma" &MASK *.wma
+"Mask *.avi" &MASK *.avi
+"Mask *.divx" &MASK *.divx
+"Mask *.jpg" &MASK *.jpg
+"Mask *.jpeg" &MASK *.jpeg
+"Mask *.png" &MASK *.png
+"Mask *.gif" &MASK *.gif
+"Mask *.bmp" &MASK *.bmp
+"Mask *.tif" &MASK *.tif
+"Mask *.ras" &MASK *.ras
+"Mask *.doc" &MASK *.doc
+"Mask *.xls" &MASK *.xls
+"Mask *.pdf" &MASK *.pdf
+"Mask *.ps" &MASK *.ps
+"Mask *.zip" &MASK *.zip
+"Mask *.7z" &MASK *.7z
+"Mask *.tar" &MASK *.tar
+"Mask *.lzh" &MASK *.lzh
+"Mask *.gz" &MASK *.gz
+"#edit afxcmd1.mnu (内部こまんどメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd1.mnu"

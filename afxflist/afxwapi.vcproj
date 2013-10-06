@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="afxflist"
-	ProjectGUID="{43FFD640-6910-442C-9B63-F6829AFE5936}"
+	ProjectGUID="{C6B781A7-F538-4D8A-A840-C0B96D89A2D9}"
 	RootNamespace="afxflist"
 	TargetFrameworkVersion="196613"
 	>

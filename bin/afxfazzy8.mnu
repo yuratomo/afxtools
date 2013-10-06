@@ -1,0 +1,16 @@
+AFXFTP
+"start ftp ... >   (FTP接続開始→IP入力→ログイン)(login)" "$V"afx"\afxtools\bin\afxckw.exe" -E ftp -i $I4"AFXCKW FTP (input ipaddress)"
+"exit ftp          (FTP終了)" "$V"afx"\afxtools\bin\afxckw.exe" -e bye
+"ascii             (FTP ASCIIモード)" "$V"afx"\afxtools\bin\afxckw.exe" -e ascii
+"bin               (FTP BINモード)" "$V"afx"\afxtools\bin\afxckw.exe" -e bin
+"cd ...            (FTP CD <inputdir>)" "$V"afx"\afxtools\bin\afxckw.exe" -e cd $IT""$I4"AFXCKW FTP CD (input remote directory name) 
+"delete ...        (FTP DELETE <inputdir>)" "$V"afx"\afxtools\bin\afxckw.exe" -e delete $I4"AFXCKW FTP DELETE (input filename)
+"lcd [thisdir]     (FTP LOCAL CD <curdir>)" "$V"afx"\afxtools\bin\afxckw.exe" -e lcd "$P"
+"ls                (FTP LS)" "$V"afx"\afxtools\bin\afxckw.exe" -e ls
+"mget ...          (FTP MGET <inputpattern>)" "$V"afx"\afxtools\bin\afxckw.exe" -e mget $IT"$k*$K"$I4"AFXCKW FTP MGET (input filenames)
+"mput              (FTP MPUT <markfiles>)" "$V"afx"\afxtools\bin\afxckw.exe" -e mput $J $MS
+"prompt            (FTP PROMPT ON/OFF)" "$V"afx"\afxtools\bin\afxckw.exe" -e prompt
+"pwd               (FTP PWD)" "$V"afx"\afxtools\bin\afxckw.exe" -e pwd
+"user ... >        (FTP USER)" "$V"afx"\afxtools\bin\afxckw.exe" -E user $I4"AFXCKW FTP USER (input username)
+"verbose           (FTP VERBOSE)" "$V"afx"\afxtools\bin\afxckw.exe" -e verbose
+"#edit afxcmd8.mnu (FTPメニュー編集)"		&EDIT "$V"afx"\afxtools\bin\afxcmd8.mnu"

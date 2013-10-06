@@ -1,0 +1,45 @@
+// Microsoft Visual C++ generated resource script.
+//
+//#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winuser.h"
+
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+
+#include "version.h"
+#include "winuser.h"
+
+//IDR_ICON ICON  "icon.ico"
+
+1 VERSIONINFO 
+FILEVERSION    VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+PRODUCTVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+FILEFLAGSMASK 0x3FL
+FILEFLAGS     0x0L
+FILEOS        0x4L
+FILETYPE      0x1L
+FILESUBTYPE   0x0L
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "04090000"
+  BEGIN
+   VALUE "FileDescription",  "afxpushd"
+   VALUE "FileVersion",      VERSION_STRING
+   VALUE "InternalName",     "afxpushd"
+   VALUE "LegalCopyright",   COPYRIGHT_STRING
+   VALUE "OriginalFilename", "afxpushd.exe"
+   VALUE "ProductName",      "afxtools"
+   VALUE "ProductVersion",   VERSION_STRING
+  END
+ END
+END

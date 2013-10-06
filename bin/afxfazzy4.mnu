@@ -1,0 +1,10 @@
+AFXDIFF
+"WinMerge LR [selfile] (WinMergeでファイルのdiff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize $MF $MO
+"WinMerge LR [curfile] (WinMergeでカーソル位置のファイル名でdiff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize "$P\$F" "$O\$F"
+"WinMerge LR [thisdir] (WinMergeでディレクトリ毎diff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize "$P" "$O"
+"DF       LR [selfile] (DFでファイルのdiff)" "DF.exe" $MF $MO
+"DF       LR [curfile] (DFでカーソル位置のファイル名でdiff)" "DF.exe" /e /x /maximize "$P\$F" "$O\$F"
+"DF       LR [thisdir] (DFでディレクトリ毎diff)" "DF.exe" "$P" "$O"
+"gvim     LR [selfile] (gvimでdiff)" "gvim.exe" -d $MF $MO
+"gvim     LR [curfile] (gvimでカーソル位置のファイル名でdiff)" "gvim.exe" -d "$P\$F" "$O\$F"
+"#edit afxcmd4.mnu     (さぶんメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd4.mnu"

@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="afxfind"
-	ProjectGUID="{3C65C596-C538-4762-9690-BCCE9E0B0FF4}"
-	RootNamespace="afxfind"
+	Name="afxmake"
+	ProjectGUID="{8D728D93-2C29-43A3-BA1B-DD0E8E4216AB}"
+	RootNamespace="afxmake"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,10 +17,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\bin"
+			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -47,7 +47,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4996"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -90,7 +89,7 @@
 			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -118,7 +117,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4996"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -167,27 +165,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\afxfind.cpp"
+			RelativePath=".\afxmake.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\afxfind.h"
-			>
-		</File>
-		<File
-			RelativePath=".\afxfind.rc"
-			>
-		</File>
-		<File
-			RelativePath=".\resource.h"
-			>
-		</File>
-		<File
-			RelativePath=".\StdAfx.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\StdAfx.h"
+			RelativePath=".\afxmake.rc"
 			>
 		</File>
 	</Files>

@@ -1,0 +1,16 @@
+AFXANDROID
+"preparer(copy) afxandroid     (ANDROID用あふw内部変数設定スクリプトコピー)" $~\afxtools\bin\afxexec.exe cmd /c copy "$~\afxtools\bin\afxandroid.vbs" "$P"
+"create project $0 $1 $2 $3    (プロジェクトを作成)" $~\afxtools\bin\afxexec.exe cmd /c android create project --target $0 --name $1 --path "$P" --activity $2 --package $3
+"create avd     $0 $4          (仮想マシンの作成)" $~\afxtools\bin\afxexec.exe cmd /c echo no | android create avd --target $0 --name $4
+"delete avd     $4             (仮想マシンの破棄)" $~\afxtools\bin\afxexec.exe cmd /c android delete avd --name $4
+"list   targets                (ターゲット環境リスト表示)" $~\afxtools\bin\afxexec.exe cmd /c android list targets
+"list   avd                    (仮想マシンのリスト表示)" $~\afxtools\bin\afxexec.exe cmd /c android list avd
+"execute emurator $4           (仮想マシンを実行する)" $~\afxtools\bin\afxexec.exe cmd /c emulator -avd $4
+"install project <curfile>     (仮想マシンにapkインストール)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb install -r "$P\$F"
+"install project from root $1  (プロジェクトルートから仮想マシンにapkインストール)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb install -r "$P\bin\$1-debug.apk"
+"adb help                      (ヘルプ確認)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb -help
+"adb logcat                    (ログ確認)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb logcat -d
+"adb devices                   (デバイス確認)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb devices
+"adb start-server              (サーバー開始)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb start-server
+"adb kill-server               (サーバー終了)" $~\afxtools\bin\afxexec.exe cmd /c "$~\afxtools\bin\afxandroid.bat" adb kill-server
+

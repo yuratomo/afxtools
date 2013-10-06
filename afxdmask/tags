@@ -1,0 +1,435 @@
+!_TAG_FILE_ENCODING	cp932	//
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_JP_AUTHOR	HIGASHI Hirohito	/Twitter: @h_east/
+!_TAG_PROGRAM_JP_URL	http://hp.vector.co.jp/authors/VA025040/	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8J2	//
+APSTUDIO_HIDDEN_SYMBOLS	.\winres.h	20;"	d
+APSTUDIO_HIDDEN_SYMBOLS	.\winres.h	291;"	d
+AktAfxMessage	.\afxdmask.cpp	/^static const char AktAfxMessage[] = "AfxW_CD_Message_ID_AKT";$/;"	v	file:
+BS_3STATE	.\winres.h	226;"	d
+BS_AUTO3STATE	.\winres.h	227;"	d
+BS_AUTOCHECKBOX	.\winres.h	224;"	d
+BS_AUTORADIOBUTTON	.\winres.h	230;"	d
+BS_CHECKBOX	.\winres.h	223;"	d
+BS_DEFPUSHBUTTON	.\winres.h	222;"	d
+BS_GROUPBOX	.\winres.h	228;"	d
+BS_LEFTTEXT	.\winres.h	232;"	d
+BS_OWNERDRAW	.\winres.h	231;"	d
+BS_PUSHBUTTON	.\winres.h	221;"	d
+BS_RADIOBUTTON	.\winres.h	225;"	d
+BS_USERBUTTON	.\winres.h	229;"	d
+BUILDDATE_STRING	.\version.h	6;"	d
+CBS_AUTOHSCROLL	.\winres.h	278;"	d
+CBS_DISABLENOSCROLL	.\winres.h	283;"	d
+CBS_DROPDOWN	.\winres.h	274;"	d
+CBS_DROPDOWNLIST	.\winres.h	275;"	d
+CBS_HASSTRINGS	.\winres.h	281;"	d
+CBS_NOINTEGRALHEIGHT	.\winres.h	282;"	d
+CBS_OEMCONVERT	.\winres.h	279;"	d
+CBS_OWNERDRAWFIXED	.\winres.h	276;"	d
+CBS_OWNERDRAWVARIABLE	.\winres.h	277;"	d
+CBS_SIMPLE	.\winres.h	273;"	d
+CBS_SORT	.\winres.h	280;"	d
+CB_ADDSTRING	.\winres.h	288;"	d
+COPYRIGHT_STRING	.\version.h	7;"	d
+ClassId	.\resfmt.h	/^	U16 *ClassId;$/;"	m	struct:_ControlData	access:public
+ClassName	.\resfmt.h	/^	U16 *ClassName;$/;"	m	struct:_DialogBoxHeader	access:public
+ControlData	.\resfmt.h	/^	} ControlData;$/;"	t	typeref:struct:_ControlData
+DS_3DLOOK	.\resfmt.h	5;"	d
+DS_ABSALIGN	.\resfmt.h	3;"	d
+DS_ABSALIGN	.\winres.h	196;"	d
+DS_CENTER	.\resfmt.h	14;"	d
+DS_CENTERMOUSE	.\resfmt.h	15;"	d
+DS_CONTEXTHELP	.\resfmt.h	16;"	d
+DS_CONTROL	.\resfmt.h	13;"	d
+DS_FIXEDSYS	.\resfmt.h	6;"	d
+DS_LOCALEDIT	.\resfmt.h	8;"	d
+DS_LOCALEDIT	.\winres.h	198;"	d
+DS_MODALFRAME	.\resfmt.h	10;"	d
+DS_MODALFRAME	.\winres.h	200;"	d
+DS_NOFAILCREATE	.\resfmt.h	7;"	d
+DS_NOIDLEMSG	.\resfmt.h	11;"	d
+DS_NOIDLEMSG	.\winres.h	201;"	d
+DS_SETFONT	.\resfmt.h	9;"	d
+DS_SETFONT	.\winres.h	199;"	d
+DS_SETFOREGROUND	.\resfmt.h	12;"	d
+DS_SYSMODAL	.\resfmt.h	4;"	d
+DS_SYSMODAL	.\winres.h	197;"	d
+DS_WINDOWSUI	.\winres.h	204;"	d
+DialogBoxHeader	.\resfmt.h	/^	} DialogBoxHeader;$/;"	t	typeref:struct:_DialogBoxHeader
+ES_AUTOHSCROLL	.\winres.h	242;"	d
+ES_AUTOVSCROLL	.\winres.h	241;"	d
+ES_CENTER	.\winres.h	235;"	d
+ES_LEFT	.\winres.h	234;"	d
+ES_LOWERCASE	.\winres.h	239;"	d
+ES_MULTILINE	.\winres.h	237;"	d
+ES_NOHIDESEL	.\winres.h	243;"	d
+ES_OEMCONVERT	.\winres.h	244;"	d
+ES_PASSWORD	.\winres.h	240;"	d
+ES_READONLY	.\winres.h	245;"	d
+ES_RIGHT	.\winres.h	236;"	d
+ES_UPPERCASE	.\winres.h	238;"	d
+ES_WANTRETURN	.\winres.h	246;"	d
+EnumChildProc	.\afxdmask.cpp	/^BOOL CALLBACK EnumChildProc(HWND hWnd , LPARAM lp)$/;"	f	signature:(HWND hWnd , LPARAM lp)
+GetFocusOtherProcess	.\afxdmask.cpp	/^HWND GetFocusOtherProcess(HWND hWnd)$/;"	f	signature:(HWND hWnd)
+GetFocusOtherProcess	.\afxdmask.cpp	/^HWND GetFocusOtherProcess(HWND hWnd);$/;"	p	file:	signature:(HWND hWnd)
+IDABORT	.\winres.h	296;"	d
+IDCANCEL	.\winres.h	295;"	d
+IDC_EDIT_LOG	.\resource.h	7;"	d
+IDC_STATUS_BAR	.\resource.h	8;"	d
+IDD_AFXDMASK_DIALOG	.\resource.h	5;"	d
+IDIGNORE	.\winres.h	298;"	d
+IDNO	.\winres.h	300;"	d
+IDOK	.\winres.h	294;"	d
+IDRETRY	.\winres.h	297;"	d
+IDR_MAINFRAME	.\resource.h	6;"	d
+IDYES	.\winres.h	299;"	d
+ID_EDIT	.\resource.h	9;"	d
+InitApp	.\afxdmask.cpp	/^BOOL InitApp(HINSTANCE hInst)$/;"	f	signature:(HINSTANCE hInst)
+InitApp	.\afxdmask.cpp	/^BOOL InitApp(HINSTANCE);$/;"	p	file:	signature:(HINSTANCE)
+InitInstance	.\afxdmask.cpp	/^BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)$/;"	f	signature:(HINSTANCE hInstance, int nCmdShow)
+InitInstance	.\afxdmask.cpp	/^BOOL InitInstance(HINSTANCE, int);$/;"	p	file:	signature:(HINSTANCE, int)
+LBS_DISABLENOSCROLL	.\winres.h	270;"	d
+LBS_EXTENDEDSEL	.\winres.h	269;"	d
+LBS_HASSTRINGS	.\winres.h	264;"	d
+LBS_MULTICOLUMN	.\winres.h	267;"	d
+LBS_MULTIPLESEL	.\winres.h	261;"	d
+LBS_NOINTEGRALHEIGHT	.\winres.h	266;"	d
+LBS_NOREDRAW	.\winres.h	260;"	d
+LBS_NOTIFY	.\winres.h	258;"	d
+LBS_OWNERDRAWFIXED	.\winres.h	262;"	d
+LBS_OWNERDRAWVARIABLE	.\winres.h	263;"	d
+LBS_SORT	.\winres.h	259;"	d
+LBS_STANDARD	.\winres.h	271;"	d
+LBS_USETABSTOPS	.\winres.h	265;"	d
+LBS_WANTKEYBOARDINPUT	.\winres.h	268;"	d
+LB_ADDSTRING	.\winres.h	287;"	d
+MenuName	.\resfmt.h	/^	U16 *MenuName;$/;"	m	struct:_DialogBoxHeader	access:public
+NumberOfItems	.\resfmt.h	/^	U16 NumberOfItems;$/;"	m	struct:_DialogBoxHeader	access:public
+OBM_BTNCORNERS	.\winres.h	53;"	d
+OBM_BTSIZE	.\winres.h	50;"	d
+OBM_CHECK	.\winres.h	51;"	d
+OBM_CHECKBOXES	.\winres.h	52;"	d
+OBM_CLOSE	.\winres.h	23;"	d
+OBM_COMBO	.\winres.h	39;"	d
+OBM_DNARROW	.\winres.h	25;"	d
+OBM_DNARROWD	.\winres.h	35;"	d
+OBM_DNARROWI	.\winres.h	41;"	d
+OBM_LFARROW	.\winres.h	27;"	d
+OBM_LFARROWD	.\winres.h	37;"	d
+OBM_LFARROWI	.\winres.h	43;"	d
+OBM_MNARROW	.\winres.h	38;"	d
+OBM_OLD_CLOSE	.\winres.h	44;"	d
+OBM_OLD_DNARROW	.\winres.h	47;"	d
+OBM_OLD_LFARROW	.\winres.h	49;"	d
+OBM_OLD_REDUCE	.\winres.h	54;"	d
+OBM_OLD_RESTORE	.\winres.h	56;"	d
+OBM_OLD_RGARROW	.\winres.h	48;"	d
+OBM_OLD_UPARROW	.\winres.h	46;"	d
+OBM_OLD_ZOOM	.\winres.h	55;"	d
+OBM_REDUCE	.\winres.h	28;"	d
+OBM_REDUCED	.\winres.h	31;"	d
+OBM_RESTORE	.\winres.h	30;"	d
+OBM_RESTORED	.\winres.h	33;"	d
+OBM_RGARROW	.\winres.h	26;"	d
+OBM_RGARROWD	.\winres.h	36;"	d
+OBM_RGARROWI	.\winres.h	42;"	d
+OBM_SIZE	.\winres.h	45;"	d
+OBM_UPARROW	.\winres.h	24;"	d
+OBM_UPARROWD	.\winres.h	34;"	d
+OBM_UPARROWI	.\winres.h	40;"	d
+OBM_ZOOM	.\winres.h	29;"	d
+OBM_ZOOMD	.\winres.h	32;"	d
+OCR_CROSS	.\winres.h	60;"	d
+OCR_IBEAM	.\winres.h	58;"	d
+OCR_ICOCUR	.\winres.h	69;"	d
+OCR_ICON	.\winres.h	63;"	d
+OCR_NORMAL	.\winres.h	57;"	d
+OCR_SIZE	.\winres.h	62;"	d
+OCR_SIZEALL	.\winres.h	68;"	d
+OCR_SIZENESW	.\winres.h	65;"	d
+OCR_SIZENS	.\winres.h	67;"	d
+OCR_SIZENWSE	.\winres.h	64;"	d
+OCR_SIZEWE	.\winres.h	66;"	d
+OCR_UP	.\winres.h	61;"	d
+OCR_WAIT	.\winres.h	59;"	d
+OIC_BANG	.\winres.h	73;"	d
+OIC_HAND	.\winres.h	71;"	d
+OIC_NOTE	.\winres.h	74;"	d
+OIC_QUES	.\winres.h	72;"	d
+OIC_SAMPLE	.\winres.h	70;"	d
+SBS_BOTTOMALIGN	.\winres.h	252;"	d
+SBS_HORZ	.\winres.h	248;"	d
+SBS_LEFTALIGN	.\winres.h	251;"	d
+SBS_RIGHTALIGN	.\winres.h	253;"	d
+SBS_SIZEBOX	.\winres.h	256;"	d
+SBS_SIZEBOXBOTTOMRIGHTALIGN	.\winres.h	255;"	d
+SBS_SIZEBOXTOPLEFTALIGN	.\winres.h	254;"	d
+SBS_TOPALIGN	.\winres.h	250;"	d
+SBS_VERT	.\winres.h	249;"	d
+SC_ARRANGE	.\winres.h	190;"	d
+SC_CLOSE	.\winres.h	185;"	d
+SC_HOTKEY	.\winres.h	194;"	d
+SC_HSCROLL	.\winres.h	187;"	d
+SC_KEYMENU	.\winres.h	189;"	d
+SC_MAXIMIZE	.\winres.h	182;"	d
+SC_MINIMIZE	.\winres.h	181;"	d
+SC_MOUSEMENU	.\winres.h	188;"	d
+SC_MOVE	.\winres.h	180;"	d
+SC_NEXTWINDOW	.\winres.h	183;"	d
+SC_PREVWINDOW	.\winres.h	184;"	d
+SC_RESTORE	.\winres.h	191;"	d
+SC_SCREENSAVE	.\winres.h	193;"	d
+SC_SIZE	.\winres.h	179;"	d
+SC_TASKLIST	.\winres.h	192;"	d
+SC_VSCROLL	.\winres.h	186;"	d
+SS_BLACKFRAME	.\winres.h	214;"	d
+SS_BLACKRECT	.\winres.h	211;"	d
+SS_CENTER	.\winres.h	208;"	d
+SS_GRAYFRAME	.\winres.h	215;"	d
+SS_GRAYRECT	.\winres.h	212;"	d
+SS_ICON	.\winres.h	210;"	d
+SS_LEFT	.\winres.h	207;"	d
+SS_LEFTNOWORDWRAP	.\winres.h	218;"	d
+SS_NOPREFIX	.\winres.h	219;"	d
+SS_RIGHT	.\winres.h	209;"	d
+SS_SIMPLE	.\winres.h	217;"	d
+SS_WHITEFRAME	.\winres.h	216;"	d
+SS_WHITERECT	.\winres.h	213;"	d
+SendCommand	.\afxdmask.cpp	/^void SendCommand(HWND hWnd)$/;"	f	signature:(HWND hWnd)
+SendCommand	.\afxdmask.cpp	/^void SendCommand(HWND hWnd);$/;"	p	file:	signature:(HWND hWnd)
+SetFocusOtherProcess	.\afxdmask.cpp	/^void SetFocusOtherProcess(HWND hWnd)$/;"	f	signature:(HWND hWnd)
+SetFocusOtherProcess	.\afxdmask.cpp	/^void SetFocusOtherProcess(HWND hWnd);$/;"	p	file:	signature:(HWND hWnd)
+SubProc	.\afxdmask.cpp	/^LRESULT CALLBACK SubProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)$/;"	f	signature:(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
+SubProc	.\afxdmask.cpp	/^LRESULT CALLBACK SubProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp);$/;"	p	file:	signature:(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
+Text	.\resfmt.h	/^	U16 *Text;$/;"	m	struct:_ControlData	access:public
+VERSION_BUGFIX	.\version.h	3;"	d
+VERSION_MAJOR	.\version.h	1;"	d
+VERSION_MINOR	.\version.h	2;"	d
+VERSION_NUMSTRING	.\version.h	5;"	d
+VERSION_STRING	.\version.h	4;"	d
+VK_ADD	.\winres.h	147;"	d
+VK_BACK	.\winres.h	110;"	d
+VK_CANCEL	.\winres.h	108;"	d
+VK_CAPITAL	.\winres.h	118;"	d
+VK_CLEAR	.\winres.h	112;"	d
+VK_CONTROL	.\winres.h	115;"	d
+VK_DECIMAL	.\winres.h	150;"	d
+VK_DELETE	.\winres.h	134;"	d
+VK_DIVIDE	.\winres.h	151;"	d
+VK_DOWN	.\winres.h	128;"	d
+VK_END	.\winres.h	123;"	d
+VK_ESCAPE	.\winres.h	119;"	d
+VK_EXECUTE	.\winres.h	131;"	d
+VK_F1	.\winres.h	152;"	d
+VK_F10	.\winres.h	161;"	d
+VK_F11	.\winres.h	162;"	d
+VK_F12	.\winres.h	163;"	d
+VK_F13	.\winres.h	164;"	d
+VK_F14	.\winres.h	165;"	d
+VK_F15	.\winres.h	166;"	d
+VK_F16	.\winres.h	167;"	d
+VK_F17	.\winres.h	168;"	d
+VK_F18	.\winres.h	169;"	d
+VK_F19	.\winres.h	170;"	d
+VK_F2	.\winres.h	153;"	d
+VK_F20	.\winres.h	171;"	d
+VK_F21	.\winres.h	172;"	d
+VK_F22	.\winres.h	173;"	d
+VK_F23	.\winres.h	174;"	d
+VK_F24	.\winres.h	175;"	d
+VK_F3	.\winres.h	154;"	d
+VK_F4	.\winres.h	155;"	d
+VK_F5	.\winres.h	156;"	d
+VK_F6	.\winres.h	157;"	d
+VK_F7	.\winres.h	158;"	d
+VK_F8	.\winres.h	159;"	d
+VK_F9	.\winres.h	160;"	d
+VK_HELP	.\winres.h	135;"	d
+VK_HOME	.\winres.h	124;"	d
+VK_INSERT	.\winres.h	133;"	d
+VK_LBUTTON	.\winres.h	106;"	d
+VK_LEFT	.\winres.h	125;"	d
+VK_MBUTTON	.\winres.h	109;"	d
+VK_MENU	.\winres.h	116;"	d
+VK_MULTIPLY	.\winres.h	146;"	d
+VK_NEXT	.\winres.h	122;"	d
+VK_NUMLOCK	.\winres.h	176;"	d
+VK_NUMPAD0	.\winres.h	136;"	d
+VK_NUMPAD1	.\winres.h	137;"	d
+VK_NUMPAD2	.\winres.h	138;"	d
+VK_NUMPAD3	.\winres.h	139;"	d
+VK_NUMPAD4	.\winres.h	140;"	d
+VK_NUMPAD5	.\winres.h	141;"	d
+VK_NUMPAD6	.\winres.h	142;"	d
+VK_NUMPAD7	.\winres.h	143;"	d
+VK_NUMPAD8	.\winres.h	144;"	d
+VK_NUMPAD9	.\winres.h	145;"	d
+VK_PAUSE	.\winres.h	117;"	d
+VK_PRINT	.\winres.h	130;"	d
+VK_PRIOR	.\winres.h	121;"	d
+VK_RBUTTON	.\winres.h	107;"	d
+VK_RETURN	.\winres.h	113;"	d
+VK_RIGHT	.\winres.h	127;"	d
+VK_SCROLL	.\winres.h	177;"	d
+VK_SELECT	.\winres.h	129;"	d
+VK_SEPARATOR	.\winres.h	148;"	d
+VK_SHIFT	.\winres.h	114;"	d
+VK_SNAPSHOT	.\winres.h	132;"	d
+VK_SPACE	.\winres.h	120;"	d
+VK_SUBTRACT	.\winres.h	149;"	d
+VK_TAB	.\winres.h	111;"	d
+VK_UP	.\winres.h	126;"	d
+VS_VERSION_INFO	.\winres.h	17;"	d
+WIN32_LEAN_AND_MEAN	.\StdAfx.h	9;"	d
+WM_USER	.\winres.h	286;"	d
+WS_BORDER	.\resfmt.h	31;"	d
+WS_BORDER	.\winres.h	86;"	d
+WS_CAPTION	.\resfmt.h	30;"	d
+WS_CAPTION	.\winres.h	85;"	d
+WS_CHILD	.\resfmt.h	23;"	d
+WS_CHILD	.\winres.h	78;"	d
+WS_CHILDWINDOW	.\resfmt.h	46;"	d
+WS_CHILDWINDOW	.\winres.h	100;"	d
+WS_CLIPCHILDREN	.\resfmt.h	28;"	d
+WS_CLIPCHILDREN	.\winres.h	80;"	d
+WS_CLIPSIBLINGS	.\resfmt.h	27;"	d
+WS_CLIPSIBLINGS	.\winres.h	79;"	d
+WS_DISABLED	.\resfmt.h	26;"	d
+WS_DISABLED	.\winres.h	82;"	d
+WS_DLGFRAME	.\resfmt.h	32;"	d
+WS_DLGFRAME	.\winres.h	87;"	d
+WS_EX_ACCEPTFILES	.\resfmt.h	54;"	d
+WS_EX_APPWINDOW	.\resfmt.h	71;"	d
+WS_EX_CLIENTEDGE	.\resfmt.h	61;"	d
+WS_EX_CONTEXTHELP	.\resfmt.h	62;"	d
+WS_EX_CONTROLPARENT	.\resfmt.h	69;"	d
+WS_EX_DLGMODALFRAME	.\resfmt.h	50;"	d
+WS_EX_DRAGDETECT	.\resfmt.h	51;"	d
+WS_EX_LEFT	.\resfmt.h	64;"	d
+WS_EX_LEFTSCROLLBAR	.\resfmt.h	67;"	d
+WS_EX_LTRREADING	.\resfmt.h	66;"	d
+WS_EX_MDICHILD	.\resfmt.h	58;"	d
+WS_EX_NOPARENTNOTIFY	.\resfmt.h	52;"	d
+WS_EX_OVERLAPPEDWINDOW	.\resfmt.h	73;"	d
+WS_EX_PALETTEWINDOW	.\resfmt.h	74;"	d
+WS_EX_RIGHT	.\resfmt.h	63;"	d
+WS_EX_RIGHTSCROLLBAR	.\resfmt.h	68;"	d
+WS_EX_RTLREADING	.\resfmt.h	65;"	d
+WS_EX_STATICEDGE	.\resfmt.h	70;"	d
+WS_EX_TOOLWINDOW	.\resfmt.h	59;"	d
+WS_EX_TOPMOST	.\resfmt.h	53;"	d
+WS_EX_TRANSPARENT	.\resfmt.h	55;"	d
+WS_EX_WINDOWEDGE	.\resfmt.h	60;"	d
+WS_GROUP	.\resfmt.h	37;"	d
+WS_GROUP	.\winres.h	94;"	d
+WS_HSCROLL	.\resfmt.h	34;"	d
+WS_HSCROLL	.\winres.h	89;"	d
+WS_ICONIC	.\resfmt.h	42;"	d
+WS_ICONIC	.\winres.h	102;"	d
+WS_MAXIMIZE	.\resfmt.h	29;"	d
+WS_MAXIMIZE	.\winres.h	84;"	d
+WS_MAXIMIZEBOX	.\resfmt.h	40;"	d
+WS_MAXIMIZEBOX	.\winres.h	93;"	d
+WS_MINIMIZE	.\resfmt.h	24;"	d
+WS_MINIMIZE	.\winres.h	83;"	d
+WS_MINIMIZEBOX	.\resfmt.h	39;"	d
+WS_MINIMIZEBOX	.\winres.h	92;"	d
+WS_OVERLAPPED	.\resfmt.h	21;"	d
+WS_OVERLAPPED	.\winres.h	76;"	d
+WS_OVERLAPPEDWINDOW	.\resfmt.h	44;"	d
+WS_OVERLAPPEDWINDOW	.\winres.h	98;"	d
+WS_POPUP	.\resfmt.h	22;"	d
+WS_POPUP	.\winres.h	77;"	d
+WS_POPUPWINDOW	.\resfmt.h	45;"	d
+WS_POPUPWINDOW	.\winres.h	99;"	d
+WS_SIZEBOX	.\resfmt.h	43;"	d
+WS_SIZEBOX	.\winres.h	103;"	d
+WS_SYSMENU	.\resfmt.h	35;"	d
+WS_SYSMENU	.\winres.h	90;"	d
+WS_TABSTOP	.\resfmt.h	38;"	d
+WS_TABSTOP	.\winres.h	95;"	d
+WS_THICKFRAME	.\resfmt.h	36;"	d
+WS_THICKFRAME	.\winres.h	91;"	d
+WS_TILED	.\resfmt.h	41;"	d
+WS_TILED	.\winres.h	101;"	d
+WS_TILEDWINDOW	.\resfmt.h	47;"	d
+WS_TILEDWINDOW	.\winres.h	104;"	d
+WS_VISIBLE	.\resfmt.h	25;"	d
+WS_VISIBLE	.\winres.h	81;"	d
+WS_VSCROLL	.\resfmt.h	33;"	d
+WS_VSCROLL	.\winres.h	88;"	d
+WinMain	.\afxdmask.cpp	/^int WINAPI WinMain(HINSTANCE hCurInst, HINSTANCE hPrevInst,$/;"	f	signature:(HINSTANCE hCurInst, HINSTANCE hPrevInst, LPSTR lpsCmdLine, int nCmdShow)
+WndProc	.\afxdmask.cpp	/^LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)$/;"	f	signature:(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+WndProc	.\afxdmask.cpp	/^LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);$/;"	p	file:	signature:(HWND, UINT, WPARAM, LPARAM)
+_APS_NEXT_COMMAND_VALUE	.\resource.h	16;"	d
+_APS_NEXT_CONTROL_VALUE	.\resource.h	17;"	d
+_APS_NEXT_RESOURCE_VALUE	.\resource.h	15;"	d
+_APS_NEXT_SYMED_VALUE	.\resource.h	18;"	d
+_ControlData	.\resfmt.h	/^typedef struct _ControlData $/;"	s
+_ControlData::ClassId	.\resfmt.h	/^	U16 *ClassId;$/;"	m	struct:_ControlData	access:public
+_ControlData::Text	.\resfmt.h	/^	U16 *Text;$/;"	m	struct:_ControlData	access:public
+_ControlData::cx	.\resfmt.h	/^	U16 cx;$/;"	m	struct:_ControlData	access:public
+_ControlData::cy	.\resfmt.h	/^	U16 cy;$/;"	m	struct:_ControlData	access:public
+_ControlData::lExtendedStyle	.\resfmt.h	/^	U32 lExtendedStyle;$/;"	m	struct:_ControlData	access:public
+_ControlData::lStyle	.\resfmt.h	/^	U32 lStyle;$/;"	m	struct:_ControlData	access:public
+_ControlData::nExtraStuff	.\resfmt.h	/^	U16 nExtraStuff;$/;"	m	struct:_ControlData	access:public
+_ControlData::wId	.\resfmt.h	/^	U16 wId;$/;"	m	struct:_ControlData	access:public
+_ControlData::x	.\resfmt.h	/^	U16 x;$/;"	m	struct:_ControlData	access:public
+_ControlData::y	.\resfmt.h	/^	U16 y;$/;"	m	struct:_ControlData	access:public
+_DialogBoxHeader	.\resfmt.h	/^typedef struct _DialogBoxHeader $/;"	s
+_DialogBoxHeader::ClassName	.\resfmt.h	/^	U16 *ClassName;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::MenuName	.\resfmt.h	/^	U16 *MenuName;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::NumberOfItems	.\resfmt.h	/^	U16 NumberOfItems;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::cx	.\resfmt.h	/^	U16 cx;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::cy	.\resfmt.h	/^	U16 cy;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::lExtendedStyle	.\resfmt.h	/^	U32 lExtendedStyle;     \/\/ new for NT$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::lStyle	.\resfmt.h	/^	U32 lStyle;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::szCaption	.\resfmt.h	/^	U16 *szCaption;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::szFontName	.\resfmt.h	/^	U16 *szFontName;       \/\/ This too$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::wPointSize	.\resfmt.h	/^	U16 wPointSize;         \/\/ Only here if FONT set for dialog$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::x	.\resfmt.h	/^	U16 x;$/;"	m	struct:_DialogBoxHeader	access:public
+_DialogBoxHeader::y	.\resfmt.h	/^	U16 y;$/;"	m	struct:_DialogBoxHeader	access:public
+_TFileBoxCnt	.\afxdmask.cpp	/^int			_TFileBoxCnt = 0;$/;"	v
+_TPalnelCnt	.\afxdmask.cpp	/^int			_TPalnelCnt = 0;$/;"	v
+_app_path	.\afxdmask.cpp	/^char		_app_path[MAX_PATH];$/;"	v
+_bkBrush	.\afxdmask.cpp	/^HBRUSH		_bkBrush = NULL;$/;"	v
+_class_name	.\afxdmask.cpp	/^char		_class_name[] = "afxdmask";$/;"	v
+_cmd_line	.\afxdmask.cpp	/^char*		_cmd_line;$/;"	v
+_cmd_line_len	.\afxdmask.cpp	/^int			_cmd_line_len;$/;"	v
+_hSubWnd	.\afxdmask.cpp	/^FARPROC		_hSubWnd;$/;"	v
+_hWndAfx	.\afxdmask.cpp	/^HWND		_hWndAfx;$/;"	v
+_hWndAfxCurFileList	.\afxdmask.cpp	/^HWND		_hWndAfxCurFileList = 0;$/;"	v
+_hWndAfxLeftLabel	.\afxdmask.cpp	/^HWND		_hWndAfxLeftLabel = 0;$/;"	v
+_hWndAfxRightLabel	.\afxdmask.cpp	/^HWND		_hWndAfxRightLabel = 0;$/;"	v
+_hWndEdit	.\afxdmask.cpp	/^HWND		_hWndEdit;$/;"	v
+_hWndThis	.\afxdmask.cpp	/^HWND		_hWndThis;$/;"	v
+_is_left	.\afxdmask.cpp	/^BOOL		_is_left;$/;"	v
+cx	.\resfmt.h	/^	U16 cx;$/;"	m	struct:_ControlData	access:public
+cx	.\resfmt.h	/^	U16 cx;$/;"	m	struct:_DialogBoxHeader	access:public
+cy	.\resfmt.h	/^	U16 cy;$/;"	m	struct:_ControlData	access:public
+cy	.\resfmt.h	/^	U16 cy;$/;"	m	struct:_DialogBoxHeader	access:public
+hInst	.\afxdmask.cpp	/^HINSTANCE	hInst;$/;"	v
+lExtendedStyle	.\resfmt.h	/^	U32 lExtendedStyle;     \/\/ new for NT$/;"	m	struct:_DialogBoxHeader	access:public
+lExtendedStyle	.\resfmt.h	/^	U32 lExtendedStyle;$/;"	m	struct:_ControlData	access:public
+lStyle	.\resfmt.h	/^	U32 lStyle;$/;"	m	struct:_ControlData	access:public
+lStyle	.\resfmt.h	/^	U32 lStyle;$/;"	m	struct:_DialogBoxHeader	access:public
+nExtraStuff	.\resfmt.h	/^	U16 nExtraStuff;$/;"	m	struct:_ControlData	access:public
+szCaption	.\resfmt.h	/^	U16 *szCaption;$/;"	m	struct:_DialogBoxHeader	access:public
+szFontName	.\resfmt.h	/^	U16 *szFontName;       \/\/ This too$/;"	m	struct:_DialogBoxHeader	access:public
+wId	.\resfmt.h	/^	U16 wId;$/;"	m	struct:_ControlData	access:public
+wPointSize	.\resfmt.h	/^	U16 wPointSize;         \/\/ Only here if FONT set for dialog$/;"	m	struct:_DialogBoxHeader	access:public
+wvControlDataGtk	.\resfmt.h	/^void wvControlDataGtk(ControlData *ctl,FILE *out);$/;"	p	signature:(ControlData *ctl,FILE *out)
+wvDialogBoxHeaderGtk	.\resfmt.h	/^void wvDialogBoxHeaderGtk(DialogBoxHeader *dlg,FILE *out);$/;"	p	signature:(DialogBoxHeader *dlg,FILE *out)
+wvFreeControlData	.\resfmt.h	/^void wvFreeControlData(ControlData *ctl);$/;"	p	signature:(ControlData *ctl)
+wvFreeDialogBoxHeader	.\resfmt.h	/^void wvFreeDialogBoxHeader(DialogBoxHeader *dlg);$/;"	p	signature:(DialogBoxHeader *dlg)
+wvGetControlData	.\resfmt.h	/^void wvGetControlData(ControlData *ctl,FILE *fd);$/;"	p	signature:(ControlData *ctl,FILE *fd)
+wvGetDialogBoxHeader	.\resfmt.h	/^void wvGetDialogBoxHeader(DialogBoxHeader *dlg,FILE *fd);$/;"	p	signature:(DialogBoxHeader *dlg,FILE *fd)
+x	.\resfmt.h	/^	U16 x;$/;"	m	struct:_ControlData	access:public
+x	.\resfmt.h	/^	U16 x;$/;"	m	struct:_DialogBoxHeader	access:public
+y	.\resfmt.h	/^	U16 y;$/;"	m	struct:_ControlData	access:public
+y	.\resfmt.h	/^	U16 y;$/;"	m	struct:_DialogBoxHeader	access:public

@@ -1,0 +1,8 @@
+AFXCKW
+"send ckw [curfile]   (カレントファイルをckwに贈る)" $~\afxtools\bin\afxckw.exe -e $F
+"cd [thisdir]         (カレント窓のディレクトリにCD)(current dir)" $~\afxtools\bin\afxckw.exe -e cd $P\
+"nyaos >              (NYAOS起動)" $~\afxtools\bin\afxckw.exe -E nyaos.exe
+"telnet ... >>        (telnet実行)" $~\afxtools\bin\afxckw.exe -F telnet $I4"telnet (intput ipaddress)" && pause && exit
+"fc                   (左右のマークファイルをfc)(diff)" $~\afxtools\bin\afxexec.exe cmd /c fc /n $MF $MO |more && pause && exit
+"exit                 (afxckw終了)" $~\afxtools\bin\afxckw.exe -e exit
+"#edit afxcmd6.mnu    (CKWメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd6.mnu"

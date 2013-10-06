@@ -1,0 +1,37 @@
+AFXBUILD
+"vcbuild Release|Win32 vc9        (Visual Studio 2008)" $~\afxckw.exe -e "$~\afxmake_vc9.bat" "$P" $IT"$"Release|$kWin32$K$""$I4"Releaseびるど"
+"vcbuild Debug|Win32   vc9        (Visual Stddio 2008)" $~\afxckw.exe -e "$~\afxmake_vc9.bat" "$P" $IT"$"Debug|$kWin32$K$""$I4"Debugびるど"
+"for nmake vcvars32    vc9        (Visual Stduio 2008)" $~\afxckw.exe -E "$~\afxmake_nmake9.bat"
+"vcbuild Release|Win32 vc8        (Visual Studio 2005)" $~\afxckw.exe -e "$~\afxmake_vc8.bat" "$P" $IT"$"Release|$kWin32$K$""$I4"Releaseびるど"
+"vcbuild Debug|Win32   vc8        (Visual Stddio 2005)" $~\afxckw.exe -e "$~\afxmake_vc8.bat" "$P" $IT"$"Debug|$kWin32$K$""$I4"Debugびるど"
+"for nmake vcvars32    vc8        (Visual Stduio 2005)" $~\afxckw.exe -E "$~\afxmake_nmake8.bat"
+"WDK full-build chk x64 win7      (Windows Driver Kit 7.1)" $~\afxckw.exe -e "$~\afxmake_wdk.bat" "$P" $IT"$kchk$K x64 WIN7 -cfeg"$I4"ふるびるど(chk|fre x86|x64 WIN7|WNET|WLH|WXP)"
+"WDK diff-build chk x64 win7      (Windows Driver Kit 7.1)" $~\afxckw.exe -e "$~\afxmake_wdk.bat" "$P" $IT"$kchk$K x64 WIN7 -ZPg"$I4"差分びるど(chk|fre x86|x64 WIN7|WNET|WLH|WXP)"
+"java set package root dir -> $8  (package root)" &SET 8 "$P"
+"java javac             [selfiles](javac)" &EACHNW -P $~\afxckw.exe -e "$~\afxmake_java.bat" "$P" $8 $MF
+"java javac -g          [selfiles](javac -g)" &EACHNW -P $~\afxckw.exe -e "$~\afxmake_java.bat" "$P" $8 $MF -g
+"java javac input param [selfiles](javac param)" &EACHNW -P $~\afxckw.exe -e "$~\afxmake_java.bat" "$P" $8 $MF $IT" $k-g$K"$I4"javac (input javac parameters)"
+"apache ant (input target)        (apache ant)" $~\afxckw.exe -e "$~\afxmake_ant.bat" "$P" $I4"apache ant (input target)"
+"apache ant debug                 (apache ant)" $~\afxckw.exe -e "$~\afxmake_ant.bat" "$P" debug
+"apache ant clean                 (apache ant)" $~\afxckw.exe -e "$~\afxmake_ant.bat" "$P" clean
+"flex fcsh                        (FLEX fcsh)" $~\afxckw.exe -e fcsh
+"flex mxmlc                       (FLEX fcsh)" $~\afxckw.exe -e mxmlc $MF $IT"$k-default-frame-rate=20 -target-player=10$K"$I4"mxmlc (input parameter)"
+"flex mxmlc rate=20 player=10     (FLEX fcsh)" $~\afxckw.exe -e mxmlc $MF -default-frame-rate=20 -target-player=10
+"flex compile 1                   (FLEX fcsh compile 1)" $~\afxckw.exe -e compile 1
+"flex compile 2                   (FLEX fcsh compile 2)" $~\afxckw.exe -e compile 2
+"flex compile 3                   (FLEX fcsh compile 3)" $~\afxckw.exe -e compile 3
+"flex compile 4                   (FLEX fcsh compile 4)" $~\afxckw.exe -e compile 4
+"flex compile 5                   (FLEX fcsh compile 5)" $~\afxckw.exe -e compile 5
+"flex clear   1                   (FLEX fcsh clear   1)" $~\afxckw.exe -e clear   1
+"flex clear   2                   (FLEX fcsh clear   2)" $~\afxckw.exe -e clear   2
+"flex clear   3                   (FLEX fcsh clear   3)" $~\afxckw.exe -e clear   3
+"flex clear   4                   (FLEX fcsh clear   4)" $~\afxckw.exe -e clear   4
+"flex clear   5                   (FLEX fcsh clear   5)" $~\afxckw.exe -e clear   5
+"flex info    1                   (FLEX fcsh clear   1)" $~\afxckw.exe -e clear   1
+"flex info    2                   (FLEX fcsh clear   2)" $~\afxckw.exe -e clear   2
+"flex info    3                   (FLEX fcsh clear   3)" $~\afxckw.exe -e clear   3
+"flex info    4                   (FLEX fcsh clear   4)" $~\afxckw.exe -e clear   4
+"flex info    5                   (FLEX fcsh clear   5)" $~\afxckw.exe -e clear   5
+"flex fcsh quit (exit)            (FLEX fcsh exit)" $~\afxckw.exe -e quit
+"#edit afxmake_common.bat         (afxmake_common.bat編集)" &EDIT "$~\afxmake_common.bat"
+"#edit afxcmdb.mnu                (びるどニュー編集)" &EDIT "$V"afx"\afxmake.mnu"

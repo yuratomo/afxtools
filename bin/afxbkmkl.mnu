@@ -1,0 +1,4 @@
+afx ‚ç‚ñ‚¿‚á
+"------------------------------"
+"add/delete"	afxbkmk.exe "$V"afx"\afxbkmkl.mnu" -1e "$P\$F"
+"edit"		&EDIT "$V"afx"\afxbkmkl.mnu"

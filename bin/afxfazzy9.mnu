@@ -1,0 +1,36 @@
+AFXCKWCOLOR
+"黒青  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 01
+"黒緑  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 02
+"黒水  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 03
+"黒赤  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 04
+"黒紫  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 05
+"黒黄  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 06
+"黒白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 07
+"黒灰  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 08
+"黒明青" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 09
+"黒明緑" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0A
+"黒明水" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0B
+"黒明赤" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0C
+"黒明紫" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0D
+"黒明黄" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0E
+"黒明白" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 0F
+"白黒  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F0
+"白青  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F1
+"白緑  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F2
+"白水  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F3
+"白赤  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F4
+"白紫  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F5
+"白黄  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F6
+"白白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F7
+"白灰  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F8
+"白明青" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR F9
+"白明緑" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR FA
+"白明水" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR FB
+"白明赤" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR FC
+"白明紫" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR FD
+"白明黄" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR FE
+"明赤明白 (シャア専用)(char)" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR CF
+"赤白     (シャア専用)(char)" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 47
+"青白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 17
+"緑白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 17
+"#edit afxcmd9.mnu (CKWカラーメニュー編集)"		&EDIT "$V"afx"\afxtools\bin\afxcmd9.mnu"

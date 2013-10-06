@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="afxfind"
-	ProjectGUID="{3C65C596-C538-4762-9690-BCCE9E0B0FF4}"
-	RootNamespace="afxfind"
+	Name="afxdmask"
+	ProjectGUID="{38344E30-E3DE-436A-8A85-A3DC46CEA75F}"
+	RootNamespace="afxdmask"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,10 +17,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\bin"
+			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,14 +40,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\afxcom"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4996"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -90,7 +88,7 @@
 			OutputDirectory="$(SolutionDir)bin"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -112,13 +110,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\afxcom"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4996"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -163,19 +159,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath="..\afxcom\afxcom.cpp"
+			RelativePath=".\afxdmask.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\afxfind.cpp"
+			RelativePath=".\afxdmask.h"
 			>
 		</File>
 		<File
-			RelativePath=".\afxfind.h"
-			>
-		</File>
-		<File
-			RelativePath=".\afxfind.rc"
+			RelativePath=".\afxdmask.rc"
 			>
 		</File>
 		<File

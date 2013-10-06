@@ -1,0 +1,3 @@
+AFXTAIL
+"tail [curfile]  (‚Ä‚¢‚éŠJn)[start]" $~\afxtools\bin\afxtail.exe $MF
+"tail end        (‚Ä‚¢‚éI—¹)[end][finish]" $~\afxtools\bin\afxtail.exe

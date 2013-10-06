@@ -1,0 +1,21 @@
+AFXACCESSORY
+"Explorer          (エクスプローラ)"	explorer.exe
+"notepad           (メモ帳)"	notepad.exe
+"notepad [curfile] (メモ帳)"	notepad.exe "$P\$F"
+"wordpad           (ワードパッド)" wordpad.exe
+"wordpad [curfile] (ワードパッド)" wordpad.exe "$P\$F"
+"calc              (計算機)"	calc.exe
+"regedit           (レジストリエディタ)"	regedit.exe
+"cmd               (コマンドプロンプト)"	cmd.exe
+"taskmgr           (タスクマネージャー)"	taskmgr.exe
+"remote desktop    (リモートデスクトップ)" mstsc.exe
+"defrag            (デフラグ)" dfrgui.exe
+"mspaint           (ペイント)"	mspaint.exe
+"mspaint [curfile] (ペイント)"	mspaint.exe "$P\$F"
+"msinfo            (システム情報)" msinfo32.exe
+"taskschd          (タスクスケジューラ)" &OPEN $V"windir"\system32\taskschd.msc
+"perfmon           (リソースモニター)" perfmon.exe /res
+"cleanmgr          (ディスククリーンナップ)" cleanmgr.exe
+"iexplorer         (IE google)"	explorer.exe http://www.google.co.jp/
+"wuapp             (ウィンドウズアップデート)(update)" wuapp.exe startmenu
+"#edit afxcmd2.mnu (あくせさりメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd2.mnu"
