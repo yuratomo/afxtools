@@ -63,3 +63,17 @@ android開発支援ツール for あふw
 ### 16. afxbrws ###
 HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 
+### 17. afxtask (NEW!!) ###
+あふwのメッセージ窓にタスク一覧を表示します。
+削除することによってプロセスを終了することが可能です。
+
+
+History
+-------
+
+* 1.1.0 yuratomo
+  - afxtask追加
+  - AFXW.DEF.sampleとAFXW.ini.sampleを追加
+
+* 1.0.0 yuratomo
+  - Initial Upload

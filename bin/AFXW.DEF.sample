@@ -1,0 +1,87 @@
+[AFXW]
+CFG=ON
+
+[EXT_NORMAL]
+; afx2ch
+E_003=2ch
+N_003="$~\afx2ch.exe $P\$F"
+
+; afxbrws
+E_004=pdf
+N_004=""$~\afxbrws.exe" $P\$F"
+E_005=html
+N_005=""$~\afxbrws.exe" $P\$F"
+E_006=doc
+N_006=""$~\afxbrws.exe" $P\$F"
+E_007=xls
+N_007=""$~\afxbrws.exe" $P\$F"
+E_008=rtf
+N_008=""$~\afxbrws.exe" $P\$F"
+E_009=ppt
+N_009=""$~\afxbrws.exe" $P\$F"
+E_010=mnu
+N_010="&MENU "$P\$F""
+
+[KEY_DEF]
+KEY_00="&CLIP $P"
+KEY_01="&CLIP $W"
+
+; ägí£éqÉJÉâÅ[ê›íË
+[REG_COL]
+COL_00=8421631
+EXT_00=txt
+COL_01=16363178
+EXT_01=doc
+COL_02=16744703
+EXT_02=xls
+COL_03=16711935
+EXT_03=vsd
+COL_04=13266096
+EXT_04=pdf
+COL_05=16777088
+EXT_05=lzh
+COL_06=16776960
+EXT_06=zip
+COL_07=13481221
+EXT_07=cab
+COL_08=8116625
+EXT_08=exe
+COL_09=8454143
+EXT_09=c
+COL_10=8454143
+EXT_10=cpp
+COL_11=8454016
+EXT_11=h
+COL_12=8454016
+EXT_12=hpp
+COL_13=33023
+EXT_13=dsw
+COL_14=16711935
+EXT_14=html
+COL_15=1566790
+EXT_15=java
+COL_16=4232925
+EXT_16=class
+COL_17=16561545
+EXT_17=xml
+COL_18=12711943
+EXT_18=xsl
+COL_19=65535
+EXT_19=bmp
+COL_20=8388863
+EXT_20=sln
+COL_21=255
+EXT_21=vcproj
+COL_22=16711935
+EXT_22=rc
+COL_23=65280
+EXT_23=as
+COL_24=16756961
+EXT_24=mxml
+COL_25=8252588
+EXT_25=cc
+COL_26=255
+EXT_26=ini
+COL_27=65280
+EXT_27=2ch
+

@@ -1,0 +1,29 @@
+﻿
+; 最小フォント指定
+[FONT]
+FL_SIZE=8
+FL_LSPC=1
+FR_SIZE=8
+FR_LSPC=0
+MB_SIZE=8
+VW_SIZE=8
+LWFS=6
+RWFS=6
+PT_NAME=ＭＳ ゴシック
+PT_SIZE=8
+VL_NAME=ＭＳ ゴシック
+VL_SIZE=8
+IF_NAME=ＭＳ ゴシック
+IF_SIZE=8
+FL_NAME=ＭＳ ゴシック
+FR_NAME=ＭＳ ゴシック
+MB_NAME=ＭＳ ゴシック
+FK_NAME=ＭＳ ゴシック
+FK_SIZE=8
+SB_NAME=ＭＳ ゴシック
+SB_SIZE=8
+VW_NAME=ＭＳ ゴシック
+
+[PROGRAM]
+;afxvim
+EDITOR="afxtools\bin\afxvim.exe c:\vim\gvim.exe"

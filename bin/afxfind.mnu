@@ -1,16 +1,5 @@
-﻿#C:\Program Files\afx\afxtools\bin
-afxbkmk.pdb
-afxbrws.pdb
-afxclock.pdb
-afxdmask.pdb
-afxexec.pdb
-afxfazzy.pdb
-afxfind.pdb
-afxflist.pdb
-afxmake.pdb
-afxpopd.pdb
-afxpushd.pdb
-afxswitch.pdb
-afxtail.pdb
-afxvim.pdb
-afxyzzy.pdb
+﻿#C:\Program Files\afx\afxtools
+afxftp\Debug
+afxftp\test\Debug
+afxmake\Debug
+afxtail\Debug
