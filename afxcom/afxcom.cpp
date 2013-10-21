@@ -91,6 +91,28 @@ HRESULT AfxExec(int autoType, VARIANT *pvResult, IDispatch *pDisp, LPOLESTR ptNa
 	return hr;
 }
 
+int AfxExec(IDispatch *pDisp, const char* line)
+{
+	size_t len = strlen(line)+1;
+	wchar_t* wbuf = new wchar_t[len];
+	memset(wbuf, 0, 2*len);
+	mbstowcs(wbuf, line, 2*len);
+	wchar_t* cr = wcsstr(wbuf, L"\r");
+	if (cr != NULL) *cr = L'\0';
+
+	VARIANT x;
+	x.vt = VT_BSTR;
+	x.bstrVal = ::SysAllocString(wbuf);
+	HRESULT ret = AfxExec(DISPATCH_METHOD, NULL, pDisp, L"Exec", 1, x);
+	delete [] wbuf;
+
+	if(FAILED(ret)) {
+		return 0;
+	}
+
+	return 1;
+}
+
 void AfxCleanup(IDispatch* &pAfxApp)
 {
 	if (pAfxApp == NULL) {

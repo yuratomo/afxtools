@@ -1,3 +1,3 @@
 afx Ç‘Ç¡Ç≠Ç‹Å[Ç≠
-"edit"		&EDIT "$V"afx"\afxbkmk.mnu"
-"add/delete"	afxbkmk "$V"afx"\afxbkmk.mnu" "$P\\"
+"edit"		&EDIT "$~\afxtools\bin\afxbkmk.mnu"
+"add/delete"	afxbkmk "$~\afxtools\bin\afxbkmk.mnu" "$P\\"

@@ -1,0 +1,17 @@
+LIBRARY afxdrive
+EXPORTS
+	ApiGetPluginInfo
+	ApiOpen
+	ApiClose
+	ApiFindFirst
+	ApiFindNext
+	ApiCopyTo
+	ApiIntCopyTo
+	ApiDelete
+	ApiCopyFrom
+	ApiExecute
+	ApiMove
+	ApiRename
+	ApiCreateDirectory
+	ApiRemoveDirectory
+	ApiShowContextMenu

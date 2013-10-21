@@ -5,9 +5,11 @@
  */
 #include <string.h>
 #include <stdio.h>
-#include "afxwapi.h"
-#include "version.h"
 #include <wchar.h>
+#include <locale.h>
+#include "afxwapi.h"
+#include "afxcom.h"
+#include "version.h"
 
 #define PLUGIN_NAME    L"afxflist"
 #define PLUGIN_AUTHOR  L"yuratomo"
@@ -22,6 +24,30 @@ typedef struct _PluginData {
 } PluginData, *lpPluginData;
 
 //void _ShowLastError();
+
+IDispatch* pAfxApp = NULL;
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpvReserved)
+{
+	switch(fdwReason)
+	{
+		case DLL_PROCESS_ATTACH:
+			setlocale( LC_ALL, "Japanese" );
+			AfxInit(pAfxApp);
+			break;
+
+		case DLL_PROCESS_DETACH:
+			AfxCleanup(pAfxApp);
+			break;
+
+		case DLL_THREAD_ATTACH:
+			break;
+
+		case DLL_THREAD_DETACH:
+			break;
+	}
+	return  TRUE;
+}
 
 /**
  * プラグイン情報を取得する。
@@ -205,34 +231,13 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
 		return 0;
 	}
 
-#if 0
-	if (pdata->afx.MesPrint != NULL) {
-		wchar_t szTest[512];
-		_swprintf(szTest, L"execute %s.",szItemPath);
-		pdata->afx.MesPrint(szTest);
-	}
-#endif
+	wchar_t wcmd[MAX_PATH+32];
+	swprintf(wcmd, L"&EXCD -P\"%s%s\"", pdata->wszBaseDir, szItemPath);
 
-	/*
-	if (ShellExecute(m_hWnd, L"open", szItemPath, NULL, NULL, SW_SHOWNORMAL) <= 32) {
-		return 0;
-	}
-	*/
-	int ret = 0;
-#if 0
-	if (pdata->afx.Exec != NULL) {
-		wchar_t szCmd[512];
-		_swprintf(szCmd, L"&EXCD -P\"%s/%s\"", pdata->wszBaseDir, szItemPath);
-		BOOL bRet = pdata->afx.Exec(szCmd);
-		if (bRet) {
-			ret = 1;
-		} else {
-			ret = 0;
-		}
-	}
-#endif
+	char cmd[MAX_PATH+32];
+	wcstombs(cmd, wcmd, sizeof(cmd));
 
-	return ret;
+	return AfxExec(pAfxApp, cmd);
 }
 
 /**

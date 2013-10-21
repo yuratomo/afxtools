@@ -119,8 +119,8 @@ HWND GetIEHWND(HWND hParent)
     if (hWnd) {
         ::GetClassName(hWnd, szClassName, 255);
 		_RPT1(_CRT_WARN, "%s\n", szClassName);
-        if (strcmp(szClassName,"Internet Explorer_Server") == 0 || 
-			strcmp(szClassName,"Shell Embedding") == 0)  {
+        if (strcmp(szClassName,"Internet Explorer_Server") == 0 /*|| 
+			strcmp(szClassName,"Shell Embedding") == 0*/)  {
             return hWnd;
         } else {
             return GetIEHWND(hWnd);

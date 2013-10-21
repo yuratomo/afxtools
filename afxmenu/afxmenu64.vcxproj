@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>afxtask</ProjectName>
-    <ProjectGuid>{43FFD640-6910-442C-9B63-F6829AFE5936}</ProjectGuid>
-    <RootNamespace>afxtask</RootNamespace>
+    <ProjectName>afxmenu64</ProjectName>
+    <ProjectGuid>{773E09F7-4382-4C8A-9EF8-7A2DA5B8F497}</ProjectGuid>
+    <RootNamespace>afxdrive</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -65,7 +65,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)..\bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
@@ -82,7 +82,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>afxtask.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>afxdrive.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <ModuleDefinitionFile>afxtask.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>afxdrive.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -123,7 +123,7 @@
     <Link>
       <AdditionalDependencies>Wininet.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <ModuleDefinitionFile>afxtask.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>afxmenu64.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
@@ -145,7 +145,7 @@
     <Link>
       <AdditionalDependencies>Wininet.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <ModuleDefinitionFile>afxtask.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>afxmenu64.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -154,17 +154,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\afxcom\afxcom.cpp" />
-    <ClCompile Include="afxtask.cpp" />
+    <ClCompile Include="afxmenu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="afxtask.def" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="afxtask.h" />
+    <ClInclude Include="afxwapi.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="afxtask.rc" />
+    <None Include="afxmenu64.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="afxmenu.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

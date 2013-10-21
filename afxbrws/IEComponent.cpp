@@ -11,6 +11,7 @@ IEComponent::IEComponent( HWND hOwnerWnd, HINSTANCE hInst, int ix, int iy, int i
 	m_lpUnkown = NULL;
 	m_lpIE = NULL;
 
+	/*
 	// ATL1.0/7.1/8.1ÇÃDLLÇåƒÇ—èoÇ∑
 	for( iCount = 0; iCount < 3; iCount ++ )
 	{
@@ -49,6 +50,17 @@ IEComponent::IEComponent( HWND hOwnerWnd, HINSTANCE hInst, int ix, int iy, int i
 	// DLLÇ™å©Ç¬Ç©ÇÁÇ»Ç¢
 	if( iCount == 3 )
 		return;
+	*/
+	// ATL1.0
+	m_hAtl = LoadLibrary( "atl.dll" );
+	if( m_hAtl )
+	{
+		lstrcpy( szWndCls, "AtlAxWin" );
+	}
+	else
+	{
+		return;
+	}
 
 	// COMÇèâä˙âª
 	CoInitialize( NULL );

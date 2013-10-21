@@ -33,4 +33,4 @@ AFXCKWCOLOR
 "赤白     (シャア専用)(char)" "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 47
 "青白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 17
 "緑白  " "$V"afx"\afxtools\bin\afxckw.exe" -e COLOR 17
-"#edit afxcmd9.mnu (CKWカラーメニュー編集)"		&EDIT "$V"afx"\afxtools\bin\afxcmd9.mnu"
+"#edit afxcmd9.mnu (CKWカラーメニュー編集)"		&EDIT "$~\afxtools\bin\afxcmd9.mnu"

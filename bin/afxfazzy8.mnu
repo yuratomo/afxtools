@@ -13,4 +13,4 @@ AFXFTP
 "pwd               (FTP PWD)" "$V"afx"\afxtools\bin\afxckw.exe" -e pwd
 "user ... >        (FTP USER)" "$V"afx"\afxtools\bin\afxckw.exe" -E user $I4"AFXCKW FTP USER (input username)
 "verbose           (FTP VERBOSE)" "$V"afx"\afxtools\bin\afxckw.exe" -e verbose
-"#edit afxcmd8.mnu (FTPメニュー編集)"		&EDIT "$V"afx"\afxtools\bin\afxcmd8.mnu"
+"#edit afxcmd8.mnu (FTPメニュー編集)"		&EDIT "$~\afxtools\bin\afxcmd8.mnu"

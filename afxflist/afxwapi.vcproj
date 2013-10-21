@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="..\afxcom\"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -116,7 +116,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=""
+				AdditionalIncludeDirectories="..\afxcom\"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -136,9 +137,11 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Wininet.lib"
 				ModuleDefinitionFile="afxwapi.def"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -315,15 +318,15 @@
 	</References>
 	<Files>
 		<File
+			RelativePath="..\afxcom\afxcom.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\afxwapi.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\afxwapi.def"
-			>
-		</File>
-		<File
-			RelativePath=".\afxwapi.h"
 			>
 		</File>
 		<File

@@ -32,4 +32,4 @@ AFXTOOLS
 "afxpushd push 8               (afxpushd.menuにpush)" "$~\afxtools\bin\afxpushd.exe" -n 8 "$L\\" "$R\\"
 "afxpushd push 9               (afxpushd.menuにpush)" "$~\afxtools\bin\afxpushd.exe" -n 9 "$L\\" "$R\\"
 "afxpushd push 10              (afxpushd.menuにpush)" "$~\afxtools\bin\afxpushd.exe" -n 10 "$L\\" "$R\\"
-"#edit afxcmda.mnu             (あふつーるメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmda.mnu"
+"#edit afxcmda.mnu             (あふつーるメニュー編集)" &EDIT "$~\afxtools\bin\afxcmda.mnu"

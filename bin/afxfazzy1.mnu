@@ -88,4 +88,4 @@ AFXINTERNAL
 "Mask *.tar" &MASK *.tar
 "Mask *.lzh" &MASK *.lzh
 "Mask *.gz" &MASK *.gz
-"#edit afxcmd1.mnu (内部こまんどメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd1.mnu"
+"#edit afxcmd1.mnu (内部こまんどメニュー編集)" &EDIT "$~\afxtools\bin\afxcmd1.mnu"

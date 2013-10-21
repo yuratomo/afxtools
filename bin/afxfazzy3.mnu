@@ -25,4 +25,4 @@ AFXCONTROLPANEL
 "admintools    (管理者ツール)" control.exe admintools
 "userpasswords (ユーザーアカウント)"  control.exe userpasswords
 "Open control panel (コンパネ開く)" rundll32.exe shell32.dll,Control_RunDLL
-"#edit afxcmd3.mnu  (こんぱねメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd3.mnu"
+"#edit afxcmd3.mnu  (こんぱねメニュー編集)" &EDIT "$~\afxtools\bin\afxcmd3.mnu"

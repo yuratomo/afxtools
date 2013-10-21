@@ -278,12 +278,24 @@ int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWS
 		return 1;
 	}
 
+	// モジュールファイル名出力
 	HMODULE hModule = NULL;
-	DWORD dummy = 0;
-	if(!EnumProcessModules(hProc, &hModule, sizeof(HMODULE), &dummy)) {
-		GetModuleFileNameEx(hProc, hModule, buf, sizeof(buf));
+	GetModuleFileNameEx(hProc, hModule, buf, sizeof(buf));
+	fwprintf(fp, L"Path: \n%s\n\nModules: \n", buf);
+
+	// 使用モジュール一覧
+	DWORD ReturnSize;
+	if(!EnumProcessModules(hProc, &hModule, 0, &ReturnSize)) {
+		return 1;
 	}
-	fwprintf(fp, L"Path: %s\n", buf);
+	DWORD ModuleNum = ReturnSize / sizeof(HMODULE);
+	HMODULE* ModuleHandles = new HMODULE[ModuleNum];
+	EnumProcessModules(hProc, ModuleHandles, ReturnSize, &ReturnSize);
+	for(unsigned int i=0; i<ModuleNum; i++) {
+		GetModuleFileName(ModuleHandles[i], buf, sizeof(buf));
+		fwprintf(fp, L"%s\n", buf);
+	}
+	delete [] ModuleHandles;
 
 	fclose(fp);
 

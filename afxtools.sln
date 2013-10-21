@@ -35,6 +35,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxbrws", "afxbrws\afxbrws.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxtask", "afxtask\afxtask.vcproj", "{509628EB-3DC4-4ECD-99A3-554452F27D10}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxdrive", "afxdrive\afxdrive.vcproj", "{DE56F31B-24AB-4428-B580-C21F706CF80B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxnetwork", "afxnetwork\afxnetwork.vcproj", "{9A5529F0-FC10-474E-9CC0-83895B2B01ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxmenu", "afxmenu\afxmenu.vcproj", "{064564AE-0EE5-4E8D-9355-8E442D70BB7A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxhistory", "afxhistory\afxhistory.vcproj", "{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -107,6 +115,22 @@ Global
 		{509628EB-3DC4-4ECD-99A3-554452F27D10}.Debug|Win32.Build.0 = Debug|Win32
 		{509628EB-3DC4-4ECD-99A3-554452F27D10}.Release|Win32.ActiveCfg = Release|Win32
 		{509628EB-3DC4-4ECD-99A3-554452F27D10}.Release|Win32.Build.0 = Release|Win32
+		{DE56F31B-24AB-4428-B580-C21F706CF80B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE56F31B-24AB-4428-B580-C21F706CF80B}.Debug|Win32.Build.0 = Debug|Win32
+		{DE56F31B-24AB-4428-B580-C21F706CF80B}.Release|Win32.ActiveCfg = Release|Win32
+		{DE56F31B-24AB-4428-B580-C21F706CF80B}.Release|Win32.Build.0 = Release|Win32
+		{9A5529F0-FC10-474E-9CC0-83895B2B01ED}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9A5529F0-FC10-474E-9CC0-83895B2B01ED}.Debug|Win32.Build.0 = Debug|Win32
+		{9A5529F0-FC10-474E-9CC0-83895B2B01ED}.Release|Win32.ActiveCfg = Release|Win32
+		{9A5529F0-FC10-474E-9CC0-83895B2B01ED}.Release|Win32.Build.0 = Release|Win32
+		{064564AE-0EE5-4E8D-9355-8E442D70BB7A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{064564AE-0EE5-4E8D-9355-8E442D70BB7A}.Debug|Win32.Build.0 = Debug|Win32
+		{064564AE-0EE5-4E8D-9355-8E442D70BB7A}.Release|Win32.ActiveCfg = Release|Win32
+		{064564AE-0EE5-4E8D-9355-8E442D70BB7A}.Release|Win32.Build.0 = Release|Win32
+		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Debug|Win32.Build.0 = Debug|Win32
+		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Release|Win32.ActiveCfg = Release|Win32
+		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

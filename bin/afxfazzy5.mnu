@@ -17,4 +17,4 @@ AFXSVN
 "status [thisdir]      (ステータス)" TortoiseProc.exe /command:repostatus /path:"$P" /notempfile
 "update [selfile]      (更新)" TortoiseProc.exe /command:update /path:"$QN$J*$MF" /notempfile
 "update [thisdir]      (このディレクトリを更新)" TortoiseProc.exe /command:update /path:"$P" /notempfile
-"#edit afxcmd5.mnu     (SVNメニュー編集)" &EDIT "$V"afx"\afxtools\bin\afxcmd5.mnu"
+"#edit afxcmd5.mnu     (SVNメニュー編集)" &EDIT "$~\afxtools\bin\afxcmd5.mnu"
