@@ -1,4 +1,4 @@
-LIBRARY afxdrive64
+LIBRARY afxgit64
 EXPORTS
 	ApiGetPluginInfo
 	ApiOpen
