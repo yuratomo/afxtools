@@ -1,0 +1,18 @@
+LIBRARY afxflist64
+EXPORTS
+	ApiGetPluginInfo
+	ApiOpen
+	ApiClose
+	ApiFindFirst
+	ApiFindNext
+	ApiCopy
+	ApiCopyTo
+	ApiIntCopyTo
+	ApiDelete
+	ApiCopyFrom
+	ApiExecute
+	ApiMove
+	ApiRename
+	ApiCreateDirectory
+	ApiRemoveDirectory
+	ApiShowContextMenu

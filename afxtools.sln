@@ -43,6 +43,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxmenu", "afxmenu\afxmenu.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxhistory", "afxhistory\afxhistory.vcproj", "{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxview", "afxview\afxview.vcproj", "{CAFCC1AE-063E-409D-8D21-4B7676E6D531}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxgit", "afxgit\afxgit.vcproj", "{D439E657-EF56-4CDB-B91C-971B3A3F64B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -131,6 +135,14 @@ Global
 		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Debug|Win32.Build.0 = Debug|Win32
 		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Release|Win32.ActiveCfg = Release|Win32
 		{F65C21C8-7254-4369-8EAF-73A2D5AEB95E}.Release|Win32.Build.0 = Release|Win32
+		{CAFCC1AE-063E-409D-8D21-4B7676E6D531}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CAFCC1AE-063E-409D-8D21-4B7676E6D531}.Debug|Win32.Build.0 = Debug|Win32
+		{CAFCC1AE-063E-409D-8D21-4B7676E6D531}.Release|Win32.ActiveCfg = Release|Win32
+		{CAFCC1AE-063E-409D-8D21-4B7676E6D531}.Release|Win32.Build.0 = Release|Win32
+		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Debug|Win32.Build.0 = Debug|Win32
+		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Release|Win32.ActiveCfg = Release|Win32
+		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

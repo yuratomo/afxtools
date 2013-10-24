@@ -1,55 +1,79 @@
 /**
- * 1行に1つのファイルパスが書かれたファイルを
- * あふwのファイル窓に表示するプラグイン
+ * あふwのファイル窓にGITのログやブランチを表示するプラグイン
  * 
  */
 #include <string.h>
 #include <stdio.h>
-#include <wchar.h>
 #include <locale.h>
+#include <windows.h>
+#include <wchar.h>
+/*
+#include <shlwapi.h>
+#include <shlobj.h>
+*/
 #include "afxwapi.h"
 #include "afxcom.h"
 #include "version.h"
 
-#define PLUGIN_NAME    L"afxflist"
+#define PLUGIN_NAME    L"afxgit"
 #define PLUGIN_AUTHOR  L"yuratomo"
+#define MAX_LINE_SIZE       4096
+#define MAX_BRANCH_ITEM_LEN 128
+#define MAX_LOG_ITEM_LEN    1024
 
-void TrimCarriageReturn(wchar_t* wszBaseDir);
-void ReplaceCharactor(wchar_t* wszPath, wchar_t from, wchar_t to);
+typedef enum _Mode {
+	Mode_Log,
+	Mode_Branch,
+} Mode;
+
+typedef struct _BranchItem {
+	wchar_t name[MAX_BRANCH_ITEM_LEN];
+	int selected; // 1: 選択中
+} BranchItem;
+
+typedef struct _LogItem {
+	DWORD id;
+	FILETIME tm;
+	wchar_t msg[MAX_LOG_ITEM_LEN];
+} LogItem;
 
 typedef struct _PluginData {
 	AfxwInfo afx;
-	wchar_t wszBaseDir[API_MAX_PATH_LENGTH];
-	FILE* fp;
-	/*
-	int open_dir;
-	*/
+	Mode mode;
+	int branch_count;
+	int branch_index;
+	BranchItem* branch_items;
+	int log_count;
+	int log_index;
+	LogItem* log_items;
 } PluginData, *lpPluginData;
 
-//void _ShowLastError();
-
 IDispatch* pAfxApp = NULL;
+wchar_t _ini_path[MAX_PATH];
+DWORD   _item_max = 64;
+HINSTANCE _instance;
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpvReserved)
 {
-	switch(fdwReason)
-	{
-		case DLL_PROCESS_ATTACH:
-			setlocale( LC_ALL, "Japanese" );
-			AfxInit(pAfxApp);
-			break;
+    switch(fdwReason)
+    {
+        case DLL_PROCESS_ATTACH:
+			_instance = hinstDLL;
+            setlocale( LC_ALL, "Japanese" );
+            AfxInit(pAfxApp);
+            break;
 
-		case DLL_PROCESS_DETACH:
-			AfxCleanup(pAfxApp);
-			break;
+        case DLL_PROCESS_DETACH:
+            AfxCleanup(pAfxApp);
+            break;
 
-		case DLL_THREAD_ATTACH:
-			break;
+        case DLL_THREAD_ATTACH:
+            break;
 
-		case DLL_THREAD_DETACH:
-			break;
-	}
-	return  TRUE;
+        case DLL_THREAD_DETACH:
+            break;
+    }
+    return  TRUE;
 }
 
 /**
@@ -74,6 +98,39 @@ void WINAPI ApiGetPluginInfo(lpApiInfo pluginInfo)
 	pluginInfo->dwVersion = MAKE_VERSION(VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, VERSION_REVISION);
 }
 
+DWORD run(wchar_t* cmdline, const wchar_t* redirectTo)
+{
+    STARTUPINFO StartupInfo;
+	PROCESS_INFORMATION ProcessInfo;
+    wchar_t Args[4096];
+
+    memset(&StartupInfo, 0, sizeof(StartupInfo));
+    StartupInfo.cb = sizeof(STARTUPINFO);
+    StartupInfo.dwFlags = STARTF_USESHOWWINDOW;
+    StartupInfo.wShowWindow = SW_HIDE;
+
+    Args[0] = 0;
+    wcscat(Args, cmdline);  
+    wcscat(Args, L" > \""); 
+    wcscat(Args, redirectTo);
+    wcscat(Args, L"\" 2>&1"); 
+
+    if (!CreateProcess( NULL, Args, NULL, NULL, FALSE,
+        CREATE_NEW_CONSOLE, 
+        NULL, 
+        NULL,
+        &StartupInfo,
+        &ProcessInfo))
+    {
+        return GetLastError();
+    }
+	if (WaitForSingleObject(ProcessInfo.hProcess, INFINITE) == WAIT_OBJECT_0) {
+		return 0;
+	}
+
+    return -1;
+}
+
 /**
  * プラグインオープンする。
  * @param[in]  szCommandLine プラグイン側に渡すコマンドライン。
@@ -89,37 +146,111 @@ HAFX WINAPI ApiOpen(LPCWSTR szCommandLine, const lpAfxwInfo afxwInfo, lpApiOpenI
 		return 0;
 	}
 
+	wchar_t dir[MAX_PATH];
+	wchar_t path[MAX_PATH];
+	memset(dir, 0, sizeof(dir));
+	memset(path, 0, sizeof(path));
+	GetTempPath(MAX_PATH, dir);
+	GetTempFileName(dir, L"afx", 0, path);
+
 	memset(pdata, 0, sizeof(PluginData));
 	memcpy(&pdata->afx, afxwInfo, sizeof(AfxwInfo));
 
-	pdata->fp = _wfopen(szCommandLine, L"r, ccs=utf-8");
-	if (pdata->fp == NULL) {
-		GlobalFree(pdata);
-		return 0;
+	GetModuleFileName(_instance, _ini_path, sizeof(_ini_path));
+	int len = wcslen(_ini_path);
+	_ini_path[len-1] = L'i';
+	_ini_path[len-2] = L'n';
+	_ini_path[len-3] = L'i';
+	::GetPrivateProfileString(L"Config", L"title", L"ぎっと", openInfo->szTitle, sizeof(openInfo->szTitle), _ini_path);
+	_item_max = ::GetPrivateProfileInt(L"Config", L"item_max", 64, _ini_path);
+	if (_item_max < 16) {
+		_item_max = 16;
 	}
 
-	wcsncpy(openInfo->szBaseDir, L"", API_MAX_PATH_LENGTH);
+	wcscpy(openInfo->szBaseDir, L"");
+	wcscpy(openInfo->szInitRelDir, L"");
 
-	// 先頭に#付きでパスが書いてあれば、基準ディレクトリにする
-	wchar_t temp[API_MAX_PATH_LENGTH];
-	if (fgetws(temp, API_MAX_PATH_LENGTH, pdata->fp) != NULL) {
-		if (temp[0] == L'#' && wcslen(temp) > 1) {
-			wcsncpy(openInfo->szBaseDir, &temp[1], API_MAX_PATH_LENGTH);
+	int ret;
+	if (wcscmp(szCommandLine, L"branch") == 0) {
+	// BRANCH
+		pdata->mode = Mode_Branch;
+		ret = run(L"cmd /c git branch", path);
+	} else if (wcscmp(szCommandLine, L"log") == 0) {
+	// LOG
+		pdata->mode = Mode_Log;
+		ret = run(L"cmd /c git log --pretty=format:\"%at %h %s\" -50", path);
+	} else {
+		GlobalFree(pdata);
+		return NULL;
+	}
+
+	if (ret != 0) {
+		GlobalFree(pdata);
+		pdata = NULL;
+	} else {
+		// load
+		int num = 0;
+		FILE* fp = _wfopen(path, L"r, ccs=utf-8");
+		if (fp == NULL) {
+			GlobalFree(pdata);
+			pdata = NULL;
 		} else {
-			fseek(pdata->fp, 0, SEEK_SET);
+			wchar_t temp[MAX_LINE_SIZE];
+			while (fgetws(temp, MAX_LINE_SIZE, fp) != NULL) {
+				num++;
+			}
+			if (num != 0) {
+				// BRANCH
+				if (pdata->mode == Mode_Branch) {
+					pdata->branch_items = new BranchItem[num];
+					pdata->branch_count = num;
+				} else 
+				if (pdata->mode == Mode_Log) {
+					pdata->log_items = new LogItem[num];
+					pdata->log_count = num;
+				}
+
+				int idx = 0;
+				fseek(fp, 0, SEEK_SET);
+				while (fgetws(temp, MAX_LINE_SIZE, fp) != NULL) {
+
+					// BRANCH
+					if (pdata->mode == Mode_Branch) {
+						if (wcslen(temp) > 3) {
+							if (temp[0] == L'*') {
+								pdata->branch_items[idx].selected = 1;
+							} else {
+								pdata->branch_items[idx].selected = 0;
+							}
+							wcsncpy(pdata->branch_items[idx].name, &temp[2], MAX_BRANCH_ITEM_LEN-1);
+							idx++;
+						}
+					} else
+
+					// LOG
+					if (pdata->mode == Mode_Log) {
+						if (wcslen(temp) > 1) {
+							int tm;
+							memset(pdata->log_items[idx].msg, 0, MAX_LOG_ITEM_LEN);
+							swscanf(temp, L"%10d %07x %s",
+								    &tm,
+									&pdata->log_items[idx].id,
+									pdata->log_items[idx].msg);
+							LONGLONG ll = Int32x32To64(tm, 10000000) + 116444736000000000;
+							pdata->log_items[idx].tm.dwHighDateTime = (ll >> 32) & 0xFFFFFFFF;
+							pdata->log_items[idx].tm.dwLowDateTime  =  ll        & 0xFFFFFFFF;
+							idx++;	
+						}
+					}
+
+				}
+			}
+			pdata->branch_index = 0;
+			pdata->log_index = 0;
 		}
 	}
 
-	wcsncpy(pdata->wszBaseDir, openInfo->szBaseDir, API_MAX_PATH_LENGTH);
-	TrimCarriageReturn(pdata->wszBaseDir);
-	ReplaceCharactor(pdata->wszBaseDir, L'\\', L'/');
-	if (wcscmp(pdata->wszBaseDir, L"") != 0) {
-		wcsncpy(openInfo->szBaseDir, pdata->wszBaseDir, API_MAX_PATH_LENGTH);
-	}
-
-	// 初期相対ディレクトリはルート("/")
-	wcscpy(openInfo->szInitRelDir, L"/");
-	wcscpy(openInfo->szTitle, L"検索結果");
+	DeleteFile(path);
 
 	return (HAFX)pdata;
 }
@@ -136,10 +267,6 @@ int  WINAPI ApiClose(HAFX handle)
 	if (pdata == NULL) {
 		return 0;
 	}
-
-	fclose(pdata->fp);
-	pdata->fp = NULL;
-
 	if (pdata != NULL) {
 		GlobalFree(pdata);
 	}
@@ -157,34 +284,8 @@ int  WINAPI ApiClose(HAFX handle)
  */
 int  WINAPI ApiFindFirst(HAFX handle, LPCWSTR szDirPath, /*LPCWSTR szWildName,*/ lpApiItemInfo lpItemInfo)
 {
-	lpPluginData pdata = (lpPluginData)handle;
-	if (pdata == NULL) {
-		return 0;
-	}
-
-	// 検索結果ディレクトリを開こうとしたかどうかの判断
-	/*
-	int len1 = wcslen(szDirPath);
-	int len2 = wcslen(pdata->wszBaseDir);
-	if (len1-1 != len2 || wcsncmp(szDirPath, pdata->wszBaseDir, len2) != 0) {
-		swprintf(lpItemInfo->szItemName, L"jump");
-		WIN32_FILE_ATTRIBUTE_DATA attrData;
-		GetFileAttributesEx(lpItemInfo->szItemName, GetFileExInfoStandard, &attrData);
-		lpItemInfo->dwAttr = FILE_ATTRIBUTE_SYSTEM;
-		lpItemInfo->ullItemSize = 0;
-		lpItemInfo->ullTimestamp = attrData.ftLastWriteTime;
-		pdata->open_dir = 1;
-		return 1;
-	}
-	*/
-
-	//テキストモードだとftellがうまく拾えないので、先頭にもどしてから１行読み飛ばすようにする
-	fseek(pdata->fp, 0, SEEK_SET);
-	if (fgetws(lpItemInfo->szItemName, API_MAX_PATH_LENGTH, pdata->fp) == NULL) {
-		return -1;
-	}
-
 	return ApiFindNext(handle, lpItemInfo);
+
 }
 
 /**
@@ -205,45 +306,36 @@ int  WINAPI ApiFindNext(HAFX handle, lpApiItemInfo lpItemInfo)
 		return -1;
 	}
 
-	/*
-	// 検索結果ディレクトリを開こうとしたかどうかの判断
-	if (pdata->open_dir == 1) {
+	memset(lpItemInfo->szItemName, 0, API_MAX_PATH_LENGTH);
+
+	if (pdata->mode == Mode_Branch) {
+		if (pdata->branch_index >= pdata->branch_count) {
+			return -1;
+		}
+
+		swprintf(lpItemInfo->szItemName, API_MAX_PATH_LENGTH, L"%s", pdata->branch_items[pdata->branch_index].name);
+		lpItemInfo->ullItemSize = pdata->branch_items[pdata->branch_index].selected;
+		lpItemInfo->dwAttr = FILE_ATTRIBUTE_NORMAL;
+		pdata->branch_index++;
+
+	} else if (pdata->mode == Mode_Log) {
+		if (pdata->log_index >= pdata->log_count) {
+			return -1;
+		}
+
+		swprintf(lpItemInfo->szItemName, _item_max, L"%07x %s",
+				pdata->log_items[pdata->log_index].id,
+				pdata->log_items[pdata->log_index].msg);
+		/*
+		swprintf(lpItemInfo->szItemName, API_MAX_PATH_LENGTH, L"%s", pdata->log_items[pdata->log_index].msg);
+		*/
+		lpItemInfo->ullItemSize = pdata->log_index;
+		lpItemInfo->dwAttr = FILE_ATTRIBUTE_NORMAL;
+		lpItemInfo->ullTimestamp = pdata->log_items[pdata->log_index].tm;
+		pdata->log_index++;
+
+	} else {
 		return -1;
-	}
-	*/
-
-	wchar_t line[API_MAX_PATH_LENGTH];
-	wchar_t path[API_MAX_PATH_LENGTH];
-	while (1) {
-		if (fgetws(line, API_MAX_PATH_LENGTH, pdata->fp) == NULL) {
-			if (feof(pdata->fp)) {
-				return 0;
-			} else {
-				return -1;
-			}
-		}
-		size_t len = wcslen(line);
-		if (len > 0 && line[len-1] == L'\n') {
-			line[len-1] = L'\0';
-		}
-
-		wsprintf(path, L"%s/%s", pdata->wszBaseDir, line);
-		WIN32_FILE_ATTRIBUTE_DATA attrData;
-		BOOL bRet = GetFileAttributesEx(path, GetFileExInfoStandard, &attrData);
-		if (bRet == FALSE) {
-			continue;
-		}
-		
-		if ( (attrData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0) {
-			swprintf(lpItemInfo->szItemName, L".\\%s\\", line);
-			lpItemInfo->dwAttr = FILE_ATTRIBUTE_SYSTEM;
-		} else {
-			swprintf(lpItemInfo->szItemName, L"%s", line);
-			lpItemInfo->dwAttr = attrData.dwFileAttributes;
-		}
-		lpItemInfo->ullItemSize = (((ULONGLONG)attrData.nFileSizeHigh) << 32) | (ULONGLONG)attrData.nFileSizeLow;
-		lpItemInfo->ullTimestamp = attrData.ftLastWriteTime;
-		break;
 	}
 
 	return 1;
@@ -265,13 +357,51 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
 		return 0;
 	}
 
-	wchar_t wcmd[MAX_PATH+32];
-	swprintf(wcmd, L"&EXCD -P\"%s%s\"", pdata->wszBaseDir, szItemPath);
+	wchar_t dir[MAX_PATH];
+	wchar_t path[MAX_PATH];
+	memset(dir, 0, sizeof(dir));
+	memset(path, 0, sizeof(path));
+	GetTempPath(MAX_PATH, dir);
+	GetTempFileName(dir, L"afx", 0, path);
 
-	char cmd[MAX_PATH+32];
-	wcstombs(cmd, wcmd, sizeof(cmd));
+	if (pdata->mode == Mode_Branch) {
+		wchar_t cmd[MAX_LINE_SIZE];
+		swprintf(cmd, MAX_LINE_SIZE, L"cmd /c git checkout %s", &szItemPath[1]);
+		int ret = run(cmd, path);
 
-	return AfxExec(pAfxApp, cmd);
+		FILE* fp = _wfopen(path, L"r");
+		if (fp != NULL) {
+			wchar_t temp[MAX_LINE_SIZE];
+			while (fgetws(temp, MAX_LINE_SIZE, fp) != NULL) {
+				swprintf(cmd, MAX_LINE_SIZE, L"&ECHO %s", temp);
+				char msg[MAX_LINE_SIZE];
+				wcstombs(msg, cmd, sizeof(msg));
+				AfxExec(pAfxApp, msg);
+			}
+			fclose(fp);
+		}
+
+		AfxExec(pAfxApp, "&RELOAD");
+		DeleteFile(path);
+	}
+
+	if (pdata->mode == Mode_Log) {
+		int id;
+		wchar_t cmd[1024];
+		swscanf(&szItemPath[1], L"%07x %s", &id, cmd);
+		swprintf(cmd, sizeof(cmd), L"cmd /c git show %07x", id);
+		int ret = run(cmd, path);
+
+		char cpath[MAX_PATH];
+		wcstombs(cpath, path, sizeof(cpath));
+
+		char viewcmd[MAX_PATH];
+		sprintf(viewcmd, "&VIEW %s", cpath);
+		AfxExec(pAfxApp, viewcmd);
+		DeleteFile(path);
+	}
+
+	return 1;
 }
 
 /**
@@ -284,36 +414,9 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
  * @retval     1             成功
  * @retval     0             エラー
  */
-int  WINAPI ApiCopy(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine)
-{
-	return ApiCopyTo(handle, szFromItem, szToPath, lpPrgRoutine);
-}
 int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine)
 {
-	lpPluginData pdata = (lpPluginData)handle;
-	if (pdata == NULL) {
-		return 0;
-	}
-
-	wchar_t pathFrom[API_MAX_PATH_LENGTH];
-	wchar_t pathTo[API_MAX_PATH_LENGTH];
-	wsprintf(pathFrom, L"%s/%s", pdata->wszBaseDir, szFromItem);
-	const wchar_t* pFromName = wcsrchr(szFromItem, L'\\');
-	if (pFromName == NULL) {
-		pFromName = szFromItem;
-	} else {
-		pFromName++;
-	}
-	wsprintf(pathTo,   L"%s/%s", szToPath, pFromName);
-
-	BOOL bCancel = FALSE;
-	int ret = 0;
-	BOOL bRet = ::CopyFileEx(pathFrom, pathTo, lpPrgRoutine, NULL, &bCancel, COPY_FILE_RESTARTABLE);
-	if (bRet) {
-		ret = 1;
-	}
-
-	return ret;
+	return 0;
 }
 
 /**
@@ -339,18 +442,21 @@ int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWS
 		return 0;
 	}
 
-	wchar_t pathTo[API_MAX_PATH_LENGTH];
-	wsprintf(pathTo,   L"%s\\%s", pdata->wszBaseDir, szFromItem);
+	if (pdata->mode == Mode_Log) {
+		int id;
+		wchar_t cmd[1024];
+		swscanf(szFromItem, L"%07x %s", &id, cmd);
+		swprintf(cmd, sizeof(cmd), L"cmd /c git show %07x", id);
 
-	// バッファサイズチェック
-	size_t len = wcslen(pathTo);
-	if (len > dwOutPathSize) {
-		return 0;
+		wchar_t path[API_MAX_PATH_LENGTH];
+		swprintf(path, L"%s%s", szToPath, PLUGIN_NAME);
+
+		int ret = run(cmd, path);
+		wcsncpy(szOutputPath, path, dwOutPathSize - 1);
+		return ret;
 	}
 
-	// afxflistはファイルコピーしないで、ローカルパスを返す。
-	wcsncpy(szOutputPath, pathTo, dwOutPathSize - 1);
-	return 1;
+	return 0;
 }
 
 /**
@@ -361,23 +467,25 @@ int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWS
  * @retval     1             成功
  * @retval     0             エラー
  */
-int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath)
+int  WINAPI ApiDelete(HAFX handle, LPCWSTR szFromItem)
 {
-	lpPluginData pdata = (lpPluginData)handle;
-	if (pdata == NULL) {
-		return 0;
-	}
+	/*
+	char cmd[MAX_PATH+32];
 
-	wchar_t path[API_MAX_PATH_LENGTH];
-	wsprintf(path, L"%s\\%s", pdata->wszBaseDir, szItemPath);
+    wchar_t label = szFromItem[0];
+    const wchar_t* p = wcsrchr(szFromItem, L')');
+    if (p != NULL) {
+        label = *(--p);
+    }
 
-	int ret = 0;
-	BOOL bRet = ::DeleteFile(path);
-	if (bRet) {
-		ret = 1;
-	}
-
-	return ret;
+    if ( (label >= L'A' && label <= L'Z' ) ||
+            (label >= L'a' && label <= L'z' ) ) {
+        sprintf(cmd, "&EJECT %C", label);
+        AfxExec(pAfxApp, cmd);
+        return 1;
+    }
+	*/
+	return 0;
 }
 
 //------------------------------ 以下ポストローンチ --------------------------------
@@ -410,26 +518,7 @@ int  WINAPI ApiCopyFrom(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPRO
  */
 int  WINAPI ApiMove(HAFX handle, LPCWSTR szFromPath, LPCWSTR szToPath, ApiDirection direction)
 {
-	lpPluginData pdata = (lpPluginData)handle;
-	if (pdata == NULL) {
-		return 0;
-	}
-
-	// あふw側からプラグイン側への移動は不可
-	if (direction == ApiDirection_A2P) {
-		return 0;
-	}
-
-	wchar_t path[API_MAX_PATH_LENGTH];
-	wsprintf(path, L"%s/%s", pdata->wszBaseDir, szFromPath);
-
-	int ret = 0;
-	BOOL bRet = ::MoveFile(path, szToPath);
-	if (bRet) {
-		ret = 1;
-	}
-
-	return ret;
+	return 0;
 }
 
 /**
@@ -443,26 +532,7 @@ int  WINAPI ApiMove(HAFX handle, LPCWSTR szFromPath, LPCWSTR szToPath, ApiDirect
  */
 int  WINAPI ApiRename(HAFX handle, LPCWSTR szFromPath, LPCWSTR szToName)
 {
-	lpPluginData pdata = (lpPluginData)handle;
-	if (pdata == NULL) {
-		return 0;
-	}
-
-	wchar_t pathFrom[API_MAX_PATH_LENGTH];
-	wsprintf(pathFrom, L"%s/%s", pdata->wszBaseDir, szFromPath);
-
-	wchar_t pathTo[API_MAX_PATH_LENGTH];
-	wcscpy(pathTo, pathFrom);
-	wchar_t* en = wcsrchr(pathTo, L'/');
-	if (en == NULL) {
-		return 0;
-	}
-	*(en+1) = L'\0';
-	wcscat(pathTo, szToName);
-
-	int ret = !_wrename(pathFrom, pathTo);
-
-	return ret;
+	return 0;
 }
 
 /**
@@ -504,44 +574,8 @@ int  WINAPI ApiRemoveDirectory(HAFX handle, LPCWSTR szItemPath)
  */
 int  WINAPI ApiShowContextMenu(HAFX handle, const HWND hWnd, DWORD x, DWORD y, LPCWSTR szItemPath)
 {
-	return 2;
+	return 0;
 }
 
-/*
-void _ShowLastError()
-{
-	LPVOID lpMsgBuf;
-	FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-	  FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-	  NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
-	  (LPTSTR) &lpMsgBuf, 0, NULL);
-	MessageBox(NULL, (const wchar_t*)lpMsgBuf, NULL, MB_OK);
-	LocalFree(lpMsgBuf);
-}
-*/
 
-void TrimCarriageReturn(wchar_t* wszBaseDir)
-{
-	size_t len = wcslen(wszBaseDir);
-	if (wszBaseDir[len-1] == L'\n') {
-		if (wszBaseDir[len-2] == L'\\' || wszBaseDir[len-2] == L'/') {
-			wszBaseDir[len-2] = L'\0';
-		} else {
-			wszBaseDir[len-1] = L'\0';
-		}
-	} else {
-		if (wszBaseDir[len-1] == L'\\' || wszBaseDir[len-1] == L'/') {
-			wszBaseDir[len-1] = L'\0';
-		}
-	}
-}
 
-void ReplaceCharactor(wchar_t* wszPath, wchar_t from, wchar_t to)
-{
-	size_t len = wcslen(wszPath);
-	for (size_t idx=0; idx<len; idx++) {
-		if (wszPath[idx] == from) {
-			wszPath[idx] = to;
-		}
-	}
-}
