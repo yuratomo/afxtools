@@ -48,7 +48,7 @@ afxamsのコマンドの書式は、以下のとおりです。
 
   例2) あふwでc:\Temp\aaa.pngを表示する
 
-    afxams.exe Exec "&EXCD c:\Temp\aaa.png"
+    afxams.exe Exec "&VIEW c:\Temp\aaa.png"
 
   例3) あふwのメッセージ窓にHelloを表示する
 
