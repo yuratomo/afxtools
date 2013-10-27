@@ -104,6 +104,7 @@ int AfxExec(IDispatch *pDisp, const char* line)
 	x.vt = VT_BSTR;
 	x.bstrVal = ::SysAllocString(wbuf);
 	HRESULT ret = AfxExec(DISPATCH_METHOD, NULL, pDisp, L"Exec", 1, x);
+	::SysFreeString(x.bstrVal);
 	delete [] wbuf;
 
 	if(FAILED(ret)) {
@@ -141,6 +142,7 @@ void AfxTrace(IDispatch *pDisp, const char* line)
 	x.vt = VT_BSTR;
 	x.bstrVal = ::SysAllocString(wbuf);
 	AfxExec(DISPATCH_METHOD, NULL, pDisp, L"MesPrint", 1, x);
+	::SysFreeString(x.bstrVal);
 	delete [] wbuf;
 
 	return;

@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxview", "afxview\afxview.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxgit", "afxgit\afxgit.vcproj", "{D439E657-EF56-4CDB-B91C-971B3A3F64B5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxams", "afxams\afxams.vcproj", "{E8BDB3C0-744F-468D-90E0-4D22365B9A30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -143,6 +145,10 @@ Global
 		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Debug|Win32.Build.0 = Debug|Win32
 		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Release|Win32.ActiveCfg = Release|Win32
 		{D439E657-EF56-4CDB-B91C-971B3A3F64B5}.Release|Win32.Build.0 = Release|Win32
+		{E8BDB3C0-744F-468D-90E0-4D22365B9A30}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E8BDB3C0-744F-468D-90E0-4D22365B9A30}.Debug|Win32.Build.0 = Debug|Win32
+		{E8BDB3C0-744F-468D-90E0-4D22365B9A30}.Release|Win32.ActiveCfg = Release|Win32
+		{E8BDB3C0-744F-468D-90E0-4D22365B9A30}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -77,15 +77,30 @@ HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 ### 20. afxdrive ###
 あふwのメッセージ窓にフォルダ履歴表示します。
 
-### 21. afxview (NEW!!) ###
+### 21. afxview ###
 実行結果をあふwのビュワーで表示する機能。
 
-### 22. afxgit (NEW!!) ###
+### 22. afxgit ###
 あふwでGIT操作用のメニューとプラグイン。
+
+### 23. afxams (NEW!!) ###
+あふwのオートメーションサーバーの機能をコマンドラインから呼び出すことを
+可能にするツール。
+
 
 History
 -------
 
+* 1.4.0 yuratomo
+  - afxams 0.1.0
+	新規追加
+  - galとgar関連ファイル
+      - /bin/gar.bat
+      - /bin/gal.bat
+      - /bin/gap.bat
+      - /etc/.bashrc
+      - /etc/.nya/*
+      
 * 1.3.0 yuratomo
   - afxview 0.1.0
     新規追加
