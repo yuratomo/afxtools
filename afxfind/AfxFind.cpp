@@ -191,7 +191,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// result file
 	wchar_t result[MAX_PATH];
 	::GetPrivateProfileString(L"Config", L"result", L"", result, sizeof(result), _ini_path);
-	if (result[1] != L':' || result[0] != L'\\') {
+	if (result[1] != L':' && result[0] != L'\\') {
 		wchar_t temp[MAX_PATH];
 		wcsncpy(temp, _exe_path, MAX_PATH-1);
 		wchar_t* en = wcsrchr(temp, L'\\');
