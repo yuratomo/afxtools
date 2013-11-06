@@ -1,0 +1,176 @@
+2011-06-19  yuratomo
+    Version 0.9.0-mod-d2 (afxwer's edition 5)
+    * フォーカスがあるときに枠を表示するように修正
+	* 枠のカラーは、focusColorで指定するようにした
+	* F12でafxwにフォーカスを移動するように修正
+
+2011-05-10  yuratomo
+    Version 0.9.0-mod-d2 (afxwer's edition 4)
+    * 子ウィンドウ化したときにコンソールの領域が縦方向に少し小さくなってしまっている問題修正
+
+2011-05-09  yuratomo
+    Version 0.9.0-mod-d2 (afxwer's edition 3)
+    * 子ウィンドウ化したときにIMEが効かなくなる問題の対策追加。
+
+2011-05-07  yuratomo
+    Version 0.9.0-mod-d2 (afxwer's edition 2)
+    * ソースコード整理。Version 0.9.0-mod-d2 (afxwer's edition 1)でいれた無駄な処理を削除。
+
+2011-04-07  yuratomo
+    Version 0.9.0-mod-d2 (afxwer's edition 1)
+    * -cで指定したウィンドウハンドルの子ウィンドウとしてウィンドウを作成するモードを追加。
+
+2010-07-15  deflis
+    Version 0.9.0-mod-d2
+    * rururu氏のx64パッチを適用（ただしうちの環境ではコンパイルできないのでx64でリリースできない）
+    * コンパイラをVC2010に切り替え。VC2010のソリューションファイルを作成。
+    * 新しくアイコンを作成。
+    * 小さいアイコンがうまく適用されない不具合を修正。
+      http://d.hatena.ne.jp/pipehead/20100401/1270111376
+
+2010-07-15  rururu
+    * x64でもビルド出来るように修正(VC2008)
+    * AllocConsoleのSW_HIDE処理にx64対応を追加(VC2008)
+    * 念の為にim32.dllを終了時に解放する様にした
+    * ショートカットからの起動でコマンドプロンプトが残る不具合を暫定修正
+
+2010-06-19  deflis
+    Version 0.9.0-mod-d1
+    * コンソール隠しに失敗する場合のパッチをMichiru氏やnocd5氏のパッチを参考に書き直し。
+      http://craftwave.blogspot.com/2010/05/ckwdos.html
+      http://nocd5.blog59.fc2.com/blog-entry-410.html
+    * craftware氏のmod4をマージ。
+    * nocd5氏のパッチを参考に%HOME%および%USERPROFILE%の_ckw、実行ファイルのあるディレクトリの_ckwを設定ファイルとして認識するように変更。
+      http://nocd5.blog59.fc2.com/blog-entry-410.html
+    * パッチ当てすぎてあまりにも変更点が多いのでマイナーバージョンを上げた。
+
+2010-05-17  craftware
+    Version 0.8.10-mod4-20100517
+    * AllocConsole 時に SW_HIDE を与えるために、__readfsdword を用いてアドレスを指定するようにしました。
+      http://craftwave.blogspot.com/2010/05/ckw-vistados.html
+
+2010-05-01  craftware
+    Version 0.8.10-mod4-20100501
+    * タイトルバーを右クリックしたときに出てくるメニューに、[Copy All]を追加しました。
+      コンソールの中のすべてのテキストをクリップボードに格納します。
+      http://craftwave.blogspot.com/2010/05/ckw-2-copyall.html
+
+2010-05-08  deflis
+    Version 0.8.10-mod+git-deflis-4
+    * コンソール隠しに失敗する場合のパッチをnocd5氏のパッチ、および意見を参考に書き換え。
+    * 常に最前面に表示をメニューで切り替えられるようにした。
+
+2010-04-26  craftware
+    Version 0.8.10-mod4-20100426
+    * マウスによるテキスト選択中に、マウスがウインドウの上下外側に行ったときに、自動的にスクロールするようにしました。
+      http://craftwave.blogspot.com/2010/04/ckw.html
+
+2010-03-21  deflis
+    Version 0.8.10-mod+git-deflis-3
+    * XPパッチをmod3のものに切り替え。どっちがいいのかはわからない。
+
+2010-03-21  deflis
+    Version 0.8.10-mod+git-deflis-2
+    * コンソール隠しに失敗する場合のパッチを適用するとXPで上手く動かないのを修正。
+    * メニューバーで新しいウインドウを開けるようにした。
+    * cfg切り替えを正規の方法で実装した。
+
+2010-03-19  deflis
+    Version 0.8.10-mod+git-deflis (shimizukawa's mod based)
+    * コンソール隠しに失敗する場合のパッチをs-yata氏のものに切り替え。
+      http://d.hatena.ne.jp/s-yata/20080823/1219474577
+    * コマンドラインパラメータによるcfg切り替えの実装（中途半端）。
+
+2009-11-18 bleis-tift
+    Version 0.8.10-mod3 (mod2 based)
+    * http://d.hatena.ne.jp/s-yata/20080823/1219474577 での修正を取り込み。
+    * http://twitter.com/you_and_i/status/5812581561 での修正を取り込み。
+      http://d.hatena.ne.jp/bleis-tift/20091117/1258448920
+
+2009-10-19  shimizukawa
+    Unreleased (mod-mod based)
+    * 文字コードとして'\r\n'をクリップボードから貼り付けたときに、データ受け取る実行中プログラムが、VK_RETURNとして処理しない場合がある。このため、\rを無視し、\nをVK_RETURNとして扱うようにしてみた。
+    * タイトルバー右クリックでのcfg切り替えは実装途中。
+      http://www.freia.jp/taka/blog/678/
+
+2008-10-15  shuujin
+    Version 0.8.10-mod-mod
+    * 10回中9回はコンソール隠しに失敗して不細工なコンソールが見えていた問題を修正。
+      http://blogs.wankuma.com/shuujin/archive/2008/10/15/158825.aspx
+
+2007-11-23  hideden
+    Version 0.8.10-mod2
+    * 右クリックメニュー等に ckw.exe -cd "%1" 等と登録して C:\等ドライブの直下で開こうとするとckwが開けない問題を修正
+      http://nocd5.blog59.fc2.com/blog-entry-195.html
+
+2007-11-15  hideden
+    Version 0.8.10-mod
+    * 設定ファイル名を ckw.txt → ckw.cfg に変更 (個人的な好みです。)
+    * MakefileからCygwin依存のシェルスクリプトをbatに書き換え、VCでコンパイルできるようにした
+    * カレントディレクトリを指定する-cd,--chdir を追加
+        * -e cmd.exe /K cd c:\とかでも行けるが、他シェル等でも楽にするため。
+    * 実行シェルを設定ファイルに記述できるようにした
+        * -eオプションで指定できていたが、ショートカットをいじるのが面倒だったため。
+    * タイトルを指定するオプション-tl,--titleを追加
+        * cmd用とnyacus用を見分けやすくしたくて。
+    * フォントサイズを標準のDOS窓より小さく設定すると、最大化や窓リサイズで一定以上の大きさになるとウィンドウサイズがおかしくなってしまう不具合を修正(多分)
+    * MS Gothic 12で最大化するとなんかタイトルバーのみの小さな窓になってしまっていた。
+
+2005-10-27  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.10
+	* main.cpp
+	DOS窓が確実に消えるまで待つようにした。
+
+2005-09-08  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.9
+	* main.cpp
+	screen bufferから正しく読み取れず画面表示が乱れることがあった。
+
+2005-09-06  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.8
+	* main.cpp
+	アプリ側からのウィンドウサイズ変更に対応。
+
+2005-07-06  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.7
+	* main.cpp
+	* selection.cpp
+	* ckw.h
+	２バイト文字の表示がズレてしまう環境があるので対処。
+	（ReadConsoleOutputAを使うようにした）
+
+2005-07-04  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.6
+	* main.cpp
+	ReadConsoleOutputで落ちることがあるので 回数を減らして落ちにくくした。
+
+2005-06-14  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.5
+	* main.cpp
+	ckw本体が Ctrl-Cで終了してしまうバグを修正。
+
+2005-06-09  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.4
+	* main.cpp
+	IME入力中、候補ウィンドウなどが表示されなかった。
+
+2005-05-25  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.3
+	* main.cpp
+	文字背景色が適用されてなかった。
+	スクリーンバッファの差し替えに対応してなかった。
+
+2005-05-14  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.2
+	* main.cpp
+	WindowsXPでも日本語の２バイトフラグが付かない環境があるようなので、
+	常に全角かチェックするようにした。
+
+2005-04-30  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.1
+	* main.cpp
+	* selection.cpp
+	Windows2000で日本語が正しく表示できてなかった
+
+2005-04-24  Kazuo Ishii  <k-ishii@wb4.so-net.ne.jp>
+	Version 0.8.0

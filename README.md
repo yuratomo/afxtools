@@ -83,24 +83,35 @@ HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 ### 22. afxgit ###
 あふwでGIT操作用のメニューとプラグイン。
 
-### 23. afxams (NEW!!) ###
+### 23. afxams ###
 あふwのオートメーションサーバーの機能をコマンドラインから呼び出すことを
 可能にするツール。
 
+### 24. afx2ch (NEW!!) ###
+あふwで2chを見るためのツール。
 
 History
 -------
 
+* 1.4.1 yuratomo
+  - afxfind 1.0.3
+    afxfind.iniのresult の絶対パス判定ミス修正
+  - afxgit 0.2.0
+    statusモードを追加。変更のあるファイルやINDEXに追加されていないファイルを
+    ファイル窓に表示する。
+    branchモードの表示変更。
+  - afx2ch追加
+
 * 1.4.0 yuratomo
   - afxams 0.1.0
-	新規追加
+    新規追加
   - galとgar関連ファイル
       - /bin/gar.bat
       - /bin/gal.bat
       - /bin/gap.bat
       - /etc/.bashrc
       - /etc/.nya/*
-      
+
 * 1.3.0 yuratomo
   - afxview 0.1.0
     新規追加
@@ -110,7 +121,7 @@ History
     マッチしたフォルダに対してJUMPできるようにした
     ※ただしファイルとして表示するのでフォルダのアイコンは表示さ
     れません。(プラグインの仕様上、フォルダクリック時の挙動は変えられないため)
-    
+
 * 1.2.0 yuratomo
   - afxflist 1.0.1
     けんさく後ENTERでファイルを開くのではなく、検索位置移動するようにした。
