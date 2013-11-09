@@ -12,6 +12,7 @@ syntax:glob
 *_p.c
 *.ncb
 *.suo
+*.sdf
 *.tlb
 *.tlh
 *.bak
