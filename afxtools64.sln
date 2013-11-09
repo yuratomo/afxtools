@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxhistory64", "afxhistory\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxgit64", "afxgit\afxgit64.vcxproj", "{2F3CEE22-7457-4C90-90B2-797072A3F596}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "afxsvn64", "afxsvn\afxsvn64.vcxproj", "{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -79,6 +81,14 @@ Global
 		{2F3CEE22-7457-4C90-90B2-797072A3F596}.Release|Win32.Build.0 = Release|Win32
 		{2F3CEE22-7457-4C90-90B2-797072A3F596}.Release|x64.ActiveCfg = Release|x64
 		{2F3CEE22-7457-4C90-90B2-797072A3F596}.Release|x64.Build.0 = Release|x64
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Debug|Win32.Build.0 = Debug|Win32
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Debug|x64.ActiveCfg = Debug|x64
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Debug|x64.Build.0 = Debug|x64
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Release|Win32.ActiveCfg = Release|Win32
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Release|Win32.Build.0 = Release|Win32
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Release|x64.ActiveCfg = Release|x64
+		{DF9F00D5-F9EC-498F-BC1C-E57C283B744F}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

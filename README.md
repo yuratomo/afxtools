@@ -93,6 +93,10 @@ HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 History
 -------
 
+* 1.5.0 yuratomo
+  - afxsvn 0.1.0
+    新規追加
+
 * 1.4.1 yuratomo
   - afxfind 1.0.3
     afxfind.iniのresult の絶対パス判定ミス修正

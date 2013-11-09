@@ -1,17 +1,23 @@
 AFXGIT
-"clone             (クローン)" TortoiseGitProc.exe /command:clone /path:"$P" /notempfile
-"pull              (プル)" TortoiseGitProc.exe /command:pull /path:"$P" /notempfile
-"push              (プッシュ)" TortoiseGitProc.exe /command:push /path:"$P" /notempfile
-"add               (追加)" TortoiseGitProc.exe /command:add /path:"$P" /notempfile
-"commit            (このディレクトリをコミット)(checkin)" TortoiseGitProc.exe /command:commit /path:"$P" /notempfile
-"delete [file]     (削除)" TortoiseGitProc.exe /command:remove /path:"$QN$J*$MF" /notempfile
-"diff [file]       (差分表示)" TortoiseGitProc.exe /command:diff /path:"$QN$J*$MF" /notempfile
-"diff [dir]        (このディレクトリの差分表示)" TortoiseGitProc.exe /command:diff /path:"$P" /notempfile
-"rename [file]     (名前の変更)" TortoiseGitProc.exe /command:rename /path:"$P\$F" /notempfile
-"status            (ステータス)" &PLUGIN "$~\afxtools\bin\afxgit.dll" status $P
-"stash             (スタッシュ)" "$~\afxtools\bin\afxview.exe" cmd /c git stash
-"stash pop         (スタッシュ)" "$~\afxtools\bin\afxview.exe" cmd /c git stash pop
-"blame             (xxx)" "$~\afxtools\bin\afxview.exe" cmd /c git blame "$P\$F"
-"branch            (ブランチ切り替え)" &PLUGIN "$~\afxtools\bin\afxgit.dll" branch $P
-"log               (ログ表示)" &PLUGIN "$~\afxtools\bin\afxgit.dll" log $P\$F
-"#edit afxgit.mnu  (SVNメニュー編集)" &EDIT "$~\afxtools\bin\afxgit.mnu"
+"init                    (初期化)" "$~\afxtools\bin\afxview.exe" cmd /c git init
+"clone                   (クローン)" TortoiseGitProc.exe /command:clone /path:"$P" /notempfile
+"pull                    (プル)" TortoiseGitProc.exe /command:pull /path:"$P" /notempfile
+"push                    (プッシュ)" TortoiseGitProc.exe /command:push /path:"$P" /notempfile
+"add          [selfile]  (追加)" TortoiseGitProc.exe /command:add /path:"$QN$J*$MF" /notempfile
+"add          [thisdir]  (追加)" TortoiseGitProc.exe /command:add /path:"$P" /notempfile
+"mv           [selfile]  (移動)"  &EACH -LR "$~\afxtools\bin\afxexec.exe" cmd /c git mv "$P\$F" "$O\$F"
+"commit       [selfile]  (コミット)(checkin)" TortoiseGitProc.exe /command:commit /path:"$QN$J*$MF" /notempfile
+"commit       [thisdir]  (このディレクトリをコミット)(checkin)" TortoiseGitProc.exe /command:commit /path:"$P" /notempfile
+"delete       [selfile]  (削除)" TortoiseGitProc.exe /command:remove /path:"$QN$J*$MF" /notempfile
+"diff         [selfile]  (差分表示)" TortoiseGitProc.exe /command:diff /path:"$QN$J*$MF" /notempfile
+"diff         [thisdir]  (このディレクトリの差分表示)" TortoiseGitProc.exe /command:diff /path:"$P" /notempfile
+"rename       [selfile]  (名前の変更)" TortoiseGitProc.exe /command:rename /path:"$P\$F" /notempfile
+"status                  (ステータス)" &PLUGIN "$~\afxtools\bin\afxgit.dll" status $P
+"stash                   (スタッシュ)" "$~\afxtools\bin\afxview.exe" cmd /c git stash
+"stash pop               (スタッシュ)" "$~\afxtools\bin\afxview.exe" cmd /c git stash pop
+"blame                   (xxx)" "$~\afxtools\bin\afxview.exe" cmd /c git blame "$P\$F"
+"branch                  (ブランチ切り替え)" &PLUGIN "$~\afxtools\bin\afxgit.dll" branch $P
+"log          [plugin]   (ログ表示)" &PLUGIN "$~\afxtools\bin\afxgit.dll" log $P\$F
+"log          [curfile]  (ログ表示)" TortoiseGitProc.exe /command:log /path:"$P\$F" /notempfile
+"log          [thisdir]  (このディレクトリのログ表示)" TortoiseGitProc.exe /command:log /path:"$P" /notempfile
+"#edit afxgit.mnu     (SVNメニュー編集)" &EDIT "$~\afxtools\bin\afxgit.mnu"
