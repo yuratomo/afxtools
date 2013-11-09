@@ -1,0 +1,20 @@
+AFXSVN
+"add          [selfile] (追加)" TortoiseProc.exe /command:add /path:"$QN$J*$MF" /notempfile
+"checkout     [selfile] (チェックアウト)" TortoiseProc.exe /command:checkout /path:"$QN$J*$MF" /notempfile
+"copy         [curfile] (コピー)" TortoiseProc.exe /command:copy /path:"$P\$F" /notempfile
+"commit       [selfile] (コミット)(checkin)" TortoiseProc.exe /command:commit /path:"$QN$J*$MF" /notempfile
+"commit       [thisdir] (このディレクトリをコミット)(checkin)" TortoiseProc.exe /command:commit /path:"$P" /notempfile
+"delete                 (削除)" TortoiseProc.exe /command:remove /path:"$QN$J*$MF" /notempfile
+"diff         [selfile] (差分表示)" TortoiseProc.exe /command:diff /path:"$QN$J*$MF" /notempfile
+"diff         [thisdir] (このディレクトリの差分表示)" TortoiseProc.exe /command:diff /path:"$P" /notempfile
+"export       [selfile] (エクスポート)" TortoiseProc.exe /command:export /path:"$QN$J*$MF" /notempfile
+"log          [curfile] (ログ表示)" TortoiseProc.exe /command:log /path:"$P\$F" /notempfile
+"log          [thisdir] (このディレクトリのログ表示)" TortoiseProc.exe /command:log /path:"$P" /notempfile
+"properties   [curfile] (プロパティ表示)" TortoiseProc.exe /command:properties /path:"$P\$F" /notempfile
+"rename       [curfile] (名前の変更)" TortoiseProc.exe /command:rename /path:"$P\$F" /notempfile
+"revert       [selfile] (元に戻す)" TortoiseProc.exe /command:revert /path:"$QN$J*$MF" /notempfile
+"revert       [thisdir] (このディレクトリを元に戻す)" TortoiseProc.exe /command:revert /path:"$P" /notempfile
+"status                 (ステータス)" &PLUGIN "$~\afxtools\bin\afxsvn.dll" status $P
+"update       [selfile] (更新)" TortoiseProc.exe /command:update /path:"$QN$J*$MF" /notempfile
+"update       [thisdir] (このディレクトリを更新)" TortoiseProc.exe /command:update /path:"$P" /notempfile
+"#edit afxcmd5.mnu     (SVNメニュー編集)" &EDIT "$~\afxtools\bin\afxsvn.mnu"

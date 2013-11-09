@@ -1,7 +1,7 @@
 AFXDIFF
-"WinMerge LR [selfile] (WinMergeでファイルのdiff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize $MF $MO
-"WinMerge LR [curfile] (WinMergeでカーソル位置のファイル名でdiff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize "$P\$F" "$O\$F"
-"WinMerge LR [thisdir] (WinMergeでディレクトリ毎diff)" "C:\Program Files\WinMerge\WinMergeU.exe" /e /x /maximize "$P" "$O"
+"WinMerge LR [selfile] (WinMergeでファイルのdiff)" WinMergeU.exe /e /x /maximize $MF $MO
+"WinMerge LR [curfile] (WinMergeでカーソル位置のファイル名でdiff)" WinMergeU.exe /e /x /maximize "$P\$F" "$O\$F"
+"WinMerge LR [thisdir] (WinMergeでディレクトリ毎diff)" WinMergeU.exe /e /x /maximize "$P" "$O"
 "DF       LR [selfile] (DFでファイルのdiff)" "DF.exe" $MF $MO
 "DF       LR [curfile] (DFでカーソル位置のファイル名でdiff)" "DF.exe" /e /x /maximize "$P\$F" "$O\$F"
 "DF       LR [thisdir] (DFでディレクトリ毎diff)" "DF.exe" "$P" "$O"

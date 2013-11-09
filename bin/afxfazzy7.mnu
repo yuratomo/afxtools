@@ -22,6 +22,7 @@ AFXCMD
 "type >> [curfile]      (ファイル出力)(cat)" $~\afxtools\bin\afxexec.exe cmd /c type "$P\$F"
 "reboot now             (即時再起動)" $~\afxtools\bin\afxexec.exe cmd /c shutdown -t 0 -r
 "xcopy [selfile]        (選択ファイルを他窓にコピー(非同期))" &EACH $~\afxtools\bin\afxexec.exe cmd /c echo F | xcopy /Y /E /I "$P\$F" "$O\$F"
-"7z (一括) [selfile]    (7zで一括圧縮)" $~\afxtools\bin\afxexec.exe cmd /c "c:\Program Files\7-zip\7z.exe" a "$O\$W.7z" $MF
-"7z (個別) [selfile]    (7zで個別圧縮)" &EACH -O $~\afxtools\bin\afxexdc.exe cmd /c "c:\Program Files\7-zip\7z.exe" a "$O\$W.7z" "$P\$F" 
+"7z (一括) [selfile]    (7zで一括圧縮)" $~\afxtools\bin\afxexec.exe cmd /c 7z.exe a "$O\$W.7z" $MF
+"7z (個別) [selfile]    (7zで個別圧縮)" &EACH -O $~\afxtools\bin\afxexdc.exe cmd /c 7z.exe a "$O\$W.7z" "$P\$F" 
+"mklink                 (シンボリックリンク) &EACH -O$~\afxtools\bin\afxexdc.exe cmd /c mklink /D "$O" "$P\$F"
 "#edit afxcmd7.mnu      (しすてむメニュー編集)" &EDIT "$~\afxtools\bin\afxcmd7.mnu"

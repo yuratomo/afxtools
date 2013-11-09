@@ -17,6 +17,7 @@ AFXGIT
 "stash pop               (スタッシュ)" "$~\afxtools\bin\afxview.exe" cmd /c git stash pop
 "blame                   (xxx)" "$~\afxtools\bin\afxview.exe" cmd /c git blame "$P\$F"
 "branch                  (ブランチ切り替え)" &PLUGIN "$~\afxtools\bin\afxgit.dll" branch $P
+"branch list             (ブランチ表示)" "$~\afxtools\bin\afxexec.exe" cmd /c git branch
 "log          [plugin]   (ログ表示)" &PLUGIN "$~\afxtools\bin\afxgit.dll" log $P\$F
 "log          [curfile]  (ログ表示)" TortoiseGitProc.exe /command:log /path:"$P\$F" /notempfile
 "log          [thisdir]  (このディレクトリのログ表示)" TortoiseGitProc.exe /command:log /path:"$P" /notempfile
