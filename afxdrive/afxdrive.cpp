@@ -186,12 +186,10 @@ int  WINAPI ApiFindNext(HAFX handle, lpApiItemInfo lpItemInfo)
 	wchar_t drive[8];
 	swprintf(drive, L"%c:\\", (pdata->index + TEXT('A')) );
 
-	ULARGE_INTEGER Ava, Total, Free;
-	GetDiskFreeSpaceEx(drive, &Ava, &Total, &Free);
-
 	wchar_t type[64];
 	memset(type, 0, sizeof(type));
-	switch(GetDriveType(drive)) {
+	int drv_type = GetDriveType(drive);
+	switch(drv_type) {
 	case DRIVE_REMOVABLE:
 		swprintf(type, L"REMOVABLE");
 		break;
@@ -211,26 +209,39 @@ int  WINAPI ApiFindNext(HAFX handle, lpApiItemInfo lpItemInfo)
 
 	wchar_t VolumeName[1000];
 	wchar_t SystemName[1000];
-	DWORD SerialNumber;
-	DWORD FileNameLength;
-	DWORD Flags;
-	BOOL ret = GetVolumeInformation(
-		drive,
-		VolumeName,
-		sizeof(VolumeName),
-		&SerialNumber,
-		&FileNameLength,
-		&Flags,
-		SystemName,
-		sizeof(SystemName));
-	if (ret == FALSE) {
-		memset(SystemName, 0, sizeof(SystemName));
-		memset(VolumeName, 0, sizeof(VolumeName));
+	wcscpy(VolumeName, L"");
+	wcscpy(SystemName, L"");
+
+	// FDD対策
+	//   - REMOVABLEでA,Bドライブは対象外
+	if (drv_type != DRIVE_REMOVABLE || pdata->index > 1) {
+		ULARGE_INTEGER Ava, Total, Free;
+		if (GetDiskFreeSpaceEx(drive, &Ava, &Total, &Free)) {
+			lpItemInfo->ullItemSize = Total.QuadPart;
+		}
+
+		DWORD SerialNumber;
+		DWORD FileNameLength;
+		DWORD Flags;
+		BOOL ret = GetVolumeInformation(
+			drive,
+			VolumeName,
+			sizeof(VolumeName),
+			&SerialNumber,
+			&FileNameLength,
+			&Flags,
+			SystemName,
+			sizeof(SystemName));
+		if (ret == FALSE) {
+			memset(SystemName, 0, sizeof(SystemName));
+			memset(VolumeName, 0, sizeof(VolumeName));
+		}
+	} else {
+		lpItemInfo->ullItemSize = 0;
 	}
 
 	swprintf(lpItemInfo->szItemName, L"%C) %s/%s/%s", 
 			(pdata->index + TEXT('A')), VolumeName, type, SystemName);
-	lpItemInfo->ullItemSize = Total.QuadPart;
 	//lpItemInfo->ullTimestamp = 0;
 	lpItemInfo->dwAttr = FILE_ATTRIBUTE_NORMAL;
 	pdata->index++;
