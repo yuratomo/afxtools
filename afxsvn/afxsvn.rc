@@ -1,0 +1,26 @@
+#include "version.h"
+#include "winuser.h"
+
+1 VERSIONINFO 
+FILEVERSION    VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+PRODUCTVERSION VERSION_MAJOR, VERSION_MINOR, VERSION_BUGFIX, 0
+FILEFLAGSMASK 0x3FL
+FILEFLAGS     0x0L
+FILEOS        0x0L
+FILETYPE      0x1L
+FILESUBTYPE   0x0L
+BEGIN
+ BLOCK "StringFileInfo"
+ BEGIN
+  BLOCK "01010000"
+  BEGIN
+   VALUE "FileDescription",  "afxsvn"
+   VALUE "FileVersion",      VERSION_STRING
+   VALUE "InternalName",     "afxsvn"
+   VALUE "LegalCopyright",   COPYRIGHT_STRING
+   VALUE "OriginalFilename", "afxsvn.dll"
+   VALUE "ProductName",      "afxplugins"
+   VALUE "ProductVersion",   VERSION_STRING
+  END
+ END
+END
