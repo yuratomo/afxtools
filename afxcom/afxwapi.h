@@ -27,7 +27,7 @@
 #define APISUCCESS(ret)				(ret == 1)
 #define APIFAILE(ret)				(ret == 0)
 
-#pragma pack(1)
+#pragma pack(push, 1)
 
 typedef HGLOBAL HAFX;
 
@@ -263,6 +263,6 @@ int  WINAPI ApiRemoveDirectory(HAFX handle, LPCWSTR szItemPath);
  */
 int  WINAPI ApiShowContextMenu(HAFX handle, const HWND hWnd, DWORD x, DWORD y, LPCWSTR szItemPath);
 
-
+#pragma pack(pop)
 #endif	/* __AFXWAPI__ */
 
