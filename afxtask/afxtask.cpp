@@ -201,12 +201,14 @@ int _pid2item(PROCESSENTRY32* entry, lpApiItemInfo lpItemInfo)
 	FILETIME exitTime;//プロセスの終了時刻
 	FILETIME kernelTime;//カーネルモードでのプロセス動作時間
 	FILETIME userTime;//ユーザーモードでのプロセス動作時間
+	FILETIME localCreationTime;//プロセスの作成時刻(ローカル時刻)
 	GetProcessTimes(hProc, 
 		&creationTime, 
 		&exitTime, 
 		&kernelTime, 
 		&userTime);
-	lpItemInfo->ullTimestamp = creationTime;
+	FileTimeToLocalFileTime(&creationTime, &localCreationTime);
+	lpItemInfo->ullTimestamp = localCreationTime;
 
 	// ここで閉じる
 	CloseHandle( hProc );
