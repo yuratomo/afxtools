@@ -172,7 +172,7 @@ void _line2menu(wchar_t* line, MenuItem& item)
 		} else {
 			if (*p != L' ' && *p != L'\t') {
 				wcstombs(item.cmd, p, sizeof(item.cmd));
-				int len = wcslen(p);
+				size_t len = wcslen(p);
 				if (p[len-2] == L'\n') {
 					p[len-2] = L'\0';
 				}

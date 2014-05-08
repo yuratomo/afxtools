@@ -146,7 +146,7 @@ HAFX WINAPI ApiOpen(LPCWSTR szCommandLine, const lpAfxwInfo afxwInfo, lpApiOpenI
 	memcpy(&pdata->afx, afxwInfo, sizeof(AfxwInfo));
 
 	GetModuleFileName(_instance, _ini_path, sizeof(_ini_path));
-	int len = wcslen(_ini_path);
+	size_t len = wcslen(_ini_path);
 	_ini_path[len-1] = L'i';
 	_ini_path[len-2] = L'n';
 	_ini_path[len-3] = L'i';
@@ -400,7 +400,7 @@ int  WINAPI ApiCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGR
 		}
 
 		// ÉRÉsÅ[
-		int len = wcslen(szFromItem);
+		size_t len = wcslen(szFromItem);
 		if (szFromItem[len-1] != L'/') {
 			if (::CopyFile(from, to, FALSE) == 0) {
 				return 0;

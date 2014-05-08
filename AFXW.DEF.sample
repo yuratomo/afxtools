@@ -1,4 +1,4 @@
-[AFXW]
+я╗┐[AFXW]
 CFG=ON
 
 [EXT_NORMAL]
@@ -26,7 +26,7 @@ N_010="&MENU "$P\$F""
 KEY_00="&CLIP $P"
 KEY_01="&CLIP $W"
 
-; КgТгОqГJГЙБ[Р▌Тш
+; цЛбх╝╡хнРуВлуГйуГ╝шинхоЪ
 [REG_COL]
 COL_00=8421631
 EXT_00=txt

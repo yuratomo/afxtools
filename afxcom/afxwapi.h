@@ -176,9 +176,27 @@ int  WINAPI ApiIntCopyTo(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPWS
  */
 int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath);
 
+/**
+* アイテムを拡張子判別実行する。
+* あふwでENTERを押したときに呼び出される。
+* @param[in]  handle        ApiOpenで開いたハンドル。
+* @param[in]  szItemPath    アイテムのフルパス。
+* @retval     2             あふw側に処理を任せる。（ApiCopyでテンポラリにコピーしてから実行)
+* @retval     1             成功
+* @retval     0             エラー
+*/
+int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath);
 
-
-
+/**
+* アイテムを拡張子判別実行する。
+* あふwでSHIFT-ENTERを押したときに呼び出される。
+* @param[in]  handle        ApiOpenで開いたハンドル。
+* @param[in]  szItemPath    アイテムのフルパス。
+* @retval     2             あふw側に処理を任せる。（ApiCopyでテンポラリにコピーしてから実行)
+* @retval     1             成功
+* @retval     0             エラー
+*/
+int  WINAPI ApiExecute2(HAFX handle, LPCWSTR szItemPath);
 
 
 //------------------------------ 以下ポストローンチ --------------------------------
@@ -194,17 +212,6 @@ int  WINAPI ApiDelete(HAFX handle, LPCWSTR szItemPath);
  * @retval     0             エラー
  */
 int  WINAPI ApiCopyFrom(HAFX handle, LPCWSTR szFromItem, LPCWSTR szToPath, LPPROGRESS_ROUTINE lpPrgRoutine);
-
-/**
- * アイテムを拡張子判別実行する。
- * あふwでENTERやSHIFT-ENTERを押したときに呼び出される。
- * @param[in]  handle        ApiOpenで開いたハンドル。
- * @param[in]  szItemPath    アイテムのフルパス。
- * @retval     2             あふw側に処理を任せる。（ApiCopyでテンポラリにコピーしてから実行)
- * @retval     1             成功
- * @retval     0             エラー
- */
-int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath);
 
 /**
  * アイテムを移動する。

@@ -10,6 +10,7 @@ EXPORTS
 	ApiDelete
 	ApiCopyFrom
 	ApiExecute
+	ApiExecute2
 	ApiMove
 	ApiRename
 	ApiCreateDirectory

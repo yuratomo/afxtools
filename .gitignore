@@ -1,4 +1,5 @@
 syntax:glob
+*.opensdf
 *.obj
 *.exe
 *.exp
@@ -29,3 +30,6 @@ Thumbs.db
 [Tt]est[Rr]esults/
 _UpgradeReport_Files/
 _ReSharper.*/
+x64/
+Debug/
+Release/

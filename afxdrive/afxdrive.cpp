@@ -262,7 +262,7 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
 {
 	char cmd[MAX_PATH+32];
     wchar_t label = szItemPath[0];
-    const wchar_t* p = wcsrchr(szItemPath, L')');
+    const wchar_t* p = wcschr(szItemPath, L')');
     if (p != NULL) {
         label = *(--p);
     }
@@ -295,6 +295,20 @@ int  WINAPI ApiExecute(HAFX handle, LPCWSTR szItemPath)
         return 1;
     }
 	return 0;
+}
+
+/**
+* アイテムを拡張子判別実行する。
+* あふwでENTERやSHIFT-ENTERを押したときに呼び出される。
+* @param[in]  handle        ApiOpenで開いたハンドル。
+* @param[in]  szItemPath    アイテムのフルパス。
+* @retval     2             あふw側に処理を任せる。（ApiCopyでテンポラリにコピーしてから実行)
+* @retval     1             成功
+* @retval     0             エラー
+*/
+int  WINAPI ApiExecute2(HAFX handle, LPCWSTR szItemPath)
+{
+	return ApiExecute(handle, szItemPath);
 }
 
 /**

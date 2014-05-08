@@ -132,7 +132,7 @@ int  WINAPI ApiFindFirst(HAFX handle, LPCWSTR szDirPath, /*LPCWSTR szWildName,*/
 	const wchar_t* last = NULL;
 	const wchar_t* lastlast = NULL;
 	const wchar_t* lastlastlast = NULL;
-	int dirPathLen = wcslen(szDirPath);
+	size_t dirPathLen = wcslen(szDirPath);
 	int slaCount = 0;
 	for (int idx=0; idx<dirPathLen; idx++) {
 		if (szDirPath[idx] == L'/') {
@@ -155,7 +155,7 @@ int  WINAPI ApiFindFirst(HAFX handle, LPCWSTR szDirPath, /*LPCWSTR szWildName,*/
 	} else if (slaCount == 2) {
 		// computers
 		swprintf(wpath, L"%s", &lastlast[1]);
-		int lastidx = wcslen(wpath)-1;
+		size_t lastidx = wcslen(wpath)-1;
 		if (lastidx > 1 && wpath[lastidx] == L'/') {
 			wpath[lastidx] = L'\0';
 		}
@@ -166,7 +166,7 @@ int  WINAPI ApiFindFirst(HAFX handle, LPCWSTR szDirPath, /*LPCWSTR szWildName,*/
 	} else if (slaCount == 3) {
 		// resources
 		swprintf(wpath, L"\\\\%s", &lastlast[1]);
-		int lastidx = wcslen(wpath)-1;
+		size_t lastidx = wcslen(wpath)-1;
 		if (lastidx > 1 && wpath[lastidx] == L'/') {
 			wpath[lastidx] = L'\0';
 		}

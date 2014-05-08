@@ -9,7 +9,7 @@
 
 
 ■インストール方法
-・VC9のランタイムをインストールする。（すでに入っていれば不要）
+・VC12のランタイムをインストールする。（すでに入っていれば不要）
 
 ・afxfazzy.exeとafxfazzy.iniおよびafxfazzy?.mnuをafxwインストールフォルダ配下
 のafxtools\binにコピーする。
