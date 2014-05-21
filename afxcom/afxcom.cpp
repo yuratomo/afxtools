@@ -2,6 +2,12 @@
 
 #define MAX_LINE_SIZE 1024
 
+#ifdef _AFXCMD
+#define MYCLSCTX	CLSCTX_LOCAL_SERVER
+#else
+#define MYCLSCTX	CLSCTX_INPROC_SERVER
+#endif
+
 int AfxInit(IDispatch* &pAfxApp)
 {
 	if (pAfxApp != NULL) {
@@ -16,7 +22,7 @@ int AfxInit(IDispatch* &pAfxApp)
 		return -1;
 	}
 
-	hr = CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER,
+	hr = CoCreateInstance(clsid, NULL, MYCLSCTX,
 			IID_IDispatch, (void **)&pAfxApp);
 	if(FAILED(hr)) {
 		return -2;

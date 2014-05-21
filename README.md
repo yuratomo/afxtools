@@ -96,6 +96,9 @@ HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 History
 -------
 
+* 1.5.3 yuratomo
+  - sal.bat/sar.bat/sap.batを追加
+
 * 1.5.2 yuratomo
   - コンパイラをVisual Studio 2013 (VC12)に変更
   - ワーニング除去
