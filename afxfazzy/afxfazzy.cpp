@@ -11,7 +11,9 @@
 #include <Tlhelp32.h>
 #include "resource.h"
 #include <vector>
+#include <regex>
 #include "afxcom.h"
+#include "Migemo.h"
 
 #define MODIFIER_ALT         0x0004
 #define MODIFIER_CONTROL     0x0002
@@ -22,6 +24,7 @@
 #define MAX_HILIGHT_NUM      3
 #define MAX_HILIGHT_LINE     20
 #define RICHEDIT_DLL         L"MSFTEDIT.DLL"
+#define MIGEMO_START_STR_LEN 2  // Migemo 検索を開始する文字数
 
 typedef struct _MatchInfo_T
 {
@@ -46,29 +49,41 @@ int     _work_len = 0;
 WCHAR   _ini_path[MAX_PATH];
 WCHAR   _dir_path[MAX_PATH];
 WCHAR   _mnu_path[MAX_PATH];
+WCHAR   _migemo_path[MAX_PATH];
+WCHAR   _migemo_dict_path[MAX_PATH];
 WCHAR   _kill_prog[MAX_PATH];
 int     _sleep_sendkey = 0;
 int     _sleep_returnkey = 0;
 BOOL    _send_enter = FALSE;
 BOOL    _automation_exec = FALSE;
 WCHAR   _title[256];
+WCHAR   _title_with_migemo[256];
 DWORD   _color_list_fg  = RGB(200,200,200);
 DWORD   _color_list_bg  = RGB(0,0,0);
 DWORD   _color_input_fg = RGB(200,200,200);
 DWORD   _color_input_bg = RGB(0,0,0);
 DWORD   _color_hilight[MAX_HILIGHT_NUM];
 BOOL    _stay_mode = TRUE;
+BOOL    _default_migemo = FALSE;
+BOOL    _migemo_mode = FALSE;
 BOOL    _append_index = FALSE;
 bool    _bLoadFromIni = false;
 bool    _bHilight = true;
 DWORD   _font_height = 8;
 IDispatch* pAfxApp = NULL;
+CMigemo *_pMigemo = NULL;
 
 // プロトタイプ
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
 void SendKey();
 void DoMask(HWND hWnd, HWND hWndList);
 void FormatLine(WCHAR *title, WCHAR *name, WCHAR *command, WCHAR *line);
+int strmatchRegex(const WCHAR *str, LPVOID pat, MatchInfo_T& mi);
+typedef int (*STRMATCH_FUNC)(const WCHAR *str, LPVOID pat, MatchInfo_T& mi);
+std::vector<std::wregex *> GetMigemoRegex(WCHAR *szMask);
+void ReinitMigemoMode();
+void LoadMigemo();
+void UnloadMigemo();
 
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -107,14 +122,19 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
 	WCHAR temp[8];
 	::GetPrivateProfileString(L"Config", L"title", L"ふぁじ～めにゅ～", _title, sizeof(_title)/sizeof(_title[0]), _ini_path);
+	::GetPrivateProfileString(L"Config", L"title_migemo", L"ふぁじ～めにゅ～(migemo)", _title_with_migemo, sizeof(_title_with_migemo)/sizeof(_title_with_migemo[0]), _ini_path);
 	::GetPrivateProfileString(L"Config", L"output_path", _mnu_path, _mnu_path, sizeof(_mnu_path)/sizeof(_mnu_path[0]), _ini_path);
 	::GetPrivateProfileString(L"Config", L"kill_program", L"afxfazzykill.vbs", _kill_prog, sizeof(_kill_prog)/sizeof(_kill_prog[0]), _ini_path);
-	
+	::GetPrivateProfileString(L"Config", L"migemo_path", L"", _migemo_path, sizeof(_migemo_path)/sizeof(_migemo_path[0]), _ini_path);
+	::GetPrivateProfileString(L"Config", L"migemo_dict_path", L"", _migemo_dict_path, sizeof(_migemo_dict_path)/sizeof(_migemo_dict_path[0]), _ini_path);
 
 	// すでにafxfazzyがある場合は、手前に表示する。非表示なら表示する。
 	HANDLE hMutex = ::CreateMutex(NULL, TRUE, L"__yuratomo_afxfazzy__");
 	if (::GetLastError() == ERROR_ALREADY_EXISTS) {
 		HWND hWndFazzy = ::FindWindow(NULL, _title);
+		if (hWndFazzy == NULL) {
+			hWndFazzy = ::FindWindow(NULL, _title_with_migemo);
+		}
 		if (hWndFazzy != NULL) {
 			if (::IsWindowVisible(hWndFazzy) == FALSE) {
 				::ShowWindow(hWndFazzy, SW_SHOW);
@@ -170,6 +190,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	_sleep_returnkey = ::GetPrivateProfileInt(L"SendKey", L"send_returnkey_sleep", 200, _ini_path);
 	_automation_exec = ::GetPrivateProfileInt(L"SendKey", L"automation_exec", 0, _ini_path);
 	_stay_mode       = ::GetPrivateProfileInt(L"Config",  L"stay", 1, _ini_path);
+	_default_migemo  = ::GetPrivateProfileInt(L"Config",  L"migemode", 0, _ini_path);
+	_migemo_mode     = _default_migemo;
 	_bHilight        = ::GetPrivateProfileInt(L"Color",   L"hilight_enable", 1, _ini_path);
 	_font_height     = ::GetPrivateProfileInt(L"Font",    L"height", 8, _ini_path);
 	_append_index    = ::GetPrivateProfileInt(L"Config",  L"menu_index", 0, _ini_path);
@@ -817,8 +839,9 @@ void tolower( WCHAR* p,  int len)
 }
 
 
-int strmatch ( const WCHAR *str, const WCHAR *ptn, MatchInfo_T& mi)
+int strmatch ( const WCHAR *str, LPVOID pat, MatchInfo_T& mi)
 {
+	WCHAR *ptn = (WCHAR *)pat;
 	WCHAR* hit = NULL;
 	int len = wcslen(ptn);
 	WCHAR* buf = new WCHAR[len+1];
@@ -919,9 +942,23 @@ void DoMask(HWND hWnd, HWND hWndList)
 	int lineLen;
 	_work = new WCHAR[buflen+cnt+1+addpara_len*cnt];
 	memset(_work, 0, (buflen+cnt+1+addpara_len*cnt)*sizeof(WCHAR));
+
+	std::vector<std::wregex *> regex;
+	STRMATCH_FUNC matchFunc = NULL;
+	LPVOID ptn = NULL;
+
+	if (_migemo_mode) {
+		regex = GetMigemoRegex(szMask);
+		matchFunc = strmatchRegex;
+		ptn = &regex;
+	} else {
+		matchFunc = strmatch;
+		ptn = szMask;
+	}
+
 	for (int idx=0; idx<cnt; idx++) {
 		lineLen = wcslen(p) + 1;
-		if (strmatch(p, szMask, m) != NULL) {
+		if (matchFunc(p, ptn, m) != NULL) {
 			wcscat(_work, p);
 			// 2011.09.19 v0.2.3 メニューパラメタの動的追加
 			if (addpara != NULL && addpara_len > 0) {
@@ -943,6 +980,10 @@ void DoMask(HWND hWnd, HWND hWndList)
 
 	_work_len = wcslen(_work);
 	SendMessage(hWndList, WM_SETTEXT,    0, (LPARAM)_work);
+
+	for (std::vector<std::wregex *>::iterator it = regex.begin(); it != regex.end(); it++) {
+		delete *it;
+	}
 
 	if (_bHilight) {
 		int total = 0;
@@ -1075,6 +1116,24 @@ LRESULT CALLBACK InputWindowProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
 					return 0;
 				}
 			}
+			if (wp == 'M') {
+				if (GetKeyState(VK_CONTROL) & 0x80) {
+					if (!_migemo_mode){
+						LoadMigemo();
+						DoMask(_hWndInput, _hWndList);
+					}
+					return TRUE;
+				}
+			}
+			if (wp == 'S') {
+				if (GetKeyState(VK_CONTROL) & 0x80) {
+					if (_migemo_mode){
+						UnloadMigemo();
+						DoMask(_hWndInput, _hWndList);
+					}
+					return TRUE;
+				}
+			}
 			break;
 
 		case WM_KEYUP:
@@ -1146,6 +1205,9 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		SetWindowLong(_hWndInput, GWL_WNDPROC, (LONG)InputWindowProc);
 
 		SendMessage( _hWndList, EM_SETBKGNDCOLOR, (WPARAM)0, (LPARAM)_color_list_bg);
+		if (_default_migemo) {
+			LoadMigemo();
+		}
 
 		return TRUE;
 
@@ -1176,6 +1238,7 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				if (_stay_mode) {
 					::ShowWindow(hDlg, SW_HIDE);
 					SendKey();
+					ReinitMigemoMode();
 				} else {
 					EndDialog(hDlg, LOWORD(wParam));
 					SendKey();
@@ -1188,6 +1251,7 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				::SetWindowText(_hWndInput, L"");
 				::ShowWindow(hDlg, SW_HIDE);
 				DoMask(_hWndInput, _hWndList);
+				ReinitMigemoMode();
 			} else {
 				EndDialog(hDlg, LOWORD(wParam));
 			}
@@ -1221,6 +1285,11 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		::CloseHandle(hShare);
 		break;
 	
+	case WM_DESTROY:
+		if (_pMigemo != NULL) {
+			UnloadMigemo();
+		}
+		break;
 	}
 
 	return FALSE;
@@ -1238,5 +1307,131 @@ void FormatLine(WCHAR *title, WCHAR *name, WCHAR *command, WCHAR *line)
 		swprintf(line, L"\"%s - %S\"\t%s\n", title, out_name, command);
 	} else {
 		swprintf(line, L"\"%s - %-64s\"\t%s\n", title, name, command);
+	}
+}
+
+int strmatchRegex(const WCHAR *str, LPVOID pat, MatchInfo_T& mi)
+{
+	std::vector<std::wregex *> *ptn = (std::vector<std::wregex *> *)pat;
+	int len = wcslen(str);
+	WCHAR* target = new WCHAR[len+1];
+	wcsncpy(target, str, len);
+	target[len] = L'\0';
+	tolower(target, len);
+	int target_len = wcslen(target);
+
+	mi.num = 0;
+
+	BOOL bNotMatch = FALSE;
+
+	for (std::vector<std::wregex *>::iterator it = ptn->begin(); it != ptn->end(); it++) {
+		std::wregex *regex = *it;
+
+		std::wcregex_token_iterator first(target, target + target_len, *regex);
+		std::wcregex_token_iterator last;
+
+		bool in = false;
+		while (first != last) {
+			if (_bHilight && mi.num < MAX_HILIGHT_NUM) {
+				mi.start [mi.num] = std::distance(target, (WCHAR *)first->first);
+				mi.length[mi.num] = first->length();
+				mi.num++;
+			}
+			first++;
+			in = true;
+		}
+		if (!in) {
+			bNotMatch = TRUE;
+			break;
+		}
+	}
+	delete [] target;
+
+	if (bNotMatch == TRUE) {
+		return 0;
+	}
+	return 1;
+}
+
+std::vector<std::wregex *> GetMigemoRegex(WCHAR *szMask)
+{
+	int lineLen = 0;
+	int len = wcslen(szMask);
+	WCHAR* buf = new WCHAR[len+1];
+	wcsncpy(buf, szMask, len);
+	buf[len] = L'\0';
+	tolower(buf, len);
+
+	WCHAR* p = buf;
+	int cnt = 1;
+	do {
+		p = wcschr(p, L' ');
+		if (p == NULL) {
+			break;
+		}
+		*p = L'\0';
+		p++;
+		cnt++;
+	} while (p < buf+len && *(p+1) != L'\0');
+
+	p = buf;
+	WCHAR *regex = NULL;
+
+	std::vector<std::wregex *> ptn;
+
+	for (int idx=0; idx<cnt; idx++) {
+		if (wcslen(p) < MIGEMO_START_STR_LEN) {
+			p += wcslen(p)+1;
+			continue;
+		} else {
+			_pMigemo->Query(p, &regex);
+		}
+		ptn.push_back(new std::wregex(regex));
+		delete regex;
+		p += wcslen(p)+1;
+	}
+	delete [] buf;
+
+	return ptn;
+}
+
+void ReinitMigemoMode()
+{
+	if (!_default_migemo) {
+		UnloadMigemo();
+	} else if (!_migemo_mode) {
+		LoadMigemo();
+	}
+	_migemo_mode = _default_migemo;
+}
+
+void LoadMigemo()
+{
+	if (_pMigemo == NULL) {
+		_pMigemo = new CMigemo();
+		if(!_pMigemo->LoadDLL(_migemo_path)) {
+			_pMigemo = NULL;
+			return;
+		}
+		if(!_pMigemo->Open(_migemo_dict_path)) {
+			_pMigemo = NULL;
+			return;
+		}
+		_migemo_mode = TRUE;
+
+		HWND hDlg = ::GetParent(_hWndInput);
+		::SetWindowText(hDlg, _title_with_migemo);
+	}
+}
+
+void UnloadMigemo()
+{
+	if (_pMigemo != NULL) {
+		_migemo_mode = FALSE;
+		delete _pMigemo;
+		_pMigemo = NULL;
+
+		HWND hDlg = ::GetParent(_hWndInput);
+		::SetWindowText(hDlg, _title);
 	}
 }
