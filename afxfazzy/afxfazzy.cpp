@@ -9,6 +9,7 @@
 #include <locale.h>
 #include <richedit.h>
 #include <Tlhelp32.h>
+#include <gdiplus.h>
 #include "resource.h"
 #include <vector>
 #include <regex>
@@ -25,6 +26,7 @@
 #define MAX_HILIGHT_LINE     20
 #define RICHEDIT_DLL         L"MSFTEDIT.DLL"
 #define MIGEMO_START_STR_LEN 2  // Migemo 検索を開始する文字数
+#define LINESPACING_POINT    2
 
 typedef struct _MatchInfo_T
 {
@@ -33,6 +35,12 @@ typedef struct _MatchInfo_T
 	int lineLen;
 	int num;
 } MatchInfo_T;
+
+enum EAction
+{
+	E_SaveMenu = 0,
+	E_Run = 1,
+};
 
 // グローバル変数
 int     pKeyCode = 89;
@@ -62,6 +70,7 @@ DWORD   _color_list_fg  = RGB(200,200,200);
 DWORD   _color_list_bg  = RGB(0,0,0);
 DWORD   _color_input_fg = RGB(200,200,200);
 DWORD   _color_input_bg = RGB(0,0,0);
+DWORD   _color_hilight_line_bg = RGB(7, 54, 66);
 DWORD   _color_hilight[MAX_HILIGHT_NUM];
 BOOL    _stay_mode = TRUE;
 BOOL    _default_migemo = FALSE;
@@ -70,6 +79,8 @@ BOOL    _append_index = FALSE;
 bool    _bLoadFromIni = false;
 bool    _bHilight = true;
 DWORD   _font_height = 8;
+int     _page_scroll_step = 20;
+EAction _defaultAction = E_SaveMenu;
 IDispatch* pAfxApp = NULL;
 CMigemo *_pMigemo = NULL;
 
@@ -84,6 +95,13 @@ std::vector<std::wregex *> GetMigemoRegex(WCHAR *szMask);
 void ReinitMigemoMode();
 void LoadMigemo();
 void UnloadMigemo();
+void RemoveLastLineFeed(HWND hList);
+BOOL MoveHighlightLine(int amount);
+bool IsOneLine(WCHAR *lines);
+void GetCommand(WCHAR *line, WCHAR *out, int len);
+bool RunInternalCommand(HWND hDlg, WPARAM wParam, WCHAR *command);
+void SetCurrentLine();
+int CalcPageScrollStep(int fontHeight);
 
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -195,6 +213,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	_bHilight        = ::GetPrivateProfileInt(L"Color",   L"hilight_enable", 1, _ini_path);
 	_font_height     = ::GetPrivateProfileInt(L"Font",    L"height", 8, _ini_path);
 	_append_index    = ::GetPrivateProfileInt(L"Config",  L"menu_index", 0, _ini_path);
+	_defaultAction   = (EAction)::GetPrivateProfileInt(L"Config",  L"default_action", E_SaveMenu, _ini_path);
 
 	// カラー指定読み込み
 	::GetPrivateProfileString(L"Color", L"list_fg", L"", temp, sizeof(temp)/sizeof(temp[0]), _ini_path);
@@ -217,6 +236,12 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 		swscanf(temp, L"%02x%02x%02x", &r, &g, &b);
 		_color_input_bg = RGB(r,g,b);
 	}
+	::GetPrivateProfileString(L"Color", L"hilight_line_bg", L"", temp, sizeof(temp)/sizeof(temp[0]), _ini_path);
+	if (wcslen(temp) == 6) {
+		swscanf(temp, L"%02x%02x%02x", &r, &g, &b);
+		_color_hilight_line_bg = RGB(r,g,b);
+	}
+
 
 	if (_bHilight == true) {
 		_color_hilight[0] = RGB(255, 0, 0);
@@ -431,7 +456,7 @@ BOOL SetListTextDefaultColor(HWND hEdit, COLORREF color)
 	pfm.cbSize = sizeof(PARAFORMAT2);
 	pfm.dwMask = PFM_LINESPACING;
 	pfm.bLineSpacingRule  = 4;
-	pfm.dyLineSpacing = cfm.yHeight + 2*20;
+	pfm.dyLineSpacing = cfm.yHeight + LINESPACING_POINT*20;
 
 	if (SendMessage(hEdit, EM_SETPARAFORMAT, NULL, (LPARAM)&pfm) == 0) {
 		return FALSE;
@@ -609,7 +634,8 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 	}
 
 	::SendMessage(hList, WM_SETREDRAW, TRUE, 0);
-	::SendMessage(hList, EM_SCROLL, SB_TOP, 0);
+	::SendMessage(hList, EM_SETSEL, 0, 0);
+	MoveHighlightLine(0);
 
 	::InvalidateRect(hList, NULL, TRUE);
 	::UpdateWindow(hList);
@@ -621,6 +647,8 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 	_buf_len = len;
 
 	SendMessage( hList,	WM_GETTEXT, _buf_len+1, (long)_buf);
+	RemoveLastLineFeed(hList);
+	::SendMessage(hList, EM_SETSEL, 0, 0);
 	_buf_len = wcslen(_buf);
 
 	if (bSpecKeyword == TRUE) {
@@ -733,8 +761,11 @@ void LoadKillTasks()
 	SendMessage(_hWndList, EM_SETSEL, 0, 0);
 	CloseHandle(hthSnapshot);
 
+	RemoveLastLineFeed(_hWndList);
+
 	SendMessage(_hWndList, WM_SETREDRAW, TRUE, 0);
-	::SendMessage(_hWndList, EM_SCROLL, SB_TOP, 0);
+	::SendMessage(_hWndList, EM_SETSEL, 0, 0);
+	MoveHighlightLine(0);
 	::InvalidateRect(_hWndList, NULL, TRUE);
 	::UpdateWindow(_hWndList);
 
@@ -778,8 +809,11 @@ void LoadEjectDrives()
 		}
 	}
 
+	RemoveLastLineFeed(_hWndList);
+
 	SendMessage(_hWndList, WM_SETREDRAW, TRUE, 0);
-	::SendMessage(_hWndList, EM_SCROLL, SB_TOP, 0);
+	::SendMessage(_hWndList, EM_SETSEL, 0, 0);
+	MoveHighlightLine(0);
 	::InvalidateRect(_hWndList, NULL, TRUE);
 	::UpdateWindow(_hWndList);
 
@@ -960,6 +994,10 @@ void DoMask(HWND hWnd, HWND hWndList)
 	for (std::vector<std::wregex *>::iterator it = regex.begin(); it != regex.end(); it++) {
 		delete *it;
 	}
+	_work_len = wcslen(_work);
+	SendMessage(hWndList, WM_SETTEXT,    0, (LPARAM)_work);
+	RemoveLastLineFeed(hWndList);
+	_work_len = wcslen(_work);
 
 	if (_bHilight) {
 		int total = 0;
@@ -974,7 +1012,7 @@ void DoMask(HWND hWnd, HWND hWndList)
 	}
 
 	::SendMessage(hWndList, EM_SETSEL, 0, 0);
-	SetListTextColor(_hWndList, (COLORREF)_color_list_fg);
+	MoveHighlightLine(0);
 
 	delete [] work;
 }
@@ -1045,16 +1083,16 @@ LRESULT CALLBACK InputWindowProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
 	{
 		case WM_KEYDOWN:
 			if (wp == VK_UP) {
-				::SendMessage(_hWndList, EM_SCROLL, SB_LINEUP, 0);
+				return MoveHighlightLine(-1);
 			} else 
 			if (wp == VK_DOWN) {
-				::SendMessage(_hWndList, EM_SCROLL, SB_LINEDOWN, 0);
+				return MoveHighlightLine(1);
 			} else 
 			if (wp == VK_PRIOR) {
-				::SendMessage(_hWndList, EM_SCROLL, SB_PAGEUP, 0);
+				return MoveHighlightLine(-_page_scroll_step);
 			} else 
 			if (wp == VK_NEXT) {
-				::SendMessage(_hWndList, EM_SCROLL, SB_PAGEDOWN, 0);
+				return MoveHighlightLine(_page_scroll_step);
 			} else 
 			if (wp == 'B') {
 				if (GetKeyState(VK_LCONTROL) & 0x80) {
@@ -1082,14 +1120,12 @@ LRESULT CALLBACK InputWindowProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
 			} else
 			if (wp == 'N') {
 				if (GetKeyState(VK_LCONTROL) & 0x80) {
-					::SendMessage(_hWndList, EM_SCROLL, SB_LINEDOWN, 0);
-					return 0;
+					return MoveHighlightLine(1);
 				}
 			} else 
 			if (wp == 'P') {
 				if (GetKeyState(VK_LCONTROL) & 0x80) {
-					::SendMessage(_hWndList, EM_SCROLL, SB_LINEUP, 0);
-					return 0;
+					return MoveHighlightLine(-1);
 				}
 			}
 			if (wp == 'M') {
@@ -1151,7 +1187,6 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 	WCHAR *shmem;
 	WCHAR *p;
 	WCHAR**  dmyarg;
-	int cnt;
 
 	//HANDLE hEvent;
 	switch (message)
@@ -1172,6 +1207,8 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		_hWndList  = GetDlgItem(hDlg, IDC_EDIT_LIST);
 		_hWndInput = GetDlgItem(hDlg, IDC_EDIT_INPUT);
 
+		_page_scroll_step = CalcPageScrollStep(_font_height);
+
 		// メニューのロード
 		::SendMessage(_hWndList, EM_SETLIMITTEXT, 64*1024, 0);
 		LoadMenus(hDlg, _hWndList, 1, __argc, __wargv);
@@ -1181,6 +1218,8 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		SetWindowLong(_hWndInput, GWL_WNDPROC, (LONG)InputWindowProc);
 
 		SendMessage( _hWndList, EM_SETBKGNDCOLOR, (WPARAM)0, (LPARAM)_color_list_bg);
+		::SendMessage(_hWndList, EM_SETSEL, 0, 0);
+		MoveHighlightLine(0);
 		if (_default_migemo) {
 			LoadMigemo();
 		}
@@ -1192,25 +1231,21 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		{
 		case IDOK:
 			::GetWindowText(_hWndInput, command, sizeof(command)/sizeof(command[0]));
-			cnt = wcslen(command);
-			if (cnt == 0) {
-				cnt = 1;
-			}
-			if (wcsncmp(command, L"!!exit", cnt)==0) {
-				EndDialog(hDlg, LOWORD(wParam));
-			} else if (wcsncmp(command, L"!!file", cnt)==0) {
-				LoadFiles();
-			} else if (wcsncmp(command, L"!!reload", cnt)==0) {
-				_bLoadFromIni = false;
-				LoadMenus(hDlg, _hWndList, 1, __argc, __wargv);
-			} else if (wcsncmp(command, L"!!kill", cnt)==0) {
-				LoadKillTasks();
-				_bLoadFromIni = false;
-			} else if (wcsncmp(command, L"!!eject", cnt)==0) {
-				LoadEjectDrives();
-				_bLoadFromIni = false;
-			} else {
-				SaveMenu(hDlg, _hWndList);
+			if (!RunInternalCommand(hDlg, wParam, command)) {
+				BOOL ctrlDown = (GetKeyState(VK_CONTROL) & 0x80);
+				if ((_defaultAction == E_SaveMenu  && !ctrlDown)
+					|| (_defaultAction != E_SaveMenu && ctrlDown)) {
+					SaveMenu(hDlg, _hWndList);
+				} else {
+					SetCurrentLine();
+				}
+				if (IsOneLine(_work)) {
+					WCHAR currentCommand[256];
+					GetCommand(_work, currentCommand, sizeof(currentCommand)/sizeof(currentCommand[0]));
+					if (RunInternalCommand(hDlg, wParam, currentCommand)) {
+						return TRUE;
+					}
+				}
 				if (_stay_mode) {
 					::ShowWindow(hDlg, SW_HIDE);
 					SendKey();
@@ -1225,8 +1260,10 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		case IDCANCEL:
 			if (_stay_mode) {
 				::SetWindowText(_hWndInput, L"");
-				::ShowWindow(hDlg, SW_HIDE);
+				::SendMessage(hDlg, WM_SETREDRAW, FALSE, 0);
 				DoMask(_hWndInput, _hWndList);
+				::SendMessage(hDlg, WM_SETREDRAW, TRUE, 0);
+				::ShowWindow(hDlg, SW_HIDE);
 				ReinitMigemoMode();
 			} else {
 				EndDialog(hDlg, LOWORD(wParam));
@@ -1410,4 +1447,143 @@ void UnloadMigemo()
 		HWND hDlg = ::GetParent(_hWndInput);
 		::SetWindowText(hDlg, _title);
 	}
+}
+
+void RemoveLastLineFeed(HWND hList)
+{
+	WCHAR last_char[3] = {0};
+	DWORD start, end;
+	::SendMessage(hList, EM_SETSEL, -1, -1);
+	::SendMessage(hList, EM_GETSEL, (WPARAM)&start, (LPARAM)&end);
+	::SendMessage(hList, EM_SETSEL, end-1, end);
+	::SendMessage(hList, EM_GETSELTEXT, 0, (LPARAM)last_char);
+
+	if (last_char[0] == L'\r' || last_char[0] == L'\n') {
+		::SendMessage(hList, EM_REPLACESEL, 0, (LPARAM)L"\0");
+	}
+}
+
+bool IsOneLine(WCHAR *lines)
+{
+	WCHAR *line = wcschr(lines, L'\n');
+	if (line != NULL) {
+		line++;
+		line = wcschr(line, L'\n');
+	}
+
+	return line == NULL;
+}
+
+void GetCommand(WCHAR *line, WCHAR *out, int len)
+{
+	WCHAR *command;
+	command = wcsrchr(line, L'"');
+	if (command == NULL) {
+		return;
+	}
+
+	command++;
+	while ( (*command == L' ') || (*command == L'\t') ) {
+		command++;
+	}
+	wcsncpy(out, command, len);
+	out[wcslen(out)-1] = L'\0';
+}
+
+bool RunInternalCommand(HWND hDlg, WPARAM wParam, WCHAR *command)
+{
+	int cnt = wcslen(command);
+	if (cnt == 0) {
+		cnt = 1;
+	}
+	if (wcsncmp(command, L"!!exit", cnt)==0) {
+		EndDialog(hDlg, LOWORD(wParam));
+	} else if (wcsncmp(command, L"!!file", cnt)==0) {
+		LoadFiles();
+	} else if (wcsncmp(command, L"!!reload", cnt)==0) {
+		_bLoadFromIni = false;
+		LoadMenus(hDlg, _hWndList, 1, __argc, __wargv);
+	} else if (wcsncmp(command, L"!!kill", cnt)==0) {
+		LoadKillTasks();
+		_bLoadFromIni = false;
+	} else if (wcsncmp(command, L"!!eject", cnt)==0) {
+		LoadEjectDrives();
+		_bLoadFromIni = false;
+	} else {
+		return false;
+	}
+	return true;
+}
+
+void SetCurrentLine()
+{
+	int cur_line_no = ::SendMessage(_hWndList, EM_LINEFROMCHAR, -1, 0);
+	int cur_line_index = ::SendMessage(_hWndList, EM_LINEINDEX, cur_line_no, 0);
+	int cur_line_length = ::SendMessage(_hWndList, EM_LINELENGTH, cur_line_index, 0);
+	::SendMessage(_hWndList, EM_SETSEL, cur_line_index, cur_line_index+cur_line_length);
+
+	if (_work != NULL) {
+		delete [] _work;
+	}
+	_work = new WCHAR[cur_line_length + 2];
+	_work_len = cur_line_length + 2;
+
+	::SendMessage(_hWndList, EM_GETSELTEXT, 0, (LPARAM)_work);
+	_work[cur_line_length] = L'\n';
+	_work[cur_line_length + 1] = L'\0';
+}
+
+BOOL MoveHighlightLine(int amount)
+{
+	int line_count = ::SendMessage(_hWndList, EM_GETLINECOUNT, 0, 0) - 1;
+	int cur_line_no = ::SendMessage(_hWndList, EM_LINEFROMCHAR, -1, 0);
+	int cur_line_index = ::SendMessage(_hWndList, EM_LINEINDEX, cur_line_no, 0);
+	int cur_line_length = ::SendMessage(_hWndList, EM_LINELENGTH, cur_line_index, 0);
+	if (line_count == cur_line_no && amount == 1) {
+		amount = 0 - cur_line_no;
+	}
+	if (line_count < cur_line_no + amount) {
+		amount = line_count - cur_line_no;
+	}
+	if (cur_line_no > 0 && cur_line_no + amount < 0) {
+		amount = 0 - cur_line_no;
+	}
+	if (cur_line_no == 0 && amount == -1) {
+		amount = line_count - cur_line_no;
+	}
+	int next_line_index = ::SendMessage(_hWndList, EM_LINEINDEX, cur_line_no + amount, 0);
+	int next_line_length = ::SendMessage(_hWndList, EM_LINELENGTH, next_line_index, 0);
+
+	CHARFORMAT2 cfm;
+	memset(&cfm, 0, sizeof(CHARFORMAT2));
+	cfm.cbSize = sizeof(CHARFORMAT2);
+	cfm.dwMask = CFM_BACKCOLOR;
+	cfm.crBackColor = _color_list_bg;
+	::SendMessage(_hWndList, EM_SETSEL, cur_line_index, cur_line_index + cur_line_length);
+	if (SendMessage(_hWndList, EM_SETCHARFORMAT, SCF_SELECTION | SCF_WORD, (LPARAM)&cfm) == 0) {
+		return FALSE;
+	}
+	cfm.crBackColor = _color_hilight_line_bg;
+	::SendMessage(_hWndList, EM_SETSEL, next_line_index, next_line_index + next_line_length);
+
+	if (SendMessage(_hWndList, EM_SETCHARFORMAT, SCF_SELECTION | SCF_WORD, (LPARAM)&cfm) == 0) {
+		return FALSE;
+	}
+
+	::SendMessage(_hWndList, EM_SETSEL, next_line_index, next_line_index);
+	::SetFocus(_hWndList);
+	::SendMessage(_hWndList, EM_SCROLLCARET, 0, 0);
+	::SetFocus(_hWndInput);
+
+	return TRUE;
+}
+
+int CalcPageScrollStep(int fontHeight)
+{
+	HDC hdc = ::GetDC(_hWndList);
+	RECT rect;
+	::GetClientRect(_hWndList, &rect);
+	int scaleY = ::GetDeviceCaps(hdc, LOGPIXELSY);
+	int twip = 1440 / scaleY;
+	return (rect.bottom - rect.top) * twip / ((fontHeight + LINESPACING_POINT) * 20) - 1;
 }

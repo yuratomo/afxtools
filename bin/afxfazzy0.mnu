@@ -1,5 +1,5 @@
 AFX内部コマンド
-"!!reload      (メニューをリロード)" &NOP
-"!!eject       (EJECTモード)"        &NOP
-"!!kill        (タスクKILLモード)  " &NOP
-"!!exit        (afxfazzyを終了)    " &NOP
+"!!reload      (メニューをリロード)" !!reload
+"!!eject       (EJECTモード)"        !!eject
+"!!kill        (タスクKILLモード)  " !!kill
+"!!exit        (afxfazzyを終了)    " !!exit
