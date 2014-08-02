@@ -244,7 +244,6 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 		_color_hilight_line_bg = RGB(r,g,b);
 	}
 
-
 	if (_bHilight == true) {
 		_color_hilight[0] = RGB(255, 0, 0);
 		_color_hilight[1] = RGB(0, 255, 0);
@@ -754,7 +753,7 @@ void LoadKillTasks()
 	BOOL bProcess = Process32First(hthSnapshot, &pe);
 	for (; bProcess; bProcess = Process32Next(hthSnapshot, &pe)) {
 		if (pe.th32ProcessID == 0) continue;
-		swprintf(szLine, L"\"kill %-32s [%5d]\" &SCRIPT \"%s%s\" %d\n", 
+		swprintf(szLine, L"\"kill %-32s [%5d]\" cscript \"%s%s\" %d\n", 
 				pe.szExeFile, pe.th32ProcessID, _dir_path, _kill_prog, pe.th32ProcessID);
 		SendMessage(_hWndList, EM_SETSEL, len, len);
 		SendMessage(_hWndList, EM_REPLACESEL, 0, (LPARAM)szLine);
