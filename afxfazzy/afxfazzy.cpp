@@ -453,34 +453,6 @@ BOOL SetListTextColor(HWND hEdit, COLORREF color)
 	
 	return TRUE; 
 }
-/*
-BOOL SetListTextColor(HWND hEdit, COLORREF color)
-{
-	CHARFORMAT cfm;
-	memset(&cfm, 0, sizeof(CHARFORMAT));
-	cfm.cbSize = sizeof(CHARFORMAT);
-	cfm.dwMask = CFM_COLOR | CFM_FACE | CFM_SIZE | CFM_OFFSET;
-	cfm.yHeight = _font_height*20;
-	cfm.yOffset = 0;
-	cfm.crTextColor = color;
-
-	wcscpy(cfm.szFaceName, L"ÇlÇr ÉSÉVÉbÉN");
-	if (SendMessage(hEdit, EM_SETCHARFORMAT, SCF_SELECTION | SCF_WORD, (LPARAM)&cfm) == 0) {
-		return FALSE;
-	}
-	
-	PARAFORMAT2 pfm;
-	memset(&pfm, 0, sizeof(PARAFORMAT2));
-	pfm.cbSize = sizeof(PARAFORMAT2);
-	pfm.dwMask = PFM_LINESPACING;
-	pfm.bLineSpacingRule  = 4;
-	pfm.dyLineSpacing = cfm.yHeight + 2*20;
-
-	if (SendMessage(hEdit, EM_SETPARAFORMAT, NULL, (LPARAM)&pfm) == 0) {
-		return FALSE;
-	}
-	return TRUE; 
-}*/
 
 void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 {
@@ -968,7 +940,11 @@ void DoMask(HWND hWnd, HWND hWndList)
 			wcscat(_work, L"\n");
 			if (mtable_num < MAX_HILIGHT_LINE) {
 				mtable[mtable_num] = m;
-				mtable[mtable_num].lineLen = lineLen;
+				if (addpara_len > 0) {
+					mtable[mtable_num].lineLen = lineLen + addpara_len + 1;
+				} else {
+					mtable[mtable_num].lineLen = lineLen;
+				}
 				mtable_num++;
 			}
 		}
