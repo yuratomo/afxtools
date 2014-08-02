@@ -80,6 +80,7 @@ bool    _bLoadFromIni = false;
 bool    _bHilight = true;
 DWORD   _font_height = 8;
 int     _page_scroll_step = 20;
+bool    _bNoEnChange = false;
 EAction _defaultAction = E_SaveMenu;
 IDispatch* pAfxApp = NULL;
 CMigemo *_pMigemo = NULL;
@@ -102,6 +103,7 @@ void GetCommand(WCHAR *line, WCHAR *out, int len);
 bool RunInternalCommand(HWND hDlg, WPARAM wParam, WCHAR *command);
 void SetCurrentLine();
 int CalcPageScrollStep(int fontHeight);
+BOOL SetWindowTextNoNotify(HWND hWnd, WCHAR *lpString);
 
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -498,7 +500,7 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 	if (cnt == start) {
 		cnt = 999;
 		if (_bLoadFromIni == true) {
-			::SetWindowText(_hWndInput, L"");
+			SetWindowTextNoNotify(_hWndInput, L"");
 			::SetWindowText(_hWndList, L"");
 			DoMask(_hWndInput, _hWndList);
 			::InvalidateRect(hList, NULL, TRUE);
@@ -506,7 +508,7 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 			return;
 		}
 		_bLoadFromIni = true;
-		::SetWindowText(_hWndInput, L"");
+		SetWindowTextNoNotify(_hWndInput, L"");
 	} else {
 		// 2011.09.19 v0.2.3 起動時にキーワード指定
 		if (start < cnt && wcscmp(av[start], L"-k") == 0) {
@@ -516,14 +518,14 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 				wcscat(line, av[idx]);
 				wcscat(line, L" ");
 			}
-			::SetWindowText(_hWndInput, line);
+			SetWindowTextNoNotify(_hWndInput, line);
 			len = wcslen(line);
 			SendMessage(_hWndInput, EM_SETSEL, len, len);
 			len = 0;
 			bSpecKeyword = TRUE;
 		} else {
 			_bLoadFromIni = false;
-			::SetWindowText(_hWndInput, L"");
+			SetWindowTextNoNotify(_hWndInput, L"");
 		}
 	}
 
@@ -712,7 +714,7 @@ void LoadFiles()
 	if(FAILED(hr)) {
 		return;
 	}
-	::SetWindowText(_hWndInput, L"");
+	SetWindowTextNoNotify(_hWndInput, L"");
 	::SetWindowText(_hWndList, L"");
 
 	wcsncpy(crDir, result.bstrVal, sizeof(crDir)/sizeof(crDir[0]));
@@ -735,7 +737,7 @@ void LoadFiles()
 
 void LoadKillTasks()
 {
-	::SetWindowText(_hWndInput, L"");
+	SetWindowTextNoNotify(_hWndInput, L"");
 	::SetWindowText(_hWndList, L"");
 
 	SendMessage(_hWndList, WM_SETREDRAW, FALSE, 0);
@@ -786,7 +788,7 @@ void LoadKillTasks()
 
 void LoadEjectDrives()
 {
-	::SetWindowText(_hWndInput, L"");
+	SetWindowTextNoNotify(_hWndInput, L"");
 	::SetWindowText(_hWndList, L"");
 
 	SendMessage(_hWndList, WM_SETREDRAW, FALSE, 0);
@@ -1168,9 +1170,6 @@ LRESULT CALLBACK InputWindowProc(HWND hWnd, UINT message, WPARAM wp, LPARAM lp)
 				}
 				break;
 			}
-			if (wp != VK_CONTROL) {
-				DoMask(hWnd, _hWndList);
-			}
 			break;
 	}
 
@@ -1259,7 +1258,7 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 
 		case IDCANCEL:
 			if (_stay_mode) {
-				::SetWindowText(_hWndInput, L"");
+				SetWindowTextNoNotify(_hWndInput, L"");
 				::SendMessage(hDlg, WM_SETREDRAW, FALSE, 0);
 				DoMask(_hWndInput, _hWndList);
 				::SendMessage(hDlg, WM_SETREDRAW, TRUE, 0);
@@ -1269,6 +1268,16 @@ LRESULT CALLBACK WindowProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				EndDialog(hDlg, LOWORD(wParam));
 			}
 			return TRUE;
+
+		case IDC_EDIT_INPUT:
+			switch (HIWORD(wParam))
+			{
+			case EN_CHANGE:
+				if (!_bNoEnChange) {
+					DoMask(_hWndInput, _hWndList);
+				}
+				break;
+			}
 		}
 		break;
 
@@ -1587,3 +1596,14 @@ int CalcPageScrollStep(int fontHeight)
 	int twip = 1440 / scaleY;
 	return (rect.bottom - rect.top) * twip / ((fontHeight + LINESPACING_POINT) * 20) - 1;
 }
+
+BOOL SetWindowTextNoNotify(HWND hWnd, WCHAR *lpString)
+{
+	BOOL ret;
+	_bNoEnChange = true;
+	ret = SetWindowText(hWnd, lpString);
+	_bNoEnChange = false;
+
+	return ret;
+}
+
