@@ -1,5 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
+#include <richedit.h>
 #include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
@@ -8,7 +9,6 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "winuser.h"
-
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -26,7 +26,7 @@ FONT 9, "ÇlÇr ÉSÉVÉbÉN", 0, 0, 0x1
 BEGIN
     EDITTEXT        IDC_EDIT_INPUT,0,190,400,200,SS_SUNKEN
 //    EDITTEXT        IDC_EDIT_LIST,0,0,400,190,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
-    CONTROL         "", IDC_EDIT_LIST, "RICHEDIT",ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL ,0,0,400,190
+    CONTROL         "", IDC_EDIT_LIST, MSFTEDIT_CLASS,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL ,0,0,400,190
 END
 
 /////////////////////////////////////////////////////////////////////////////
