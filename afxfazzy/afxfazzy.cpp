@@ -576,7 +576,7 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 						swprintf(buf,  L"&CD %s", path2);
 						FormatLine(title, path2, buf, line);
 						SendMessage(hList, EM_REPLACESEL, 0, (LPARAM)line);
-						len += wcslen(line);
+						len += wcslen(line) + 1;
 					}
 				}
 				AfxCleanup(pAfxApp);
@@ -594,7 +594,7 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 					swprintf(buf,  L"&CD %s", path2);
 					FormatLine(title, buf, buf, line);
 					SendMessage(hList, EM_REPLACESEL, 0, (LPARAM)line);
-					len += wcslen(line);
+					len += wcslen(line) + 1;
 				}
 			}
 		} else {
@@ -627,7 +627,7 @@ void LoadMenus(HWND hDlg, HWND hList, int start, int cnt, WCHAR** av)
 					d3[wcslen(d3)-1] = L'\0';
 					FormatLine(title, name, d3, line);
 					SendMessage(hList, EM_REPLACESEL, 0, (LPARAM)line);
-					len += wcslen(line);
+					len += wcslen(line) + 1;
 				}
 			}
 			fclose(fp);
@@ -995,8 +995,6 @@ void DoMask(HWND hWnd, HWND hWndList)
 	for (std::vector<std::wregex *>::iterator it = regex.begin(); it != regex.end(); it++) {
 		delete *it;
 	}
-	_work_len = wcslen(_work);
-	SendMessage(hWndList, WM_SETTEXT,    0, (LPARAM)_work);
 	RemoveLastLineFeed(hWndList);
 	_work_len = wcslen(_work);
 
