@@ -96,6 +96,10 @@ HTML等のIEコンポーネントを使ったあふwの中でブラウザを起動するツール。
 History
 -------
 
+* 1.5.4 u338stevenさん
+  - afxfazzyのMigemo対応
+  - 直接実行機能強化
+
 * 1.5.3 yuratomo
   - sal.bat/sar.bat/sap.batを追加
 
